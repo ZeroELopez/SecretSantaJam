@@ -42,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
     float dTime = 0;
 
     bool _dashing;
+
+    public static bool still;
     
     // Start is called before the first frame update
     void Start()
@@ -56,6 +58,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (still)
+            return;
+
         LowerbodyScript.width = lowerBodySize.x;LowerbodyScript.height = lowerBodySize.y;
         showDashTime = dTime;
 
