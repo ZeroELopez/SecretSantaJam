@@ -6,14 +6,18 @@ public class SendPlayerBackToSpawn : MonoBehaviour
 {
     BoxCollider2D[] thisCollider2D;
 
-
+    PlayerMovement player;
+    Vector3 spawn;
     // Start is called before the first frame update
     void Awake()
     {
+        player = GameObject.FindObjectOfType<PlayerMovement>();
         thisCollider2D = GetComponents<BoxCollider2D>();
 
         foreach (BoxCollider2D c in thisCollider2D)
             c.isTrigger = true;
+
+        SetSpawn();
     }
 
     // Update is called once per frame
@@ -36,4 +40,6 @@ public class SendPlayerBackToSpawn : MonoBehaviour
         }
 
     }
+
+    public void SetSpawn() => spawn = player.transform.position;
 }

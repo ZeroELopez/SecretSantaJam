@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Kari.SoundManagement;
+using UnityEngine.SceneManagement;
 
 public class UnityAnimatorEvents : MonoBehaviour
 {
@@ -11,4 +12,10 @@ public class UnityAnimatorEvents : MonoBehaviour
     {
         AudioManager.PlaySound(name, source);
     }
+
+    public void ReplayLevel(string name)
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
 }

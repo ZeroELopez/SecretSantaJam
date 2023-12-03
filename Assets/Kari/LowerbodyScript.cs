@@ -29,7 +29,8 @@ public class LowerbodyScript : MonoBehaviour
 
         ContactFilter2D filter = new ContactFilter2D();
         filter.useTriggers = false;
-
+        //filter.useLayerMask = true;
+        //filter.layerMask = (LayerMask.NameToLayer("Default"));
         onGround = false;
 
         foreach (BoxCollider2D c in thisCollider2D)
@@ -39,6 +40,16 @@ public class LowerbodyScript : MonoBehaviour
 
             if (c.OverlapCollider(filter, allCollisions) == 0)
                 continue;
+
+            bool ignore = true;
+
+            foreach (BoxCollider2D t in allCollisions)
+                if (t != null && !t.gameObject.GetComponent<PlayerMovement>())
+                    ignore = false;
+
+            if (ignore)
+                continue;
+            
 
             dir = c.size.x >= 1 ? allCollisions[0].ClosestPoint(transform.position).x > transform.position.x ? 1 : -1
                 : 0;
