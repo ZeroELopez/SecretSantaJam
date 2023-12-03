@@ -34,7 +34,7 @@ namespace Kari.Animations
             //}
             // if (thisAnimator.HasState(0, newState.ToString()))
 
-            thisAnimator.Play((currentState = newState).ToString(), 0);
+            //thisAnimator.Play((currentState = newState).ToString(), 0);
 
         }
 

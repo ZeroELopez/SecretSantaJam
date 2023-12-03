@@ -23,6 +23,6 @@ public class FollowScript : MonoBehaviour
         transform.position = Vector3.MoveTowards(
             transform.position, 
             followObj.position + offset,
-            speed * curve.Evaluate(Vector3.Distance(transform.position, followObj.position + offset)));
+            Time.deltaTime * speed * curve.Evaluate(Vector3.Distance(transform.position, followObj.position + offset)));
     }
 }
