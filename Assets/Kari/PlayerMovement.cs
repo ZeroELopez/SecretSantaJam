@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
     float maxSpeed;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         LowerbodyScript.width = lowerBodySize.x;LowerbodyScript.height = lowerBodySize.y;
         showDashTime = dTime;
@@ -113,8 +113,4 @@ public class PlayerMovement : MonoBehaviour
             thisRigidbody.gravityScale = downwardsGravity;
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
 }
