@@ -37748,8 +37748,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2569569141213951209, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
+      propertyPath: dashTiming
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2569569141213951209, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
       propertyPath: lowerBodySize.y
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2569569141213951209, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
+      propertyPath: wallJumpMomentumTime
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8930134077241444816, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
       propertyPath: m_Name
