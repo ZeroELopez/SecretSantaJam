@@ -199,7 +199,7 @@ MonoBehaviour:
   lowerBodySize: {x: 1.2, y: 0.5}
   wallJumpHorizontalForce: 200
   wallJumpVerticalForce: 20
-  wallJumpMomentumTime: 0.3
+  wallJumpMomentumTime: 0.065
   wallClimbForce: 10
 --- !u!50 &6835640760189622849
 Rigidbody2D:
