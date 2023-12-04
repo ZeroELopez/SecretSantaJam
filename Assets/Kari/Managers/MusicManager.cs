@@ -35,6 +35,18 @@ public class MusicManager : MonoBehaviour
         time = 0;
     }
 
+    public void PlaySong(int index)
+    {
+        SwitchSource();
+        onSong = index;
+
+        if (newSource == null)
+            return;
+
+        newSource.clip = Songs[onSong];
+        newSource.Play();
+        time = 0;
+    }
 
     private void Update()
     {
@@ -42,6 +54,10 @@ public class MusicManager : MonoBehaviour
             return;
 
         time += Time.deltaTime;
+
+        if (oldSource == null)
+            return;
+
         oldSource.volume =  1 - curve.Evaluate(time / length);
         newSource.volume = curve.Evaluate(time / length);
     }
