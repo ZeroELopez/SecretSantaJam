@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//this script sends player back to a certain point 
+//if touched. it is for pitfalls
 public class SendPlayerBackToSpawn : MonoBehaviour
 {
     BoxCollider2D[] thisCollider2D;
