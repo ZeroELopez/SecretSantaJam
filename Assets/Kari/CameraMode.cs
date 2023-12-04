@@ -17,6 +17,7 @@ public class CameraMode : MonoBehaviour
 
 
     Creature[] creatures;
+    ScoreTracker scoreTracker;
     [SerializeField] float cameraReadyDistance = .5f;
 
     [SerializeField] Rect screenRect;
@@ -24,6 +25,7 @@ public class CameraMode : MonoBehaviour
     void Start()
     {
         creatures = GameObject.FindObjectsOfType<Creature>();
+        scoreTracker = GameObject.FindObjectOfType<ScoreTracker>();
     }
     public static bool cameraOn = false;
     // Update is called once per frame
@@ -50,10 +52,27 @@ public class CameraMode : MonoBehaviour
         if (Vector3.Distance(transform.position, pos2.position) > cameraReadyDistance)
             return;
 
-
+        int points = 0;
         foreach (Creature c in creatures)
-            if (WithinCameraShot(Camera.main.WorldToViewportPoint(c.transform.position)))
+            if (WithinCameraShot(Camera.main.WorldToViewportPoint(c.transform.position))) 
+            {
+                float distance = Vector2.Distance(pos2.position, c.transform.position);
+                if (distance > 3.2f)
+                {
+                    points += c.poorScore;
+                }
+                else if (distance > 1.6f)
+                {
+                    points += c.goodScore;
+                }
+                else 
+                {
+                    points += c.greatScore;
+                }
+                scoreTracker.AddPoints(points);
+
                 snapTaken?.Invoke();
+            }
     }
 
     bool WithinCameraShot(Vector3 screenPos)

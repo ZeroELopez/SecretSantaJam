@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D thisRigidbody;
 
+    [Header("Horizontal Movement")]
     [Tooltip("normal movement speed")]
     [SerializeField] float walkSpeed;
     [Tooltip("The horizontal maximum speed the player can travel when not dashing")]
@@ -15,13 +16,19 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("the variable that slows to a stop")]
     [SerializeField] float slowdown;
 
+    [Header("Jumping")]
     [Tooltip("The strength of the jump")]
     [SerializeField] float jumpStrength;
     [Tooltip("The gravity scale when player is jumping")]
     [SerializeField] float upwardsGravity;
     [Tooltip("The gravity scale when player is falling")]
     [SerializeField] float downwardsGravity;
+    [Tooltip("THe length of time a jump keeps the horizontal movement")]
+    [SerializeField] float jumpKeepHorizontalMomentum;
+    [Tooltip("the variable that slows to a horizontal stop in midair")]
+    [SerializeField] float midairSlowdown;
 
+    [Header("Dashing")]
     [Tooltip("Dash force")]
     [SerializeField] float dashSpeed;
     [Tooltip("Max speed when player is dashing")]
@@ -34,17 +41,25 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("The size of the collider that judges if the character is grounded or against a wall. 1 is the normal size of the player")]
     [SerializeField] Vector2 lowerBodySize = new Vector2(1.2f,0);
 
+    [Header("Wall Interactions")]
     [Tooltip("The strength of the wall jump")]
     [SerializeField] float wallJumpHorizontalForce;
     [Tooltip("The strength of the wall jump")]
     [SerializeField] float wallJumpVerticalForce;
+    [SerializeField] float wallJumpMomentumTime = .1f;
+    [SerializeField] float wallClimbForce;
+
+    float jHFoce = 0;
+    float jHTime = 0;
+
+    float wJTime = 0;
 
     float dTime = 0;
 
     bool _dashing;
 
     public static bool still;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
     float movementSpeed;
     float maxSpeed;
-
+    float wallJumpMomentum;
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -69,18 +84,33 @@ public class PlayerMovement : MonoBehaviour
         else if (!Input.GetKey(KeyCode.LeftShift) && dTime > 0)
             dTime -= Time.deltaTime;
 
+        wJTime = wJTime < wallJumpMomentumTime ? wJTime + Time.deltaTime : wJTime;
+
+        jHTime = jHTime < jumpKeepHorizontalMomentum ? jHTime + Time.deltaTime : jHTime;
+
         Vector2 force = Vector2.zero;
 
-        if (LowerbodyScript.onGround && Input.GetKey(KeyCode.UpArrow))
+        if (LowerbodyScript.onGround && Input.GetKey(KeyCode.Space))
         {
-            force.x = -LowerbodyScript.dir * wallJumpHorizontalForce;
+            jHTime = 0;
+            jHFoce = thisRigidbody.velocity.x;
+            wallJumpMomentum = -LowerbodyScript.dir * wallJumpHorizontalForce;
             force.y += LowerbodyScript.dir == 0? jumpStrength : wallJumpVerticalForce;
 
             if (LowerbodyScript.dir != 0)
+            {
+                wJTime = 0;
                 thisRigidbody.velocity = Vector2.zero;
+            }
 
         }
 
+        if (LowerbodyScript.onGround && LowerbodyScript.dir != 0)
+        {
+            force.y += Input.GetKey(KeyCode.UpArrow) ? wallClimbForce : 0;
+
+            thisRigidbody.velocity = Vector2.zero;
+        }
 
         if (Input.GetKey(KeyCode.LeftArrow))
             force.x += -1;
@@ -98,11 +128,13 @@ public class PlayerMovement : MonoBehaviour
 
         force.x *= movementSpeed;
 
+        force.x += jHTime < jumpKeepHorizontalMomentum ? jHFoce * Mathf.InverseLerp(0,jumpKeepHorizontalMomentum,jHTime) : 0;
+        force.x += wJTime < wallJumpMomentumTime ? wallJumpMomentum: 0;
 
         thisRigidbody.velocity += (force);
 
         if (force.x == 0)
-            thisRigidbody.velocity = new Vector2(Mathf.MoveTowards(thisRigidbody.velocity.x, 0, slowdown), thisRigidbody.velocity.y);
+            thisRigidbody.velocity = new Vector2(Mathf.MoveTowards(thisRigidbody.velocity.x, 0, LowerbodyScript.onGround? slowdown : midairSlowdown), thisRigidbody.velocity.y);
 
         thisRigidbody.velocity = new Vector2(Mathf.Clamp(thisRigidbody.velocity.x, -maxSpeed, maxSpeed), thisRigidbody.velocity.y);
         //thisRigidbody.velocity = Vector2.MoveTowards(

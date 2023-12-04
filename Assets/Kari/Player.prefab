@@ -190,13 +190,17 @@ MonoBehaviour:
   jumpStrength: 10
   upwardsGravity: 7
   downwardsGravity: 10
+  jumpKeepHorizontalMomentum: 0.2
+  midairSlowdown: 5
   dashSpeed: 20
   maxDashSpeed: 50
   dashTiming: 0.2
   showDashTime: 0
   lowerBodySize: {x: 1.2, y: 0.5}
-  wallJumpHorizontalForce: 0
-  wallJumpVerticalForce: 10
+  wallJumpHorizontalForce: 200
+  wallJumpVerticalForce: 20
+  wallJumpMomentumTime: 0.3
+  wallClimbForce: 10
 --- !u!50 &6835640760189622849
 Rigidbody2D:
   serializedVersion: 4
