@@ -60,6 +60,7 @@ public class CameraMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             takeSnapshot?.Invoke();
+            time = 0;
         }
 
 
