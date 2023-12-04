@@ -5,13 +5,14 @@ using UnityEngine;
 public class FollowPath : MonoBehaviour
 {
     [Tooltip("paths to follow")]
-    [SerializeField] public Transform[] paths;
+    [SerializeField] public PathScript[] paths;
     [Tooltip("The speed the object will follow the path")]
     [SerializeField] public float speed;
+    [SerializeField] public float zOffset;
 
     private int pathToGo;
     private float t;
-    private Vector2 position;
+    private Vector3 position;
     private bool coroutineAllowed;
 
     // Start is called before the first frame update
@@ -35,15 +36,16 @@ public class FollowPath : MonoBehaviour
     {
         coroutineAllowed = false;
 
-        Vector2 p0 = paths[pathNumber].GetChild(0).position;
-        Vector2 p1 = paths[pathNumber].GetChild(1).position;
-        Vector2 p2 = paths[pathNumber].GetChild(2).position;
-        Vector2 p3 = paths[pathNumber].GetChild(3).position;
+        Vector2 p0 = paths[pathNumber].controlPoints[0].position;
+        Vector2 p1 = paths[pathNumber].controlPoints[1].position;
+        Vector2 p2 = paths[pathNumber].controlPoints[2].position;
+        Vector2 p3 = paths[pathNumber].controlPoints[3].position;
 
         while (t < 1) 
         {
             t += Time.deltaTime * speed;
             position = Mathf.Pow(1 - t, 3) * p0 + 3 * Mathf.Pow(1 - t, 2) * t * p1 + 3 * (1 - t) * Mathf.Pow(t, 2) * p2 + Mathf.Pow(t, 3) * p3;
+            position.z = zOffset;
             transform.position = position;
             yield return new WaitForEndOfFrame();
         }

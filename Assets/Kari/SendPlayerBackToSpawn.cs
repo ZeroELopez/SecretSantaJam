@@ -36,7 +36,7 @@ public class SendPlayerBackToSpawn : MonoBehaviour
                 return;
 
             if (c.gameObject.GetComponent<PlayerMovement>())
-                c.gameObject.transform.position = Vector3.zero;
+                c.gameObject.transform.position = spawn;
         }
 
     }

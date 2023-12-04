@@ -45,14 +45,14 @@ public class LowerbodyScript : MonoBehaviour
 
             foreach (BoxCollider2D t in allCollisions)
                 if (t != null && !t.gameObject.GetComponent<PlayerMovement>())
+                {
+                    dir = c.size.x >= 1 ? t.ClosestPoint(transform.position).x > transform.position.x ? 1 : -1 : 0;
                     ignore = false;
+                }
 
             if (ignore)
                 continue;
             
-
-            dir = c.size.x >= 1 ? allCollisions[0].ClosestPoint(transform.position).x > transform.position.x ? 1 : -1
-                : 0;
             onGround = true;
 
             return;
