@@ -27,7 +27,7 @@ public class RubberBanding : MonoBehaviour
     [SerializeField] float minSpeed;
 
     [SerializeField] float speed;
-
+[SerializeField] float direction = 1;
 
     public enum ChaseState { Explore,Chase,Escape};
 
@@ -51,7 +51,7 @@ public class RubberBanding : MonoBehaviour
         speed = Mathf.Clamp(speed, 0, 1);
         speed = 1 - speed;
 
-        thisAnimator.speed = speed;
+        thisAnimator.speed = speed * direction;
 
         ChaseState newState = getState();
 
