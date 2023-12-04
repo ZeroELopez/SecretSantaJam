@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+//in charge of the controls when in picture mode
+//Both movement and the button for taking a picture
+//is here but not the logic for taking the picture
+//or getting out of it. Should combine this script 
+//with Camera mode?
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField]Vector2 borderSize;
@@ -44,13 +49,14 @@ public class CameraMovement : MonoBehaviour
         transform.localPosition += force * Time.deltaTime;
 
         transform.localPosition = new Vector3(
-            Mathf.Clamp(transform.localPosition.x,-borderSize.x,borderSize.x),
+          
+//Limit the movement based on the variable border size
+//this will keep the camera at a certain range of the player Mathf.Clamp(transform.localPosition.x,-borderSize.x,borderSize.x),
             Mathf.Clamp(transform.localPosition.y, -borderSize.y, borderSize.y),
             transform.localPosition.z
             );
 
-        if (Input.GetKey(KeyCode.DownArrow))
-            force.y -= 1;
+//cooldown for camera
 
         time += Time.deltaTime;
 
@@ -59,6 +65,7 @@ public class CameraMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
+//take camera shot and reset cooldown
             takeSnapshot?.Invoke();
             time = 0;
         }
