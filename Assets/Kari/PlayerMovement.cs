@@ -49,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float wallJumpMomentumTime = .1f;
     [SerializeField] float wallClimbForce;
 
+    //ALL THE TIMES! Each of these times are to control the length of one of the forces above
     float jHFoce = 0;
     float jHTime = 0;
 
@@ -58,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool _dashing;
 
-    public static bool still;
+    public static bool still;//Used when the player needs to stand still for a cutscene or going into camera mode.
 
     // Start is called before the first frame update
     void Start()
@@ -73,8 +74,14 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //Fix the issue when in Camera mode, the player keeps moving
         if (still)
+        {
+            if (LowerbodyScript.onGround)
+                thisRigidbody.velocity = new Vector2(Mathf.MoveTowards(thisRigidbody.velocity.x, 0, slowdown), thisRigidbody.velocity.y);
+
             return;
+        }
 
         LowerbodyScript.width = lowerBodySize.x;LowerbodyScript.height = lowerBodySize.y;
         showDashTime = dTime;
