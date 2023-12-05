@@ -54,17 +54,26 @@ public class ChaseScript : MonoBehaviour
             }
             else
             {
-                Vector2 direction = vector.normalized;
-                if (direction.y >= 0)
-                {
-                    adjustedSpeed = speed;
-                }
-                else 
-                {
-                    adjustedSpeed = adjustedSpeed + (-direction.y * gravityAcceleration);
-                }
-                transform.Translate(direction * Time.deltaTime * adjustedSpeed);
+                MoveTowardVector(vector);
             }
         }
+        else 
+        {
+            Vector2 vector = (player.transform.position - transform.position);
+            MoveTowardVector(vector);
+        }
+    }
+    void MoveTowardVector(Vector2 vector) 
+    {
+        Vector2 direction = vector.normalized;
+        if (direction.y >= 0)
+        {
+            adjustedSpeed = speed;
+        }
+        else
+        {
+            adjustedSpeed = adjustedSpeed + (-direction.y * Time.deltaTime * gravityAcceleration);
+        }
+        transform.Translate(direction * Time.deltaTime * adjustedSpeed);
     }
 }

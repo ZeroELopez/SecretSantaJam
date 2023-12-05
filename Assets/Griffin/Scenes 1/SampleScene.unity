@@ -24494,7 +24494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   breadcrumbDropInterval: 1
   speed: 10
-  gravityAcceleration: 0.1
+  gravityAcceleration: 50
   breadcrumbPrefab: {fileID: 7815606325226587584, guid: 75aafeb66709d694a9d95ebdf7a6125d, type: 3}
 --- !u!1 &1342454034
 GameObject:
