@@ -6932,7 +6932,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4.6700134, y: -8.290009}
+  m_AnchoredPosition: {x: -4.670044, y: -8.290009}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &431313730
@@ -16784,6 +16784,7 @@ MonoBehaviour:
   maxSpeed: 3
   minSpeed: 0.1
   speed: 0
+  direction: 1
   onChaseStateChange:
     m_PersistentCalls:
       m_Calls:
@@ -19446,6 +19447,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1082828503 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8930134077241444816, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
+  m_PrefabInstance: {fileID: 3200237772327024800}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1082828504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082828503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034a8d4625ec22b4b9043e6a09f9a859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1085792465
 GameObject:
   m_ObjectHideFlags: 0
@@ -38269,7 +38287,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8930134077241444816, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1082828504}
   m_SourcePrefab: {fileID: 100100000, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -49,9 +49,9 @@ public class CameraMovement : MonoBehaviour
         transform.localPosition += force * Time.deltaTime;
 
         transform.localPosition = new Vector3(
-          
 //Limit the movement based on the variable border size
-//this will keep the camera at a certain range of the player Mathf.Clamp(transform.localPosition.x,-borderSize.x,borderSize.x),
+//this will keep the camera at a certain range of the player
+            Mathf.Clamp(transform.localPosition.x,-borderSize.x,borderSize.x),
             Mathf.Clamp(transform.localPosition.y, -borderSize.y, borderSize.y),
             transform.localPosition.z
             );
