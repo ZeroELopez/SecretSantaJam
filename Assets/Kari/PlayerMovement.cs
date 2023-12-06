@@ -6,7 +6,7 @@ using Assets.Scripts.Base.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
 {
     Rigidbody2D thisRigidbody;
 
@@ -66,7 +66,8 @@ public class PlayerMovement : MonoBehaviour
     private float moveDir;
     private bool climbing;
 
-    public static bool still;//Used when the player needs to stand still for a cutscene or going into camera mode.
+    bool still;//Used when the player needs to stand still for a cutscene or going into camera mode.
+    bool cutscene;//Used when the player needs to stand still for a cutscene or going into camera mode.
 
     private Controls playerControls;
 
@@ -94,7 +95,14 @@ public class PlayerMovement : MonoBehaviour
         playerControls.Actions.CameraToggle.started += OnCameraToggle;
         playerControls.Actions.CameraToggle.canceled += OnCameraToggle;
 
+        Subscribe();
+
         force = Vector2.zero;
+    }
+
+    private void OnDestroy()
+    {
+        Unsubscribe();
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -119,13 +127,14 @@ public class PlayerMovement : MonoBehaviour
     private void OnCameraToggle(InputAction.CallbackContext context)
     {
         EventHub.Instance.PostEvent(new onCameraToggle() { On = context.started });
+        still = context.started;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         //Fix the issue when in Camera mode, the player keeps moving
-        if (still)
+        if (still || cutscene)
         {
             if (LowerbodyScript.state == PhysicsState.onGround)
                 thisRigidbody.velocity = new Vector2(Mathf.MoveTowards(thisRigidbody.velocity.x, 0, slowdown), thisRigidbody.velocity.y);
@@ -204,4 +213,19 @@ public class PlayerMovement : MonoBehaviour
             thisRigidbody.gravityScale = downwardsGravity;
     }
 
+    public void Subscribe()
+    {
+        EventHub.Instance.Subscribe<onCutsceneToggle>(this);
+    }
+
+    public void Unsubscribe()
+    {
+        EventHub.Instance.Unsubscribe<onCutsceneToggle>(this);
+    }
+
+    public void HandleEvent(onCutsceneToggle evt)
+    {
+        EventHub.Instance.PostEvent(new onCameraToggle() { On = false });
+        cutscene = evt.On;
+    }
 }

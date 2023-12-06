@@ -94,6 +94,7 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
 
         if (evt.On)
             onCameraOn?.Invoke();
+
         else
             onCameraOff?.Invoke();
     }
@@ -105,11 +106,6 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
     void Update()
     {
         cooldownTime += Time.deltaTime;
-
-        //Check input from player. move camera if player is
-        //in camera mode.
-        PlayerMovement.still = cameraOn;
-
 
         if (!cameraOn)
             return;

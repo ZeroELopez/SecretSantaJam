@@ -20,7 +20,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
     [SerializeField] float timer;
     float t;
 
-    private GameState state = GameState.Investigation;
+    public GameState state { get; private set; }
 
     public TextMeshProUGUI textObj;
     [SerializeField] float investigationDistance;
@@ -33,6 +33,8 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
 
         SetInstance(this);
         DontDestroyOnLoad(this);
+        ChangeState(GameState.Count);
+
     }
 
     private void Start()=>        Subscribe();
