@@ -53,6 +53,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CameraToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""642a282d-f3f6-4dbc-84c1-a8377392b7f2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TakeSnapshot"",
+                    ""type"": ""Button"",
+                    ""id"": ""861d0d0f-1eb9-45cd-aa04-d0f1efdc0d6c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +150,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""35b7613a-fc1a-4333-82d1-e9b7377a686b"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7695484-2f05-41fa-ab8f-3d61af86a7c3"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TakeSnapshot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +183,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Actions_Move = m_Actions.FindAction("Move", throwIfNotFound: true);
         m_Actions_Dash = m_Actions.FindAction("Dash", throwIfNotFound: true);
         m_Actions_Jump = m_Actions.FindAction("Jump", throwIfNotFound: true);
+        m_Actions_CameraToggle = m_Actions.FindAction("CameraToggle", throwIfNotFound: true);
+        m_Actions_TakeSnapshot = m_Actions.FindAction("TakeSnapshot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +249,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Actions_Move;
     private readonly InputAction m_Actions_Dash;
     private readonly InputAction m_Actions_Jump;
+    private readonly InputAction m_Actions_CameraToggle;
+    private readonly InputAction m_Actions_TakeSnapshot;
     public struct ActionsActions
     {
         private @Controls m_Wrapper;
@@ -214,6 +258,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Actions_Move;
         public InputAction @Dash => m_Wrapper.m_Actions_Dash;
         public InputAction @Jump => m_Wrapper.m_Actions_Jump;
+        public InputAction @CameraToggle => m_Wrapper.m_Actions_CameraToggle;
+        public InputAction @TakeSnapshot => m_Wrapper.m_Actions_TakeSnapshot;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -232,6 +278,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @CameraToggle.started += instance.OnCameraToggle;
+            @CameraToggle.performed += instance.OnCameraToggle;
+            @CameraToggle.canceled += instance.OnCameraToggle;
+            @TakeSnapshot.started += instance.OnTakeSnapshot;
+            @TakeSnapshot.performed += instance.OnTakeSnapshot;
+            @TakeSnapshot.canceled += instance.OnTakeSnapshot;
         }
 
         private void UnregisterCallbacks(IActionsActions instance)
@@ -245,6 +297,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @CameraToggle.started -= instance.OnCameraToggle;
+            @CameraToggle.performed -= instance.OnCameraToggle;
+            @CameraToggle.canceled -= instance.OnCameraToggle;
+            @TakeSnapshot.started -= instance.OnTakeSnapshot;
+            @TakeSnapshot.performed -= instance.OnTakeSnapshot;
+            @TakeSnapshot.canceled -= instance.OnTakeSnapshot;
         }
 
         public void RemoveCallbacks(IActionsActions instance)
@@ -267,5 +325,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnCameraToggle(InputAction.CallbackContext context);
+        void OnTakeSnapshot(InputAction.CallbackContext context);
     }
 }

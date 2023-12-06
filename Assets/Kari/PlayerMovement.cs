@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Assets.Scripts.Base.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -90,6 +91,8 @@ public class PlayerMovement : MonoBehaviour
         playerControls.Actions.Jump.canceled += OnJump;
         playerControls.Actions.Dash.started += OnDash;
         playerControls.Actions.Dash.canceled += OnDash;
+        playerControls.Actions.CameraToggle.started += OnCameraToggle;
+        playerControls.Actions.CameraToggle.canceled += OnCameraToggle;
 
         force = Vector2.zero;
     }
@@ -100,14 +103,22 @@ public class PlayerMovement : MonoBehaviour
         climbing = (context.started || context.performed) && context.ReadValue<Vector2>().y > 0;
     }
 
+    [SerializeField] float jumpButtonHoldDownTiming;
+    float jbhTime = 0;
     private void OnJump(InputAction.CallbackContext context)
     {
-        jumpButtonDown = context.started || context.performed;
+        jumpButtonDown = (context.started || context.performed);
+        jbhTime = jumpButtonDown? 0 : float.MaxValue;
     }
 
     private void OnDash(InputAction.CallbackContext context)
     {
         dashButtonDown = context.ReadValueAsButton();
+    }
+
+    private void OnCameraToggle(InputAction.CallbackContext context)
+    {
+        EventHub.Instance.PostEvent(new onCameraToggle() { On = context.started });
     }
 
     // Update is called once per frame
@@ -133,10 +144,13 @@ public class PlayerMovement : MonoBehaviour
         else if (!dashButtonDown && dTime > 0)
             dTime -= Time.deltaTime;
 
+        jbhTime += jumpButtonDown ? Time.deltaTime : 0;
+        jumpButtonDown = jbhTime < jumpButtonHoldDownTiming;
+
         //Wall Jump Time
         wJTime = wJTime < wallJumpMomentumTime ? wJTime + Time.deltaTime : wJTime;
 
-        //Jump Horizontal(?) time
+        //Keep Horizontal Momentum for Jump
         jHTime = jHTime < jumpKeepHorizontalMomentum ? jHTime + Time.deltaTime : jHTime;
 
         //Handle Jumping

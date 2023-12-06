@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Animations;
 
-public class MusicManager : MonoBehaviour
+public class MusicManager : Singleton<MusicManager>
 {
-    [SerializeField] AudioClip[] Songs;
+    [SerializeField] List<Track> SongList;
+
     int onSong = -1;
     [SerializeField] AudioSource[] audioSources;
     AudioSource oldSource, newSource;
@@ -18,35 +19,45 @@ public class MusicManager : MonoBehaviour
 
     private void Awake()
     {
+        SetInstance(this);
     }
 
-    private void OnDisable() { }// => EntityEventTracker.onLevelStart -= NewSong;
+    public static void NewSong()
+    {
+        Instance.onSong++;
 
-    void NewSong()
+        Instance.PlaySong();
+    }
+
+    public static void SetTrack(int index)
+    {
+        Instance.onSong = index;
+        Instance.PlaySong();
+    }
+
+    public static void SetTrack(string trackName)
+    {
+        for (int i = 0; i < Instance.SongList.Count;i++)
+            if (Instance.SongList[i].name == trackName)
+            {
+                Instance.onSong = i;
+                Instance.PlaySong();
+            }
+    }
+
+    public void PlaySong()
     {
         SwitchSource();
-        onSong++;
 
         if (newSource == null)
             return;
 
-        newSource.clip = Songs[onSong];
+        newSource.clip = SongList[onSong].clip;
         newSource.Play();
         time = 0;
     }
 
-    public void PlaySong(int index)
-    {
-        SwitchSource();
-        onSong = index;
 
-        if (newSource == null)
-            return;
-
-        newSource.clip = Songs[onSong];
-        newSource.Play();
-        time = 0;
-    }
 
     private void Update()
     {
@@ -79,7 +90,13 @@ public class MusicManager : MonoBehaviour
 
             oldSource = audioSources[0];
             newSource = audioSources[1];
-
         }
     }
+}
+
+[System.Serializable]
+public class Track
+{
+    public string name;
+    public AudioClip clip;
 }

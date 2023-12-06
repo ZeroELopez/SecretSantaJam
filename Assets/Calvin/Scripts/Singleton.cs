@@ -27,6 +27,8 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             _instance = instance;
         }
+        else
+            Destroy(instance.gameObject);        
     }
 
 }

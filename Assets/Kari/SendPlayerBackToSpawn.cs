@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.Base.Events;
 
 
 //this script sends player back to a certain point 
 //if touched. it is for pitfalls
-public class SendPlayerBackToSpawn : MonoBehaviour
+public class SendPlayerBackToSpawn : MonoBehaviour, ISubscribable<onEscapeMode>
 {
     BoxCollider2D[] thisCollider2D;
 
     PlayerMovement player;
     Vector3 spawn;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
+        Subscribe();
+
         player = GameObject.FindObjectOfType<PlayerMovement>();
         thisCollider2D = GetComponents<BoxCollider2D>();
 
@@ -21,6 +24,11 @@ public class SendPlayerBackToSpawn : MonoBehaviour
             c.isTrigger = true;
 
         SetSpawn();
+    }
+
+    private void OnDestroy()
+    {
+        Unsubscribe();
     }
 
     // Update is called once per frame
@@ -45,4 +53,19 @@ public class SendPlayerBackToSpawn : MonoBehaviour
     }
 
     public void SetSpawn() => spawn = player.transform.position;
+
+    public void Subscribe()
+    {
+        EventHub.Instance.Subscribe<onEscapeMode>(this);
+    }
+
+    public void Unsubscribe()
+    {
+        EventHub.Instance.Unsubscribe<onEscapeMode>(this);
+    }
+
+    public void HandleEvent(onEscapeMode evt)
+    {
+        SetSpawn();
+    }
 }

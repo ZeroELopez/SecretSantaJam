@@ -31,8 +31,6 @@ public class HomScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!EndAvailable)
-            return;
 
 //my logic for getting overlapping colliders.
 //I think this is a good place to explain why I use 
@@ -40,18 +38,7 @@ public class HomScript : MonoBehaviour
 //difficulties with judging whether a player was 
 //still on the ground or not. I found this way to be 
 //more reliable than the traditional onTriggerEnter
-        Collider2D[] allCollisions = new Collider2D[10];
 
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.useTriggers = false;
-
-        if (boxCollider2D.OverlapCollider(filter, allCollisions) == 0)
-            return;
-
-
-        foreach (BoxCollider2D t in allCollisions)
-            if (t != null && t.gameObject.GetComponent<PlayerMovement>())
-                onGameWon?.Invoke();
 
     }
 }
