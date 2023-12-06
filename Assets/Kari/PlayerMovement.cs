@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Assets.Scripts.Base.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -59,18 +61,66 @@ public class PlayerMovement : MonoBehaviour
 
     bool _dashing;
 
+    private bool dashButtonDown;
+    private bool jumpButtonDown;
+    private float moveDir;
+    private bool climbing;
+
     public static bool still;//Used when the player needs to stand still for a cutscene or going into camera mode.
+
+    private Controls playerControls;
+
+    Vector2 force;
+    float movementSpeed;
+    float maxSpeed;
+    float wallJumpMomentum;
 
     // Start is called before the first frame update
     void Start()
     {
         thisRigidbody = GetComponent<Rigidbody2D>();
+        playerControls = new Controls();
+        playerControls.Enable();
+
+        //Set up Input System callbacks;
+        playerControls.Actions.Move.started += OnMove;
+        playerControls.Actions.Move.performed += OnMove;
+        playerControls.Actions.Move.canceled += OnMove;
+        playerControls.Actions.Jump.started += OnJump;
+        playerControls.Actions.Jump.performed += OnJump;
+        playerControls.Actions.Jump.canceled += OnJump;
+        playerControls.Actions.Dash.started += OnDash;
+        playerControls.Actions.Dash.canceled += OnDash;
+        playerControls.Actions.CameraToggle.started += OnCameraToggle;
+        playerControls.Actions.CameraToggle.canceled += OnCameraToggle;
+
+        force = Vector2.zero;
     }
 
+    private void OnMove(InputAction.CallbackContext context)
+    {
+        moveDir = context.ReadValue<Vector2>().x;
+        climbing = (context.started || context.performed) && context.ReadValue<Vector2>().y > 0;
+    }
 
-    float movementSpeed;
-    float maxSpeed;
-    float wallJumpMomentum;
+    [SerializeField] float jumpButtonHoldDownTiming;
+    float jbhTime = 0;
+    private void OnJump(InputAction.CallbackContext context)
+    {
+        jumpButtonDown = (context.started || context.performed);
+        jbhTime = jumpButtonDown? 0 : float.MaxValue;
+    }
+
+    private void OnDash(InputAction.CallbackContext context)
+    {
+        dashButtonDown = context.ReadValueAsButton();
+    }
+
+    private void OnCameraToggle(InputAction.CallbackContext context)
+    {
+        EventHub.Instance.PostEvent(new onCameraToggle() { On = context.started });
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -83,21 +133,28 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        //Reset the Force every frame.
+        force = Vector2.zero;
+
         LowerbodyScript.width = lowerBodySize.x;LowerbodyScript.height = lowerBodySize.y;
         showDashTime = dTime;
 
         if (dTime < dashTiming && _dashing)
             dTime += Time.deltaTime;
-        else if (!Input.GetKey(KeyCode.LeftShift) && dTime > 0)
+        else if (!dashButtonDown && dTime > 0)
             dTime -= Time.deltaTime;
 
+        jbhTime += jumpButtonDown ? Time.deltaTime : 0;
+        jumpButtonDown = jbhTime < jumpButtonHoldDownTiming;
+
+        //Wall Jump Time
         wJTime = wJTime < wallJumpMomentumTime ? wJTime + Time.deltaTime : wJTime;
 
+        //Keep Horizontal Momentum for Jump
         jHTime = jHTime < jumpKeepHorizontalMomentum ? jHTime + Time.deltaTime : jHTime;
 
-        Vector2 force = Vector2.zero;
-
-        if (LowerbodyScript.onGround && Input.GetKey(KeyCode.Space))
+        //Handle Jumping
+        if (LowerbodyScript.onGround && jumpButtonDown)
         {
             jHTime = 0;
             jHFoce = thisRigidbody.velocity.x;
@@ -109,48 +166,38 @@ public class PlayerMovement : MonoBehaviour
                 wJTime = 0;
                 thisRigidbody.velocity = Vector2.zero;
             }
-
         }
 
+        //Climbing
         if (LowerbodyScript.onGround && LowerbodyScript.dir != 0)
         {
-            force.y += Input.GetKey(KeyCode.UpArrow) ? wallClimbForce : 0;
+            force.y += climbing ? wallClimbForce : 0;
 
             thisRigidbody.velocity = Vector2.zero;
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
-            force.x += -1;
-        if (Input.GetKey(KeyCode.RightArrow))
-            force.x += 1;
+        //Set the Horizontal Force Vector to the direction vector set on move
+        force.x = moveDir;
 
-
-
-        _dashing = dTime < dashTiming ? Input.GetKey(KeyCode.LeftShift) : false;
-
+        //Dashing and walk Speed
+        _dashing = dTime < dashTiming ? dashButtonDown : false;
 
         movementSpeed = _dashing ? dashSpeed: walkSpeed;
         maxSpeed = _dashing || (maxSpeed == maxDashSpeed && !LowerbodyScript.onGround)? maxDashSpeed: maxWalkSpeed;
 
-
+        //Calculate Horizontal force (used in velocity calculations)
         force.x *= movementSpeed;
+        force.x += jHTime < jumpKeepHorizontalMomentum ? jHFoce * Mathf.InverseLerp(0, jumpKeepHorizontalMomentum, jHTime) : 0;
+        force.x += wJTime < wallJumpMomentumTime ? wallJumpMomentum : 0;
 
-        force.x += jHTime < jumpKeepHorizontalMomentum ? jHFoce * Mathf.InverseLerp(0,jumpKeepHorizontalMomentum,jHTime) : 0;
-        force.x += wJTime < wallJumpMomentumTime ? wallJumpMomentum: 0;
-
+        //Set the Velocity
         thisRigidbody.velocity += (force);
 
         if (force.x == 0)
             thisRigidbody.velocity = new Vector2(Mathf.MoveTowards(thisRigidbody.velocity.x, 0, LowerbodyScript.onGround? slowdown : midairSlowdown), thisRigidbody.velocity.y);
 
         thisRigidbody.velocity = new Vector2(Mathf.Clamp(thisRigidbody.velocity.x, -maxSpeed, maxSpeed), thisRigidbody.velocity.y);
-        //thisRigidbody.velocity = Vector2.MoveTowards(
-        //    thisRigidbody.velocity,
-        //                new Vector2(Mathf.Clamp(thisRigidbody.velocity.x, -maxSpeed, maxSpeed), thisRigidbody.velocity.y),
-        //                slowdown * Time.deltaTime);
-
-
-
+        
         if (thisRigidbody.velocity.y > 0)
             thisRigidbody.gravityScale = upwardsGravity;
         else

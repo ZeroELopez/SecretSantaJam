@@ -199,8 +199,9 @@ MonoBehaviour:
   lowerBodySize: {x: 1.2, y: 0.5}
   wallJumpHorizontalForce: 200
   wallJumpVerticalForce: 20
-  wallJumpMomentumTime: 0.065
+  wallJumpMomentumTime: 0.09
   wallClimbForce: 10
+  jumpButtonHoldDownTiming: 0.1
 --- !u!50 &6835640760189622849
 Rigidbody2D:
   serializedVersion: 4

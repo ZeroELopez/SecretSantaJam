@@ -42,8 +42,8 @@ public class LowerbodyScript : MonoBehaviour
         {
             //Okay so I wanted the size of the colliders to be a variable playtesters and designers could edit.
             //width and height are connected to the PlayerMovement.lowerBodySize. 
-            c.size = new Vector2(c.size.x > .1f ? width : .1f,
-                c.size.y > .1f ? height : .1f);
+            c.size = new Vector2(c.size.x > c.size.y ? width : c.size.x,
+                c.size.y > c.size.x ? height : c.size.y);
 
             //Get all overlaping colliders
             if (c.OverlapCollider(filter, allCollisions) == 0)
