@@ -6942,17 +6942,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 431313728}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2002821312}
+  m_Father: {fileID: 858627287}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0.000015258789, y: -0.000015258789}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &431313730
 Animator:
@@ -8666,13 +8666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b812e5db30eb9e40aec8678ef2e2bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SongList:
-  - name: Investigation
-    clip: {fileID: 8300000, guid: 6591edd8b65cb284a93c9d740d090011, type: 3}
-  - name: Chase
-    clip: {fileID: 8300000, guid: 9ec659f127dfd9c418c8225ae34c2f9f, type: 3}
-  - name: Escape
-    clip: {fileID: 8300000, guid: 7f846ce48e9a58848ad0d709119fe9bd, type: 3}
+  SongList: []
   audioSources:
   - {fileID: 507221259}
   - {fileID: 507221258}
@@ -8851,10 +8845,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3baae461ee9c5b4cb3a8458ebb41780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  borderSize: {x: 10, y: 10}
-  panSpeed: 15
+  borderSize: {x: 0, y: 0}
+  panSpeed: 0
   cameraReadyDistance: 0.5
-  cameraCooldown: 2
+  cameraCooldown: 0
   pos1: {fileID: 1010443034}
   pos2: {fileID: 1430292142}
   transitionSpeed: 0.2
@@ -8869,19 +8863,7 @@ MonoBehaviour:
       m_Calls: []
   onTakeSnapshot:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 431313730}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Flash
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   screenRect:
     serializedVersion: 2
     x: 0.2
@@ -15398,6 +15380,7 @@ RectTransform:
   - {fileID: 110193237}
   - {fileID: 492722712}
   - {fileID: 587419444}
+  - {fileID: 431313729}
   - {fileID: 912185595}
   m_Father: {fileID: 507221256}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16937,7 +16920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166d1488da52d454b86ff3e6bbb1fa6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FocusCreature: 1
+  FocusCreature: 0
   poorScore: 50
   goodScore: 100
   greatScore: 150
@@ -18481,7 +18464,6 @@ Transform:
   m_Children:
   - {fileID: 519420032}
   - {fileID: 1430292142}
-  - {fileID: 2002821312}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1015245578
@@ -32120,7 +32102,6 @@ GameObject:
   - component: {fileID: 1822546004}
   - component: {fileID: 1822546003}
   - component: {fileID: 1822546002}
-  - component: {fileID: 1822546006}
   m_Layer: 0
   m_Name: DeathBar
   m_TagString: Untagged
@@ -32252,18 +32233,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1822546006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1822546001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 034a8d4625ec22b4b9043e6a09f9a859, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1823583815
 GameObject:
   m_ObjectHideFlags: 0
@@ -36084,9 +36053,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 431313729}
   - {fileID: 1703561914}
-  m_Father: {fileID: 1010443034}
+  m_Father: {fileID: 712599708}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -38377,7 +38345,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9125980224589240869, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2002821312}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
 --- !u!1660057539 &9223372036854775807

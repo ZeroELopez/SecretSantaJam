@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (LowerbodyScript.onGround) 
+        if (LowerbodyScript.state == PhysicsState.onGround) 
         {
             deathBar.SetSpawn();
         }

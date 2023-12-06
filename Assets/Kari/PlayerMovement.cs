@@ -127,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
         //Fix the issue when in Camera mode, the player keeps moving
         if (still)
         {
-            if (LowerbodyScript.onGround)
+            if (LowerbodyScript.state == PhysicsState.onGround)
                 thisRigidbody.velocity = new Vector2(Mathf.MoveTowards(thisRigidbody.velocity.x, 0, slowdown), thisRigidbody.velocity.y);
 
             return;
@@ -154,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
         jHTime = jHTime < jumpKeepHorizontalMomentum ? jHTime + Time.deltaTime : jHTime;
 
         //Handle Jumping
-        if (LowerbodyScript.onGround && jumpButtonDown)
+        if (LowerbodyScript.state != PhysicsState.isFalling && jumpButtonDown)
         {
             jHTime = 0;
             jHFoce = thisRigidbody.velocity.x;
@@ -169,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Climbing
-        if (LowerbodyScript.onGround && LowerbodyScript.dir != 0)
+        if (LowerbodyScript.state == PhysicsState.onWall && LowerbodyScript.dir != 0)
         {
             force.y += climbing ? wallClimbForce : 0;
 
@@ -183,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
         _dashing = dTime < dashTiming ? dashButtonDown : false;
 
         movementSpeed = _dashing ? dashSpeed: walkSpeed;
-        maxSpeed = _dashing || (maxSpeed == maxDashSpeed && !LowerbodyScript.onGround)? maxDashSpeed: maxWalkSpeed;
+        maxSpeed = _dashing || (maxSpeed == maxDashSpeed && LowerbodyScript.state == PhysicsState.isFalling) ? maxDashSpeed: maxWalkSpeed;
 
         //Calculate Horizontal force (used in velocity calculations)
         force.x *= movementSpeed;
@@ -194,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
         thisRigidbody.velocity += (force);
 
         if (force.x == 0)
-            thisRigidbody.velocity = new Vector2(Mathf.MoveTowards(thisRigidbody.velocity.x, 0, LowerbodyScript.onGround? slowdown : midairSlowdown), thisRigidbody.velocity.y);
+            thisRigidbody.velocity = new Vector2(Mathf.MoveTowards(thisRigidbody.velocity.x, 0, LowerbodyScript.state == PhysicsState.onGround ? slowdown : midairSlowdown), thisRigidbody.velocity.y);
 
         thisRigidbody.velocity = new Vector2(Mathf.Clamp(thisRigidbody.velocity.x, -maxSpeed, maxSpeed), thisRigidbody.velocity.y);
         

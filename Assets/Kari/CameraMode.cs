@@ -143,7 +143,6 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
     //the logic for taking a snapshot
     public void TakeSnapshot(InputAction.CallbackContext context)
     {
-        Debug.Log("Take PHoto");
         if (cooldownTime < cameraCooldown || !cameraOn)
             return;
 
