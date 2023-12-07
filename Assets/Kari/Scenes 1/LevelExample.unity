@@ -37399,6 +37399,10 @@ PrefabInstance:
       propertyPath: followObj
       value: 
       objectReference: {fileID: 45827751}
+    - target: {fileID: 563313640563906616, guid: a0206ecdf054c0844bd450d39fff6d6f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1818814244979406693, guid: a0206ecdf054c0844bd450d39fff6d6f, type: 3}
       propertyPath: followObj
       value: 
@@ -37487,6 +37491,10 @@ PrefabInstance:
     - target: {fileID: 3546602195802393732, guid: 97eff6f1076e0b6418f3812e9c3969d6, type: 3}
       propertyPath: m_Name
       value: EventHub MUST HAVE
+      objectReference: {fileID: 0}
+    - target: {fileID: 4200157226361513148, guid: 97eff6f1076e0b6418f3812e9c3969d6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8655800852248494236, guid: 97eff6f1076e0b6418f3812e9c3969d6, type: 3}
       propertyPath: m_LocalPosition.x
