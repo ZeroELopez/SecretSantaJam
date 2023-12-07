@@ -17,6 +17,9 @@ namespace Assets.Scripts.Base.Events
     public class onInvestigationMode : DispatchableEvent { }
     public class onChaseMode : DispatchableEvent { }
     public class onEscapeMode : DispatchableEvent { }
+
+    public class onCutsceneToggle : DispatchableEvent { public bool On; }
+
     public class onPlayerRespawn : DispatchableEvent { }
 
     public class onGameWon : DispatchableEvent { }

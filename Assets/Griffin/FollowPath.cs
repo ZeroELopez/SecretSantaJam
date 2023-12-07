@@ -5,7 +5,7 @@ using UnityEngine;
 public class FollowPath : MonoBehaviour
 {
     [Tooltip("paths to follow")]
-    [SerializeField] public PathScript[] paths;
+    [SerializeField] public PathParent pathList;
     [Tooltip("The speed the object will follow the path")]
     [SerializeField] public float speed;
     [SerializeField] public float zOffset;
@@ -36,10 +36,10 @@ public class FollowPath : MonoBehaviour
     {
         coroutineAllowed = false;
 
-        Vector2 p0 = paths[pathNumber].controlPoints[0].position;
-        Vector2 p1 = paths[pathNumber].controlPoints[1].position;
-        Vector2 p2 = paths[pathNumber].controlPoints[2].position;
-        Vector2 p3 = paths[pathNumber].controlPoints[3].position;
+        Vector2 p0 = pathList.paths[pathNumber].controlPoints[0].position;
+        Vector2 p1 = pathList.paths[pathNumber].controlPoints[1].position;
+        Vector2 p2 = pathList.paths[pathNumber].controlPoints[2].position;
+        Vector2 p3 = pathList.paths[pathNumber].controlPoints[3].position;
 
         while (t < 1) 
         {
@@ -52,7 +52,7 @@ public class FollowPath : MonoBehaviour
 
         t = 0;
         pathToGo += 1;
-        if (pathToGo > paths.Length - 1) 
+        if (pathToGo > pathList.paths.Count - 1) 
         {
             pathToGo = 0;
         }

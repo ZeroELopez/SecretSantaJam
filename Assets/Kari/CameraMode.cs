@@ -94,6 +94,7 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
 
         if (evt.On)
             onCameraOn?.Invoke();
+
         else
             onCameraOff?.Invoke();
     }
@@ -105,11 +106,6 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
     void Update()
     {
         cooldownTime += Time.deltaTime;
-
-        //Check input from player. move camera if player is
-        //in camera mode.
-        PlayerMovement.still = cameraOn;
-
 
         if (!cameraOn)
             return;
@@ -143,7 +139,6 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
     //the logic for taking a snapshot
     public void TakeSnapshot(InputAction.CallbackContext context)
     {
-        Debug.Log("Take PHoto");
         if (cooldownTime < cameraCooldown || !cameraOn)
             return;
 
@@ -160,6 +155,9 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
         foreach (Creature c in creatures)
             if (WithinCameraShot(Camera.main.WorldToViewportPoint(c.transform.position)))
             {
+                if (c.creatureCaptured)
+                    continue;
+
                 float distance = Vector2.Distance(pos2.position, c.transform.position);
                 if (distance > 3.2f)
                 {
@@ -173,9 +171,13 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
                 {
                     points += c.greatScore;
                 }
-                GameManager.ChangeState(GameState.Escape);
                 EventHub.Instance.PostEvent(new onCreatureCaptured() { points = points });
+
+                if (c.FocusCreature)
+                    EventHub.Instance.PostEvent(new onSpecialCreatureCaptured() {});
+
                 onCreatureCaptured?.Invoke();
+                c.creatureCaptured = true;
                 //scoreTracker.AddPoints(points);
             }
     }

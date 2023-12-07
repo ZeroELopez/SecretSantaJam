@@ -7,7 +7,7 @@ public class ChaseScript : MonoBehaviour
     [Tooltip("The interval the player will drop breadcrumbs in seconds")]
     [SerializeField] float breadcrumbDropInterval;
     [Tooltip("The speed the player will be chased")]
-    [SerializeField] float speed;
+    public float speed;
     [Tooltip("The acceleration due to gravity")]
     [SerializeField] float gravityAcceleration;
 
@@ -66,13 +66,13 @@ public class ChaseScript : MonoBehaviour
     void MoveTowardVector(Vector2 vector) 
     {
         Vector2 direction = vector.normalized;
-        if (direction.y >= 0)
+        if (direction.y >= -.01f)
         {
             adjustedSpeed = speed;
         }
         else
         {
-            adjustedSpeed = adjustedSpeed + (-direction.y * Time.deltaTime * gravityAcceleration);
+            adjustedSpeed += (-direction.y * gravityAcceleration * Time.deltaTime);
         }
         transform.Translate(direction * Time.deltaTime * adjustedSpeed);
     }

@@ -6,7 +6,7 @@ using Assets.Scripts.Base.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
 {
     Rigidbody2D thisRigidbody;
 
@@ -65,8 +65,12 @@ public class PlayerMovement : MonoBehaviour
     private bool jumpButtonDown;
     private float moveDir;
     private bool climbing;
+    public Vector2 forceModifier;
+    public float maxSpeedModifier;
+    public float wallMaxVelocity;
 
-    public static bool still;//Used when the player needs to stand still for a cutscene or going into camera mode.
+    bool still;//Used when the player needs to stand still for a cutscene or going into camera mode.
+    bool cutscene;//Used when the player needs to stand still for a cutscene or going into camera mode.
 
     private Controls playerControls;
 
@@ -94,7 +98,17 @@ public class PlayerMovement : MonoBehaviour
         playerControls.Actions.CameraToggle.started += OnCameraToggle;
         playerControls.Actions.CameraToggle.canceled += OnCameraToggle;
 
+        Subscribe();
+
         force = Vector2.zero;
+        forceModifier = Vector2.one;
+        maxSpeedModifier = 1;
+        wallMaxVelocity = 0;
+    }
+
+    private void OnDestroy()
+    {
+        Unsubscribe();
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -119,15 +133,16 @@ public class PlayerMovement : MonoBehaviour
     private void OnCameraToggle(InputAction.CallbackContext context)
     {
         EventHub.Instance.PostEvent(new onCameraToggle() { On = context.started });
+        still = context.started;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         //Fix the issue when in Camera mode, the player keeps moving
-        if (still)
+        if (still || cutscene)
         {
-            if (LowerbodyScript.onGround)
+            if (LowerbodyScript.state == PhysicsState.onGround)
                 thisRigidbody.velocity = new Vector2(Mathf.MoveTowards(thisRigidbody.velocity.x, 0, slowdown), thisRigidbody.velocity.y);
 
             return;
@@ -154,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
         jHTime = jHTime < jumpKeepHorizontalMomentum ? jHTime + Time.deltaTime : jHTime;
 
         //Handle Jumping
-        if (LowerbodyScript.onGround && jumpButtonDown)
+        if (LowerbodyScript.state != PhysicsState.isFalling && jumpButtonDown)
         {
             jHTime = 0;
             jHFoce = thisRigidbody.velocity.x;
@@ -164,16 +179,16 @@ public class PlayerMovement : MonoBehaviour
             if (LowerbodyScript.dir != 0)
             {
                 wJTime = 0;
-                thisRigidbody.velocity = Vector2.zero;
+                thisRigidbody.velocity = new Vector2(0, Mathf.Clamp(thisRigidbody.velocity.y, -wallMaxVelocity, 0));
             }
         }
 
         //Climbing
-        if (LowerbodyScript.onGround && LowerbodyScript.dir != 0)
+        if (LowerbodyScript.state == PhysicsState.onWall && LowerbodyScript.dir != 0)
         {
             force.y += climbing ? wallClimbForce : 0;
 
-            thisRigidbody.velocity = Vector2.zero;
+            thisRigidbody.velocity = new Vector2(0, Mathf.Clamp(thisRigidbody.velocity.y, -wallMaxVelocity, 0));
         }
 
         //Set the Horizontal Force Vector to the direction vector set on move
@@ -183,18 +198,21 @@ public class PlayerMovement : MonoBehaviour
         _dashing = dTime < dashTiming ? dashButtonDown : false;
 
         movementSpeed = _dashing ? dashSpeed: walkSpeed;
-        maxSpeed = _dashing || (maxSpeed == maxDashSpeed && !LowerbodyScript.onGround)? maxDashSpeed: maxWalkSpeed;
+        maxSpeed = (_dashing || (maxSpeed == maxDashSpeed && LowerbodyScript.state == PhysicsState.isFalling) ? maxDashSpeed: maxWalkSpeed) * maxSpeedModifier;
 
         //Calculate Horizontal force (used in velocity calculations)
         force.x *= movementSpeed;
         force.x += jHTime < jumpKeepHorizontalMomentum ? jHFoce * Mathf.InverseLerp(0, jumpKeepHorizontalMomentum, jHTime) : 0;
         force.x += wJTime < wallJumpMomentumTime ? wallJumpMomentum : 0;
 
+        //Adjust force based on hazards
+        force = force * forceModifier;
+
         //Set the Velocity
         thisRigidbody.velocity += (force);
 
         if (force.x == 0)
-            thisRigidbody.velocity = new Vector2(Mathf.MoveTowards(thisRigidbody.velocity.x, 0, LowerbodyScript.onGround? slowdown : midairSlowdown), thisRigidbody.velocity.y);
+            thisRigidbody.velocity = new Vector2(Mathf.MoveTowards(thisRigidbody.velocity.x, 0, LowerbodyScript.state == PhysicsState.onGround ? slowdown : midairSlowdown), thisRigidbody.velocity.y);
 
         thisRigidbody.velocity = new Vector2(Mathf.Clamp(thisRigidbody.velocity.x, -maxSpeed, maxSpeed), thisRigidbody.velocity.y);
         
@@ -204,4 +222,19 @@ public class PlayerMovement : MonoBehaviour
             thisRigidbody.gravityScale = downwardsGravity;
     }
 
+    public void Subscribe()
+    {
+        EventHub.Instance.Subscribe<onCutsceneToggle>(this);
+    }
+
+    public void Unsubscribe()
+    {
+        EventHub.Instance.Unsubscribe<onCutsceneToggle>(this);
+    }
+
+    public void HandleEvent(onCutsceneToggle evt)
+    {
+        EventHub.Instance.PostEvent(new onCameraToggle() { On = false });
+        cutscene = evt.On;
+    }
 }

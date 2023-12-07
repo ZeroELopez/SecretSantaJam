@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
-using UnityEngine.Events;
+using UnityEngine.Animations;
 
 public class RubberBanding : MonoBehaviour
 {
@@ -15,14 +15,13 @@ public class RubberBanding : MonoBehaviour
     {
         if (!thisAnimator)
         thisAnimator = GetComponent<FollowPath>();
-
+        player = GameObject.FindObjectOfType<PlayerMovement>().transform;
         fieldInfo = thisAnimator.GetType().GetField("speed");
     }
 
     Vector2 playerPos;
     Vector2 creaturePos;
 
-    [SerializeField] float distance;
     [SerializeField] float minDistance;
     [SerializeField] float maxDistance;
 
@@ -31,10 +30,12 @@ public class RubberBanding : MonoBehaviour
     [Min(0)]
     [SerializeField] float minSpeed;
 
+    private float distance;
     float speed;
     float direction = 1;
     public void SetDirection(int newDir) => direction = newDir;
 
+    [SerializeField] AnimationCurve curve;
 
     void Update()
     {
@@ -47,6 +48,6 @@ public class RubberBanding : MonoBehaviour
         speed = Mathf.Clamp(speed, 0, 1);
         speed = 1 - speed;
 
-        fieldInfo.SetValue(thisAnimator, Mathf.Lerp(minSpeed, maxSpeed, speed) * direction);
+        fieldInfo.SetValue(thisAnimator, Mathf.Lerp(minSpeed, maxSpeed, curve.Evaluate(speed)) * direction);
     }
 }

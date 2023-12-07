@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PhysicsState
+{
+    isFalling, onGround, onWall
+}
+
 [RequireComponent(typeof(BoxCollider2D))]
 public class LowerbodyScript : MonoBehaviour
 {
     BoxCollider2D[] thisCollider2D;
 
-    public static bool onGround;
+    public static PhysicsState state;
+
     public static int dir;
 
     public static float width;
@@ -36,7 +42,7 @@ public class LowerbodyScript : MonoBehaviour
         filter.useTriggers = false;
 
         //Reset on ground every frame. Player is not on ground until proven so
-        onGround = false;
+        state = PhysicsState.isFalling;
 
         foreach (BoxCollider2D c in thisCollider2D)
         {
@@ -55,15 +61,16 @@ public class LowerbodyScript : MonoBehaviour
             foreach (BoxCollider2D t in allCollisions)
                 if (t != null && !t.gameObject.GetComponent<PlayerMovement>())
                 {
-                    dir = c.size.x >= 1 ? t.ClosestPoint(transform.position).x > transform.position.x ? 1 : -1 : 0;
+                    dir = c.size.x >= 1 ? t.ClosestPoint(transform.position).x > transform.position.x ? 1 : -1 : 0;                    
                     ignore = false;
                 }
 
             if (ignore)
                 continue;
-            
+
             //Player is touching an object. The naming is misleading. As this will be true even if just touching a wall
-            onGround = true;
+            //Knew that the name was misleading. Adding onWall variable now
+            state = dir == 0? PhysicsState.onGround : PhysicsState.onWall;
 
             return;
         }

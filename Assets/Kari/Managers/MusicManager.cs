@@ -80,14 +80,11 @@ public class MusicManager : Singleton<MusicManager>
 
         if (audioSources[1].volume > audioSources[0].volume)
         {
-            Debug.Log("Set A");
             oldSource = audioSources[1];
             newSource = audioSources[0];
         }
         else
         {
-            Debug.Log("Set B");
-
             oldSource = audioSources[0];
             newSource = audioSources[1];
         }
