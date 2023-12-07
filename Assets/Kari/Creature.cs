@@ -6,6 +6,7 @@ public class Creature : MonoBehaviour
 {
     public static Creature focusCreature;
     public bool FocusCreature;
+    public bool creatureCaptured;
 
     public int poorScore;
     public int goodScore;

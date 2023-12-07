@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4051911080917039423}
   - component: {fileID: 4698490357141543538}
   m_Layer: 0
-  m_Name: Creature
+  m_Name: FocusCreature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

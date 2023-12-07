@@ -155,6 +155,9 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
         foreach (Creature c in creatures)
             if (WithinCameraShot(Camera.main.WorldToViewportPoint(c.transform.position)))
             {
+                if (c.creatureCaptured)
+                    continue;
+
                 float distance = Vector2.Distance(pos2.position, c.transform.position);
                 if (distance > 3.2f)
                 {
@@ -168,9 +171,13 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
                 {
                     points += c.greatScore;
                 }
-                GameManager.ChangeState(GameState.Escape);
                 EventHub.Instance.PostEvent(new onCreatureCaptured() { points = points });
+
+                if (c.FocusCreature)
+                    EventHub.Instance.PostEvent(new onSpecialCreatureCaptured() {});
+
                 onCreatureCaptured?.Invoke();
+                c.creatureCaptured = true;
                 //scoreTracker.AddPoints(points);
             }
     }

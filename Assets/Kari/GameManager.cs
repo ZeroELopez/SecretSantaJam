@@ -12,7 +12,7 @@ public enum GameState
     Investigation, Chase, Escape, Count
 }
 
-public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISubscribable<onGameLost>, ISubscribable<onCreatureCaptured>
+public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISubscribable<onGameLost>, ISubscribable<onSpecialCreatureCaptured>
 {
     BoxCollider2D homeBase;
     public void SetHome(BoxCollider2D newHome) => homeBase = newHome;
@@ -46,19 +46,29 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
     {
         EventHub.Instance.Subscribe<onGameLost>(this);
         EventHub.Instance.Subscribe<onGameWon>(this);
-        EventHub.Instance.Subscribe<onCreatureCaptured>(this);
+        EventHub.Instance.Subscribe<onSpecialCreatureCaptured>(this);
     }
 
     public void Unsubscribe()
     {
         EventHub.Instance.Unsubscribe<onGameLost>(this);
         EventHub.Instance.Unsubscribe<onGameWon>(this);
-        EventHub.Instance.Unsubscribe<onCreatureCaptured>(this);
+        EventHub.Instance.Unsubscribe<onSpecialCreatureCaptured>(this);
     }
 
     // Update is called once per frame
     void Update()
     {
+        ////////////////////////////////////////////////////////////////////////////
+        //End Game Timer
+        ////////////////////////////////////////////////////////////////////////////
+
+        t -= Time.deltaTime;
+        textObj.text = state.ToString() + " : " + t.ToString();
+
+        if (t <= 0)
+            EventHub.Instance.PostEvent(new onGameLost());
+
         ////////////////////////////////////////////////////////////////////////////
         //Check State for Investation and Chase
         ///////////////////////////////////////////////////////////////////////////
@@ -95,18 +105,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
                 EventHub.Instance.PostEvent(new onGameWon());
             }
 
-        ////////////////////////////////////////////////////////////////////////////
-        //End Game Timer
-        ////////////////////////////////////////////////////////////////////////////
 
-        t -= Time.deltaTime;
-        textObj.text = "Escape : " + t.ToString();
-
-        if (t > 0)
-            return;
-
-        Debug.Log("GameLost");
-        EventHub.Instance.PostEvent(new onGameLost());
     }
 
     public static void ChangeState(GameState newState)
@@ -151,7 +150,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
         t = timer;
     }
 
-    public void HandleEvent(onCreatureCaptured evt)
+    public void HandleEvent(onSpecialCreatureCaptured evt)
     {
         ChangeState(GameState.Escape);
     }

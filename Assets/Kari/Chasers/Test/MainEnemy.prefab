@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5108475578402154162}
   - component: {fileID: 5892891721330034229}
   m_Layer: 0
-  m_Name: Stampede
+  m_Name: MainEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
