@@ -65,6 +65,9 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     private bool jumpButtonDown;
     private float moveDir;
     private bool climbing;
+    public Vector2 forceModifier;
+    public float maxSpeedModifier;
+    public float wallMaxVelocity;
 
     bool still;//Used when the player needs to stand still for a cutscene or going into camera mode.
     bool cutscene;//Used when the player needs to stand still for a cutscene or going into camera mode.
@@ -98,6 +101,9 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
         Subscribe();
 
         force = Vector2.zero;
+        forceModifier = Vector2.one;
+        maxSpeedModifier = 1;
+        wallMaxVelocity = 0;
     }
 
     private void OnDestroy()
@@ -173,7 +179,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
             if (LowerbodyScript.dir != 0)
             {
                 wJTime = 0;
-                thisRigidbody.velocity = Vector2.zero;
+                thisRigidbody.velocity = new Vector2(0, Mathf.Clamp(thisRigidbody.velocity.y, -wallMaxVelocity, 0));
             }
         }
 
@@ -182,7 +188,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
         {
             force.y += climbing ? wallClimbForce : 0;
 
-            thisRigidbody.velocity = Vector2.zero;
+            thisRigidbody.velocity = new Vector2(0, Mathf.Clamp(thisRigidbody.velocity.y, -wallMaxVelocity, 0));
         }
 
         //Set the Horizontal Force Vector to the direction vector set on move
@@ -192,12 +198,15 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
         _dashing = dTime < dashTiming ? dashButtonDown : false;
 
         movementSpeed = _dashing ? dashSpeed: walkSpeed;
-        maxSpeed = _dashing || (maxSpeed == maxDashSpeed && LowerbodyScript.state == PhysicsState.isFalling) ? maxDashSpeed: maxWalkSpeed;
+        maxSpeed = (_dashing || (maxSpeed == maxDashSpeed && LowerbodyScript.state == PhysicsState.isFalling) ? maxDashSpeed: maxWalkSpeed) * maxSpeedModifier;
 
         //Calculate Horizontal force (used in velocity calculations)
         force.x *= movementSpeed;
         force.x += jHTime < jumpKeepHorizontalMomentum ? jHFoce * Mathf.InverseLerp(0, jumpKeepHorizontalMomentum, jHTime) : 0;
         force.x += wJTime < wallJumpMomentumTime ? wallJumpMomentum : 0;
+
+        //Adjust force based on hazards
+        force = force * forceModifier;
 
         //Set the Velocity
         thisRigidbody.velocity += (force);
