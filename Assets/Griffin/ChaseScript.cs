@@ -72,7 +72,7 @@ public class ChaseScript : MonoBehaviour
         }
         else
         {
-            adjustedSpeed += (-direction.y * gravityAcceleration);
+            adjustedSpeed += (-direction.y * gravityAcceleration * Time.deltaTime);
         }
         transform.Translate(direction * Time.deltaTime * adjustedSpeed);
     }
