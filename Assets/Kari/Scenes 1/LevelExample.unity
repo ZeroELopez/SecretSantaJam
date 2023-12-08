@@ -12078,6 +12078,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 310014879}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &752333914 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2202709772276746515, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
+  m_PrefabInstance: {fileID: 3200237772327024800}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &754114156
 GameObject:
   m_ObjectHideFlags: 0
@@ -37492,10 +37497,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EventHub MUST HAVE
       objectReference: {fileID: 0}
-    - target: {fileID: 4200157226361513148, guid: 97eff6f1076e0b6418f3812e9c3969d6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8655800852248494236, guid: 97eff6f1076e0b6418f3812e9c3969d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 110.15185
@@ -37536,6 +37537,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8973422969471967248, guid: 97eff6f1076e0b6418f3812e9c3969d6, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 752333914}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

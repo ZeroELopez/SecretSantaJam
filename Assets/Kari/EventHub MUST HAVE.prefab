@@ -851,10 +851,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4414034971097432910}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.8, y: 0.8}
+  m_AnchorMax: {x: 0.9, y: 0.9}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6641216967261027352
 CanvasRenderer:
@@ -904,6 +904,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
+  image: {fileID: 5100166867265381933}
+  resWidth: 600
+  resHeight: 600
 --- !u!1 &7760674991853194836
 GameObject:
   m_ObjectHideFlags: 0
