@@ -290,18 +290,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterAnimator
       objectReference: {fileID: 0}
-    - target: {fileID: 5626977729652059691, guid: 51ea08b2822ea2543aa8bac252fb5b71, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7213778928570061775, guid: 51ea08b2822ea2543aa8bac252fb5b71, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7213778928570061775, guid: 51ea08b2822ea2543aa8bac252fb5b71, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 7213778928570061775, guid: 51ea08b2822ea2543aa8bac252fb5b71, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -342,10 +330,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7759682815477601664, guid: 51ea08b2822ea2543aa8bac252fb5b71, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 8949fca0dfb2d614091f6aa82c1911ce, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

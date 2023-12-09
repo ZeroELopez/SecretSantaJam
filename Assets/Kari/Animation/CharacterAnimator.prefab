@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9063756713625667944}
   - component: {fileID: 1941098070241345122}
   - component: {fileID: 5591395319075995816}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CharacterAnimator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8949fca0dfb2d614091f6aa82c1911ce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,6 +100,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  onCamera: 0
+  runningThreshold: 10
+  dashingThreshold: 21
+  diagnolThreshold: 10
+  longJumpThreshold: 21
+  risingThreshold: 5
+  fallingThreshold: -5
 --- !u!95 &1941098070241345122
 Animator:
   serializedVersion: 5
