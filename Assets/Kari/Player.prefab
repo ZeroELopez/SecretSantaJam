@@ -202,6 +202,9 @@ MonoBehaviour:
   wallJumpVerticalForce: 20
   wallJumpMomentumTime: 0.08
   wallClimbForce: 10
+  forceModifier: {x: 0, y: 0}
+  maxSpeedModifier: 0
+  wallMaxVelocity: 0
   jumpButtonHoldDownTiming: 0.1
 --- !u!50 &6835640760189622849
 Rigidbody2D:
@@ -262,7 +265,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.9}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -273,7 +276,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 3}
   m_EdgeRadius: 0
 --- !u!1001 &5436652900940218282
 PrefabInstance:
@@ -292,12 +295,20 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7213778928570061775, guid: 51ea08b2822ea2543aa8bac252fb5b71, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213778928570061775, guid: 51ea08b2822ea2543aa8bac252fb5b71, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213778928570061775, guid: 51ea08b2822ea2543aa8bac252fb5b71, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7213778928570061775, guid: 51ea08b2822ea2543aa8bac252fb5b71, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.58
       objectReference: {fileID: 0}
     - target: {fileID: 7213778928570061775, guid: 51ea08b2822ea2543aa8bac252fb5b71, type: 3}
       propertyPath: m_LocalPosition.z
@@ -331,6 +342,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7759682815477601664, guid: 51ea08b2822ea2543aa8bac252fb5b71, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8949fca0dfb2d614091f6aa82c1911ce, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
