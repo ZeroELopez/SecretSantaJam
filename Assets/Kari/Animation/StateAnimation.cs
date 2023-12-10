@@ -1,27 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.Base.Events;
 
 namespace Kari.Animations
 {
     public enum States
     {
-        Standing, Hitstun, Dead
+        ONGROUND,
+        Standing,
+        Running,
+        Dashing,
+
+        MIDAIR,
+        VerticalJump_Falling, VerticalJump_Neutral, VerticalJump_Rising,
+        DiagnolJump_Falling, DiagnolJump_Neutral, DiagnolJump_Rising,
+        LongJump_Falling, LongJump_Neutral, LongJump_Rising,
+
+
+        ONWALL,
+        WallCling,
+        WallClimb,
+
+        CAMERA,
+        onCamera_Standing,
+        onCamera_Moving,
+        onCamera_InAir,
+        onCamera_onWall
     }
 
-    public class StateAnimation : MonoBehaviour
+    public class StateAnimation : MonoBehaviour, ISubscribable<onCameraToggle>
     {
         [SerializeField] States currentState = States.Standing;
         Animator thisAnimator;
 
+        Rigidbody2D thisRigidbody => GetComponentInParent<Rigidbody2D>();
+        Vector3 velocity => thisRigidbody.velocity;
+
+        bool onGround => LowerbodyScript.state == PhysicsState.onGround;
+
+        bool onWall => LowerbodyScript.state == PhysicsState.onWall;
+
+        public bool onCamera;
+
         private void Start()
         {
             thisAnimator = GetComponent<Animator>();
+            Subscribe();
+        }
+
+        private void OnDestroy()
+        {
+            Unsubscribe();
         }
         // Update is called once per frame
         void Update()
         {
             States newState = FindState();
+
+
+            currentState = FindState();
 
             //FOR TIME SENSITIVE ATTACKS!!!
 
@@ -38,9 +76,27 @@ namespace Kari.Animations
 
         }
 
+        [SerializeField] float runningThreshold;
+        [SerializeField] float dashingThreshold;
+
         States FindState()
         {
-            return States.Standing;
+            if (onCamera)
+                return CameraState();
+
+            if (onWall)
+                return WallStates();
+
+            if (!onGround)
+                return MidAirState();
+
+            States state = States.Standing;
+
+            state += Mathf.Abs(velocity.x) >= runningThreshold ? 1 : 0;
+            state += Mathf.Abs(velocity.x) >= dashingThreshold ? 1 : 0;
+
+
+            return state;
         }
 
         void StartAttack()
@@ -48,14 +104,71 @@ namespace Kari.Animations
             currentState = States.Standing;
         }
 
+        States WallStates()
+        {
+            if (velocity.y > 0)
+                return States.WallClimb;
 
-        public void Hitstun() => currentState = States.Hitstun;
+            return States.WallCling;
+        }
 
-        public void Death() => currentState = States.Dead;
+        [SerializeField] float diagnolThreshold;
+        [SerializeField] float longJumpThreshold;
+
+        [SerializeField] float risingThreshold;
+        [SerializeField] float fallingThreshold;
+
+        
+        States MidAirState()
+        {
+            int state = (int)States.MIDAIR + 2;
+
+            state += Mathf.Abs(velocity.x) >= diagnolThreshold ? 3 : 0;
+            state += Mathf.Abs(velocity.x) >= longJumpThreshold ? 3 : 0;
+
+            state += velocity.y >= risingThreshold ? 1 : 0;
+            state += velocity.y <= fallingThreshold ? -1 : 0;
+
+            return (States)state;
+        }
+
+        States CameraState()
+        {
+            if (onWall)
+                return States.onCamera_onWall;
+
+            if (!onGround)
+                return States.onCamera_InAir;
+
+            if (Mathf.Abs(velocity.x) > 0)
+                return States.onCamera_Moving;
+
+            return States.onCamera_Standing;
+        }
+
+
+        //public void Hitstun() => currentState = States.Hitstun;
+
+        //public void Death() => currentState = States.Dead;
 
         public void Neutral()
         {
             currentState = States.Standing;
+        }
+
+        public void Subscribe()
+        {
+            EventHub.Instance.Subscribe<onCameraToggle>(this);
+        }
+
+        public void Unsubscribe()
+        {
+            EventHub.Instance.Subscribe<onCameraToggle>(this);
+        }
+
+        public void HandleEvent(onCameraToggle evt)
+        {
+            onCamera = evt.On;
         }
     }
 }

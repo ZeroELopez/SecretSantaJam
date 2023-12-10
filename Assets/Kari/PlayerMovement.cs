@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     float jHFoce = 0;
     float jHTime = 0;
 
-    float wJTime = 0;
+    float wJTime = float.MaxValue;
 
     float dTime = 0;
 
@@ -66,7 +66,8 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     private float moveDir;
     private bool climbing;
     public Vector2 forceModifier;
-    public float maxSpeedModifier;
+    public float setMaxSpeedMod;
+    float maxSpeedModifier;
     public float wallMaxVelocity;
 
     bool still;//Used when the player needs to stand still for a cutscene or going into camera mode.
@@ -103,6 +104,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
         force = Vector2.zero;
         forceModifier = Vector2.one;
         maxSpeedModifier = 1;
+        setMaxSpeedMod = 1;
         wallMaxVelocity = 0;
     }
 
@@ -114,7 +116,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     private void OnMove(InputAction.CallbackContext context)
     {
         moveDir = context.ReadValue<Vector2>().x;
-        climbing = (context.started || context.performed) && context.ReadValue<Vector2>().y > 0;
+        climbing = (context.started || context.performed) && context.ReadValue<Vector2>().y > 0;            
     }
 
     [SerializeField] float jumpButtonHoldDownTiming;
@@ -138,7 +140,9 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
 
     // Update is called once per frame
     void FixedUpdate()
-    {
+    {        
+        maxSpeedModifier = Mathf.MoveTowards(maxSpeedModifier, setMaxSpeedMod, .05f);
+
         //Fix the issue when in Camera mode, the player keeps moving
         if (still || cutscene)
         {
@@ -168,6 +172,9 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
         //Keep Horizontal Momentum for Jump
         jHTime = jHTime < jumpKeepHorizontalMomentum ? jHTime + Time.deltaTime : jHTime;
 
+        //Set the Horizontal Force Vector to the direction vector set on move
+        force.x = moveDir;
+
         //Handle Jumping
         if (LowerbodyScript.state != PhysicsState.isFalling && jumpButtonDown)
         {
@@ -186,19 +193,20 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
         //Climbing
         if (LowerbodyScript.state == PhysicsState.onWall && LowerbodyScript.dir != 0)
         {
+            if (wJTime >= wallJumpMomentumTime)
+                force.x = 0;
+
             force.y += climbing ? wallClimbForce : 0;
 
             thisRigidbody.velocity = new Vector2(0, Mathf.Clamp(thisRigidbody.velocity.y, -wallMaxVelocity, 0));
         }
 
-        //Set the Horizontal Force Vector to the direction vector set on move
-        force.x = moveDir;
-
         //Dashing and walk Speed
         _dashing = dTime < dashTiming ? dashButtonDown : false;
 
         movementSpeed = _dashing ? dashSpeed: walkSpeed;
-        maxSpeed = (_dashing || (maxSpeed == maxDashSpeed && LowerbodyScript.state == PhysicsState.isFalling) ? maxDashSpeed: maxWalkSpeed) * maxSpeedModifier;
+
+        maxSpeed = (_dashing || (maxSpeed >= maxDashSpeed && LowerbodyScript.state == PhysicsState.isFalling) ? maxDashSpeed: maxWalkSpeed) * maxSpeedModifier;
 
         //Calculate Horizontal force (used in velocity calculations)
         force.x *= movementSpeed;
