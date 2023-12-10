@@ -66,7 +66,8 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     private float moveDir;
     private bool climbing;
     public Vector2 forceModifier;
-    public float maxSpeedModifier;
+    public float setMaxSpeedMod;
+    float maxSpeedModifier;
     public float wallMaxVelocity;
 
     bool still;//Used when the player needs to stand still for a cutscene or going into camera mode.
@@ -103,6 +104,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
         force = Vector2.zero;
         forceModifier = Vector2.one;
         maxSpeedModifier = 1;
+        setMaxSpeedMod = 1;
         wallMaxVelocity = 0;
     }
 
@@ -138,7 +140,9 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
 
     // Update is called once per frame
     void FixedUpdate()
-    {
+    {        
+        maxSpeedModifier = Mathf.MoveTowards(maxSpeedModifier, setMaxSpeedMod, .05f);
+
         //Fix the issue when in Camera mode, the player keeps moving
         if (still || cutscene)
         {
@@ -201,7 +205,8 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
         _dashing = dTime < dashTiming ? dashButtonDown : false;
 
         movementSpeed = _dashing ? dashSpeed: walkSpeed;
-        maxSpeed = (_dashing || (maxSpeed == maxDashSpeed && LowerbodyScript.state == PhysicsState.isFalling) ? maxDashSpeed: maxWalkSpeed) * maxSpeedModifier;
+
+        maxSpeed = (_dashing || (maxSpeed >= maxDashSpeed && LowerbodyScript.state == PhysicsState.isFalling) ? maxDashSpeed: maxWalkSpeed) * maxSpeedModifier;
 
         //Calculate Horizontal force (used in velocity calculations)
         force.x *= movementSpeed;

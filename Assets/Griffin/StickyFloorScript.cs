@@ -27,7 +27,7 @@ public class StickyFloorScript : MonoBehaviour
         if (player) 
         {
             player.forceModifier = new Vector2(1, jumpModifier);
-            player.maxSpeedModifier = maxSpeedModifier;
+            player.setMaxSpeedMod = maxSpeedModifier;
         }
     }
 
@@ -37,7 +37,7 @@ public class StickyFloorScript : MonoBehaviour
         if (player)
         {
             player.forceModifier = Vector2.one;
-            player.maxSpeedModifier = 1;
+            player.setMaxSpeedMod = 1;
         }
     }
 }
