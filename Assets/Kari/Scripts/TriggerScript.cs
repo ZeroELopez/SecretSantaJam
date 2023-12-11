@@ -1,22 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TriggerScript : MonoBehaviour
 {
     BoxCollider2D[] thisCollider2D = new BoxCollider2D[0];
     //[SerializeField] string obj;
 
+    public UnityEvent onStillEvents;
+    public UnityEvent onEnterEvents;
+    public UnityEvent onExitEvents;
+
     // Start is called before the first frame update
-    [SerializeField]PlayerMovement obj;
+    public PlayerMovement obj { get; private set; }
     void Awake()
     {
         thisCollider2D = GetComponents<BoxCollider2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        if (thisCollider2D.Length == 0)
+            return;
         Collider2D[] allCollisions = new Collider2D[10];
 
         ContactFilter2D filter = new ContactFilter2D();
@@ -33,7 +40,7 @@ public class TriggerScript : MonoBehaviour
             Debug.Log("OnStill");
 
             onStill(com);
-
+            onStillEvents?.Invoke();
             if (obj != null)
                 return;
 
@@ -41,7 +48,7 @@ public class TriggerScript : MonoBehaviour
 
             obj = (PlayerMovement)com;
             onEnter(obj);
-
+            onEnterEvents?.Invoke();
             return;
         }
 
@@ -50,6 +57,8 @@ public class TriggerScript : MonoBehaviour
 
         Debug.Log("OnExit");
         onExit(obj);
+        onExitEvents?.Invoke();
+
         obj = null;
             
     }

@@ -40,8 +40,8 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     [Tooltip("READ ONLY! For reference of how long player has been dashing and the cool down")]
     [SerializeField] float showDashTime;
 
-    [Tooltip("The size of the collider that judges if the character is grounded or against a wall. 1 is the normal size of the player")]
-    [SerializeField] Vector2 lowerBodySize = new Vector2(1.2f,0);
+    //[Tooltip("The size of the collider that judges if the character is grounded or against a wall. 1 is the normal size of the player")]
+    //[SerializeField] Vector2 lowerBodySize = new Vector2(1.2f,0);
 
     [Header("Wall Interactions")]
     [Tooltip("The strength of the wall jump")]
@@ -80,9 +80,15 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     float maxSpeed;
     float wallJumpMomentum;
 
+    public Vector2 addForce;
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
+        //lastPos = transform.position;
+
         thisRigidbody = GetComponent<Rigidbody2D>();
         playerControls = new Controls();
         playerControls.Enable();
@@ -155,7 +161,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
         //Reset the Force every frame.
         force = Vector2.zero;
 
-        LowerbodyScript.width = lowerBodySize.x;LowerbodyScript.height = lowerBodySize.y;
+        //LowerbodyScript.width = lowerBodySize.x;LowerbodyScript.height = lowerBodySize.y;
         showDashTime = dTime;
 
         if (dTime < dashTiming && _dashing)
@@ -198,7 +204,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
 
             force.y += climbing ? wallClimbForce : 0;
 
-            thisRigidbody.velocity = new Vector2(0, Mathf.Clamp(thisRigidbody.velocity.y, -wallMaxVelocity, 0));
+            thisRigidbody.velocity = new Vector2(thisRigidbody.velocity.x, Mathf.Clamp(thisRigidbody.velocity.y, -wallMaxVelocity, 0));
         }
 
         //Dashing and walk Speed
@@ -224,10 +230,15 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
 
         thisRigidbody.velocity = new Vector2(Mathf.Clamp(thisRigidbody.velocity.x, -maxSpeed, maxSpeed), thisRigidbody.velocity.y);
         
+        thisRigidbody.velocity += addForce;
+        addForce = Vector2.zero;
+
         if (thisRigidbody.velocity.y > 0)
             thisRigidbody.gravityScale = upwardsGravity;
         else
             thisRigidbody.gravityScale = downwardsGravity;
+
+
     }
 
     public void Subscribe()

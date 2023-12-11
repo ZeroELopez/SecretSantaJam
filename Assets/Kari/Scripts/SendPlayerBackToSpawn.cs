@@ -34,7 +34,6 @@ public class SendPlayerBackToSpawn : MonoBehaviour, ISubscribable<onEscapeMode>
     // Update is called once per frame
     void Update()
     {
-
         Collider2D[] allCollisions = new Collider2D[10];
 
         ContactFilter2D filter = new ContactFilter2D();
@@ -47,7 +46,10 @@ public class SendPlayerBackToSpawn : MonoBehaviour, ISubscribable<onEscapeMode>
                 return;
 
             if (c.gameObject.GetComponent<PlayerMovement>())
+            {
                 c.gameObject.transform.position = spawn;
+                c.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            }
         }
 
     }

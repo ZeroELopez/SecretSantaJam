@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        deathBar = GameObject.FindObjectOfType<SendPlayerBackToSpawn>();
+        deathBar = GetComponent<SendPlayerBackToSpawn>();
     }
 
     // Update is called once per frame
