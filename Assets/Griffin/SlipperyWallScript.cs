@@ -6,6 +6,8 @@ public class SlipperyWallScript : MonoBehaviour
 {
     [Tooltip("how fast the player will slip down this wall")]
     [SerializeField] float wallMaxVelocity;
+    [Tooltip("jump force will be multiplied by this when player climbs on this wall")]
+    [SerializeField] float jumpModifier;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,7 @@ public class SlipperyWallScript : MonoBehaviour
         PlayerMovement player = collision.gameObject.GetComponent<PlayerMovement>();
         if (player)
         {
+            player.forceModifier = new Vector2(1, jumpModifier);
             player.wallMaxVelocity = wallMaxVelocity;
         }
     }
@@ -33,6 +36,7 @@ public class SlipperyWallScript : MonoBehaviour
         PlayerMovement player = collision.gameObject.GetComponent<PlayerMovement>();
         if (player)
         {
+            player.forceModifier = Vector2.one;
             player.wallMaxVelocity = 0;
         }
     }

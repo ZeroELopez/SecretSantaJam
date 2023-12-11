@@ -196,7 +196,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
             if (wJTime >= wallJumpMomentumTime)
                 force.x = 0;
 
-            force.y += climbing ? wallClimbForce : 0;
+            //force.y += climbing ? wallClimbForce : 0;
 
             thisRigidbody.velocity = new Vector2(0, Mathf.Clamp(thisRigidbody.velocity.y, -wallMaxVelocity, 0));
         }
