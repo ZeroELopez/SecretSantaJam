@@ -16,7 +16,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
 {
     BoxCollider2D homeBase;
     public void SetHome(BoxCollider2D newHome) => homeBase = newHome;
-
+    [SerializeField] bool TimerOn = true;
     [SerializeField] float timer;
     float t;
 
@@ -63,7 +63,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
         //End Game Timer
         ////////////////////////////////////////////////////////////////////////////
 
-        t -= Time.deltaTime;
+        t -= TimerOn? Time.deltaTime: 0;
         textObj.text = state.ToString() + " : " + t.ToString();
 
         if (t <= 0)

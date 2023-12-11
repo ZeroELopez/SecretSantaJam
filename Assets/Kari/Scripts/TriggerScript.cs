@@ -8,7 +8,8 @@ public class TriggerScript : MonoBehaviour
     //[SerializeField] string obj;
 
     // Start is called before the first frame update
-    void Start()
+    [SerializeField]PlayerMovement obj;
+    void Awake()
     {
         thisCollider2D = GetComponents<BoxCollider2D>();
     }
@@ -25,12 +26,32 @@ public class TriggerScript : MonoBehaviour
         foreach (BoxCollider2D c in allCollisions)
         {
             if (c == null)
+                continue;
+
+            if (!c.gameObject.TryGetComponent(typeof(PlayerMovement), out Component com))
+                continue;
+            Debug.Log("OnStill");
+
+            onStill(com);
+
+            if (obj != null)
                 return;
 
+            Debug.Log("OnEnter");
 
-            if (c.gameObject.TryGetComponent(typeof(PlayerMovement), out Component com))
-                onStill(com);
+            obj = (PlayerMovement)com;
+            onEnter(obj);
+
+            return;
         }
+
+        if (obj == null)
+            return;
+
+        Debug.Log("OnExit");
+        onExit(obj);
+        obj = null;
+            
     }
 
     public virtual void onEnter(Component script) { }
