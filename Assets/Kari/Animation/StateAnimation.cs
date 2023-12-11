@@ -31,10 +31,12 @@ namespace Kari.Animations
 
     public class StateAnimation : MonoBehaviour, ISubscribable<onCameraToggle>
     {
+        [SerializeField] PlayerMovement player;
+
         [SerializeField] States currentState = States.Standing;
         Animator thisAnimator;
 
-        Rigidbody2D thisRigidbody => GetComponentInParent<Rigidbody2D>();
+        Rigidbody2D thisRigidbody => player.GetComponent<Rigidbody2D>();
         Vector3 velocity => thisRigidbody.velocity;
 
         bool onGround => LowerbodyScript.state == PhysicsState.onGround;
