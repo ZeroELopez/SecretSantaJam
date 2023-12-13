@@ -10,14 +10,16 @@ public enum PhysicsState
 [RequireComponent(typeof(BoxCollider2D))]
 public class LowerbodyScript : MonoBehaviour
 {
+    [SerializeField] PlayerMovement player;
+
     BoxCollider2D[] thisCollider2D;
 
     public static PhysicsState state;
 
     public static int dir;
 
-    public static float width;
-    public static float height;
+    //public static float width;
+    //public static float height;
     // Start is called before the first frame update
     void Awake()
     {
@@ -48,8 +50,8 @@ public class LowerbodyScript : MonoBehaviour
         {
             //Okay so I wanted the size of the colliders to be a variable playtesters and designers could edit.
             //width and height are connected to the PlayerMovement.lowerBodySize. 
-            c.size = new Vector2(c.size.x > c.size.y ? width : c.size.x,
-                c.size.y > c.size.x ? height : c.size.y);
+            //c.size = new Vector2(c.size.x > c.size.y ? width : c.size.x,
+            //    c.size.y > c.size.x ? height : c.size.y);
 
             //Get all overlaping colliders
             if (c.OverlapCollider(filter, allCollisions) == 0)
@@ -61,7 +63,9 @@ public class LowerbodyScript : MonoBehaviour
             foreach (BoxCollider2D t in allCollisions)
                 if (t != null && !t.gameObject.GetComponent<PlayerMovement>())
                 {
-                    dir = c.size.x >= 1 ? t.ClosestPoint(transform.position).x > transform.position.x ? 1 : -1 : 0;                    
+                    dir = c.size.x >= 1 ? t.ClosestPoint(transform.position).x > transform.position.x ? 1 : -1 : 0;
+                    if (dir == 0)
+                        player.transform.parent = t.transform;
                     ignore = false;
                 }
 
@@ -75,5 +79,7 @@ public class LowerbodyScript : MonoBehaviour
             return;
         }
 
+        if (state == PhysicsState.isFalling)
+            player.transform.parent = null;
     }
 }
