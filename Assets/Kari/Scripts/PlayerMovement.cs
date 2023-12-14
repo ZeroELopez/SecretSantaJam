@@ -63,7 +63,8 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
 
     private bool dashButtonDown;
     private bool jumpButtonDown;
-    private float moveDir;
+    public float moveDirection { get; private set; }
+  
     private bool climbing;
     public Vector2 forceModifier;
     public float setMaxSpeedMod;
@@ -80,6 +81,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     float maxSpeed;
     float wallJumpMomentum;
 
+    //Force other scripts can manipulate to move player;
     public Vector2 addForce;
 
     
@@ -121,7 +123,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
 
     private void OnMove(InputAction.CallbackContext context)
     {
-        moveDir = context.ReadValue<Vector2>().x;
+        moveDirection = context.ReadValue<Vector2>().x;
         climbing = (context.started || context.performed) && context.ReadValue<Vector2>().y > 0;            
     }
 
@@ -153,7 +155,10 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
         if (still || cutscene)
         {
             if (LowerbodyScript.state == PhysicsState.onGround)
-                thisRigidbody.velocity = new Vector2(Mathf.MoveTowards(thisRigidbody.velocity.x, 0, slowdown), thisRigidbody.velocity.y);
+            {
+                thisRigidbody.velocity = new Vector2(Mathf.MoveTowards(thisRigidbody.velocity.x, 0, slowdown), thisRigidbody.velocity.y) + addForce;
+                addForce = Vector2.zero;
+            }
 
             return;
         }
@@ -179,17 +184,17 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
         jHTime = jHTime < jumpKeepHorizontalMomentum ? jHTime + Time.deltaTime : jHTime;
 
         //Set the Horizontal Force Vector to the direction vector set on move
-        force.x = moveDir;
+        force.x = moveDirection;
 
         //Handle Jumping
         if (LowerbodyScript.state != PhysicsState.isFalling && jumpButtonDown)
         {
             jHTime = 0;
             jHFoce = thisRigidbody.velocity.x;
-            wallJumpMomentum = -LowerbodyScript.dir * wallJumpHorizontalForce;
-            force.y += LowerbodyScript.dir == 0? jumpStrength : wallJumpVerticalForce;
+            wallJumpMomentum = -LowerbodyScript.wallDirection * wallJumpHorizontalForce;
+            force.y += LowerbodyScript.wallDirection == 0? jumpStrength : wallJumpVerticalForce;
 
-            if (LowerbodyScript.dir != 0)
+            if (LowerbodyScript.wallDirection != 0)
             {
                 wJTime = 0;
                 thisRigidbody.velocity = new Vector2(0, Mathf.Clamp(thisRigidbody.velocity.y, -wallMaxVelocity, 0));
@@ -197,7 +202,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
         }
 
         //Climbing
-        if (LowerbodyScript.state == PhysicsState.onWall && LowerbodyScript.dir != 0)
+        if (LowerbodyScript.state == PhysicsState.onWall && LowerbodyScript.wallDirection != 0)
         {
             if (wJTime >= wallJumpMomentumTime)
                 force.x = 0;

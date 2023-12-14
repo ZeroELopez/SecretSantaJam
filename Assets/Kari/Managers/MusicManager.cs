@@ -10,11 +10,16 @@ public class MusicManager : Singleton<MusicManager>
 
     int onSong = -1;
     [SerializeField] AudioSource[] audioSources;
+    [SerializeField] AudioSource[] layerSources;
+
     AudioSource oldSource, newSource;
     string[] lines;
     [SerializeField] AnimationCurve curve;
     [SerializeField] float length;
     float time;
+
+    [Range(0,1)]
+    [SerializeField]float maxAudio;
     // Start is called before the first frame update
 
     private void Awake()
@@ -54,6 +59,14 @@ public class MusicManager : Singleton<MusicManager>
 
         newSource.clip = SongList[onSong].clip;
         newSource.Play();
+
+        for (int i = 0; i < SongList[onSong].layers.Length && i < layerSources.Length;i++)
+        {
+            layerSources[i].clip = SongList[onSong].layers[i];
+            layerSources[i].Play();
+            layerSources[i].volume = 0;
+        }
+
         time = 0;
     }
 
@@ -69,8 +82,8 @@ public class MusicManager : Singleton<MusicManager>
         if (oldSource == null)
             return;
 
-        oldSource.volume =  1 - curve.Evaluate(time / length);
-        newSource.volume = curve.Evaluate(time / length);
+        oldSource.volume = Mathf.Lerp(0,maxAudio, 1 - curve.Evaluate(time / length));
+        newSource.volume = Mathf.Lerp(0, maxAudio, curve.Evaluate(time / length));
     }
 
     void SwitchSource()
@@ -89,6 +102,15 @@ public class MusicManager : Singleton<MusicManager>
             newSource = audioSources[1];
         }
     }
+
+    void UpdateLayers(float fill)
+    {
+        float layers = SongList[onSong].layers.Length;
+        float amountPerLayer = 1.0f / layers;
+
+        for (int i = 0; i < layerSources.Length; i++)
+            layerSources[i].volume = Mathf.Clamp01(Mathf.InverseLerp(amountPerLayer * i, amountPerLayer * (i+1),fill));
+    }
 }
 
 [System.Serializable]
@@ -96,4 +118,8 @@ public class Track
 {
     public string name;
     public AudioClip clip;
+
+    public AudioClip[] layers;
+
+    
 }

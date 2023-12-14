@@ -11,9 +11,13 @@ public class FollowScript : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] AnimationCurve curve;
 
+    public static FollowScript mainCamera;
     // Start is called before the first frame update
     void Start()
     {
+        if (GetComponentInChildren<Camera>())
+            mainCamera = this;
+
         offset = transform.position - followObj.position;
     }
 

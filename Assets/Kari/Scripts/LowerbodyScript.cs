@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Kari.SoundManagement;
 
 public enum PhysicsState
 {
@@ -16,8 +17,8 @@ public class LowerbodyScript : MonoBehaviour
 
     public static PhysicsState state;
 
-    public static int dir;
-
+    public static int wallDirection;
+    public static string floorType;
     //public static float width;
     //public static float height;
     // Start is called before the first frame update
@@ -63,9 +64,16 @@ public class LowerbodyScript : MonoBehaviour
             foreach (BoxCollider2D t in allCollisions)
                 if (t != null && !t.gameObject.GetComponent<PlayerMovement>())
                 {
-                    dir = c.size.x >= 1 ? t.ClosestPoint(transform.position).x > transform.position.x ? 1 : -1 : 0;
-                    if (dir == 0)
+                    //If the box collider's width is large then it's an upper body and needs to find what direction is the wall.
+                    wallDirection = c.size.x >= 1 ? t.ClosestPoint(transform.position).x > transform.position.x ? 1 : -1 : 0;
+                    //Parent player to platform if it is grounded
+                    if (wallDirection == 0)
+                    {
+                        floorType = t.tag;
+                        if (player.transform.parent == null)
+                            AudioManager.PlaySound("Landon" + floorType,GetComponent<AudioSource>(),"LandonRock");
                         player.transform.parent = t.transform;
+                    }
                     ignore = false;
                 }
 
@@ -74,7 +82,7 @@ public class LowerbodyScript : MonoBehaviour
 
             //Player is touching an object. The naming is misleading. As this will be true even if just touching a wall
             //Knew that the name was misleading. Adding onWall variable now
-            state = dir == 0? PhysicsState.onGround : PhysicsState.onWall;
+            state = wallDirection == 0? PhysicsState.onGround : PhysicsState.onWall;
 
             return;
         }

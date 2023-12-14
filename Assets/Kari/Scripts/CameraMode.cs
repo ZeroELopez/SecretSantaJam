@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using System;
 
 using Assets.Scripts.Base.Events;
+using Kari.SoundManagement;
 
 //so the original script was made by me, Kari, but
 //Griffin edited it so that there is a point system
@@ -112,6 +113,10 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
 
         pos2.localPosition += movement * panSpeed * Time.deltaTime;
 
+        if (movement != Vector3.zero)
+            AudioManager.PlaySound("CameraPan");
+
+
         pos2.localPosition = new Vector3(
                 Mathf.Clamp(pos2.localPosition.x, -borderSize.x, borderSize.x),
                 Mathf.Clamp(pos2.localPosition.y, -borderSize.y, borderSize.y),
@@ -123,6 +128,8 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
     float fps = 0.016666f;
     IEnumerator cameraTransition()
     {
+        AudioManager.PlaySound("CameraZoomIn");
+
         Vector3 origin = transform.position;
         transitionTime = 0;
         float time = 0;
@@ -150,6 +157,7 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
         if (Vector3.Distance(transform.position, pos2.position) > cameraReadyDistance)
             return;
 
+        AudioManager.PlaySound("CameraFlash");
 
         int points = 0;
         foreach (Creature c in creatures)
@@ -178,6 +186,8 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
 
                 onCreatureCaptured?.Invoke();
                 c.creatureCaptured = true;
+                AudioManager.PlaySound("CameraSuccess");
+
                 //scoreTracker.AddPoints(points);
             }
     }

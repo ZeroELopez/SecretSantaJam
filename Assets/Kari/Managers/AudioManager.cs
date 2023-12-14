@@ -8,6 +8,7 @@ namespace Kari.SoundManagement
     public class AudioManager : MonoBehaviour
     {
         [SerializeField] Sound[] sounds;
+        [SerializeField] AudioSource originalSource;
         public static AudioManager instance;
 
         private void Awake()
@@ -22,12 +23,17 @@ namespace Kari.SoundManagement
             }
         }
 
-        public static void PlaySound(string name, AudioSource source)
+        public static void PlaySound(string name, AudioSource source = null, string backup = "")
         {
+            if (source == null)
+                source = instance.originalSource;
+
             foreach (Sound sound in instance.sounds)
             {
                 if (sound.name == name)
                 {
+                    Debug.Log(source);
+                    Debug.Log(sound.clip);
                     source.clip = sound.clip;
 
                     if (sound.clipVariants.Length > 0)
@@ -38,14 +44,19 @@ namespace Kari.SoundManagement
 
                     source.volume = Random.Range(sound.volumeMin, sound.volumeMax);
                     source.pitch = Random.Range(sound.pitchMin, sound.pitchMax);
-                    source.timeSamples = sound.startingPoints[Random.Range(0, sound.startingPoints.Length - 1)];
+                    if (sound.startingPoints.Length >0)
+                        source.timeSamples = sound.startingPoints[Random.Range(0, sound.startingPoints.Length - 1)];
 
                     source.Play();
+                    return;
                 }
             }
+
+            if (backup != "")
+                PlaySound(backup, source);
         }
     }
-
+    [System.Serializable]
     public class Sound
     {
         public string name;
