@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EmuContra : MonoBehaviour, 
+public class EmuContra : MonoBehaviour,
     ISubscribable<onGameWon>,
     ISubscribable<onGameLost>
 {
@@ -32,6 +32,15 @@ public class EmuContra : MonoBehaviour,
     public GameObject StunBullet;
 
     /// <summary>
+    /// Initialize
+    /// </summary>
+    void Start()
+    {
+        playerReference = GameObject.FindFirstObjectByType<PlayerMovement>();
+        Subscribe();
+    }
+
+    /// <summary>
     /// Coroutine to shoot at Player
     /// </summary>
     /// <returns></returns>
@@ -51,7 +60,7 @@ public class EmuContra : MonoBehaviour,
             for (int i = 0; i < bulletsPerSalvo; i++)
             {
                 //Spawn
-                if(StunBullet != null) 
+                if (StunBullet != null)
                 {
                     GameObject bulletInstance = Instantiate(StunBullet);
                     bulletInstance.transform.position = transform.position;
@@ -71,10 +80,8 @@ public class EmuContra : MonoBehaviour,
     public void OnTriggerEnter2D(Collider2D collision)
     {
         //Process if collision is Player
-        playerReference = collision.GetComponent<PlayerMovement>();
-
         //If so, kick start the coroutine.
-        if(playerReference)
+        if (collision.GetComponent<PlayerMovement>() == playerReference)
         {
             playerInRange = true;
             StartCoroutine(ShootAtPlayer());
@@ -102,7 +109,6 @@ public class EmuContra : MonoBehaviour,
         EventHub.Instance.Unsubscribe<onGameWon>(this);
         EventHub.Instance.Unsubscribe<onGameLost>(this);
     }
-
 
     /// <summary>
     /// Unsubscribe.
@@ -137,10 +143,5 @@ public class EmuContra : MonoBehaviour,
         {
             Unsubscribe();
         }
-    }
-
-    void Start()
-    {
-        Subscribe();
     }
 }

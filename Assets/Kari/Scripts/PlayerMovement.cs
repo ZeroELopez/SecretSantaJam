@@ -128,15 +128,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     }
 
     private void OnMove(InputAction.CallbackContext context)
-    {
-        //reject input if in stun state
-        if(IsStunned)
-        {
-            moveDirection = 0;
-            climbing = false;
-            return;
-        }
-        
+    {        
         moveDirection = context.ReadValue<Vector2>().x;
         climbing = (context.started || context.performed) && context.ReadValue<Vector2>().y > 0;            
     }
@@ -145,27 +137,12 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     float jbhTime = 0;
     private void OnJump(InputAction.CallbackContext context)
     {
-        //reject input if in stun state
-        if (IsStunned)
-        {
-            jumpButtonDown = false;
-            jbhTime = 0;
-            return;
-        }
-
         jumpButtonDown = (context.started || context.performed);
         jbhTime = jumpButtonDown? 0 : float.MaxValue;
     }
 
     private void OnDash(InputAction.CallbackContext context)
     {
-        //reject input if in stun state
-        if (IsStunned)
-        {
-            dashButtonDown = false;
-            return;
-        }
-
         dashButtonDown = context.ReadValueAsButton();
     }
 
@@ -178,6 +155,11 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     // Update is called once per frame
     void FixedUpdate()
     {        
+        if(IsStunned)
+        {
+            return;
+        }
+
         maxSpeedModifier = Mathf.MoveTowards(maxSpeedModifier, setMaxSpeedMod, .05f);
 
         //Fix the issue when in Camera mode, the player keeps moving
@@ -305,6 +287,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     private IEnumerator StunCoroutine()
     {
         IsStunned = true;
+        thisRigidbody.velocity = Vector2.zero;
         yield return new WaitForSecondsRealtime(stunTimer);
         IsStunned = false;
     }
