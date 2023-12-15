@@ -107,14 +107,22 @@ public class EmuSniper : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Public facing function for the Sniper to start aiming
+    /// </summary>
     public void TakeAim()
     {
         Debug.Log("aiming");
+
+        //Change State
         currentState = SniperState.SniperAiming;
 
         StartCoroutine(AimRoutine());
     }
 
+    /// <summary>
+    /// Coroutine for the aiming
+    /// </summary>
     private IEnumerator AimRoutine()
     {
         yield return new WaitForSecondsRealtime(aimTime);
@@ -123,6 +131,10 @@ public class EmuSniper : MonoBehaviour
         StartCoroutine(FireShot());
     }
 
+    /// <summary>
+    /// Coroutine to Fire the shot.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator FireShot()
     {
         Debug.Log("firing");
