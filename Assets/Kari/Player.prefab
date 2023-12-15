@@ -401,6 +401,7 @@ MonoBehaviour:
   setMaxSpeedMod: 0
   wallMaxVelocity: 0
   addForce: {x: 0, y: 0}
+  stunTimer: 0
   jumpButtonHoldDownTiming: 0.1
 --- !u!50 &6835640760189622849
 Rigidbody2D:

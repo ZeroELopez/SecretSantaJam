@@ -84,7 +84,13 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     //Force other scripts can manipulate to move player;
     public Vector2 addForce;
 
-    
+    public bool IsStunned
+    {  
+        get;
+        private set; 
+    }
+    [SerializeField]
+    private float stunTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -123,6 +129,14 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
 
     private void OnMove(InputAction.CallbackContext context)
     {
+        //reject input if in stun state
+        if(IsStunned)
+        {
+            moveDirection = 0;
+            climbing = false;
+            return;
+        }
+        
         moveDirection = context.ReadValue<Vector2>().x;
         climbing = (context.started || context.performed) && context.ReadValue<Vector2>().y > 0;            
     }
@@ -131,12 +145,27 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     float jbhTime = 0;
     private void OnJump(InputAction.CallbackContext context)
     {
+        //reject input if in stun state
+        if (IsStunned)
+        {
+            jumpButtonDown = false;
+            jbhTime = 0;
+            return;
+        }
+
         jumpButtonDown = (context.started || context.performed);
         jbhTime = jumpButtonDown? 0 : float.MaxValue;
     }
 
     private void OnDash(InputAction.CallbackContext context)
     {
+        //reject input if in stun state
+        if (IsStunned)
+        {
+            dashButtonDown = false;
+            return;
+        }
+
         dashButtonDown = context.ReadValueAsButton();
     }
 
@@ -260,5 +289,23 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     {
         EventHub.Instance.PostEvent(new onCameraToggle() { On = false });
         cutscene = evt.On;
+    }
+
+    public bool StunPlayer()
+    {
+        //If we're not already stunned, kick off the coroutine
+        if(!IsStunned)
+        {
+            StartCoroutine(StunCoroutine());
+            return true;
+        }
+        return false;
+    }
+
+    private IEnumerator StunCoroutine()
+    {
+        IsStunned = true;
+        yield return new WaitForSecondsRealtime(stunTimer);
+        IsStunned = false;
     }
 }
