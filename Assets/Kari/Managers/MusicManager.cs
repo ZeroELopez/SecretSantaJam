@@ -113,7 +113,6 @@ public class MusicManager : Singleton<MusicManager>
         float layers = SongList[onSong].layers.Length;
         float amountPerLayer = 1.0f / layers;
 
-        Debug.Log("APL : " + amountPerLayer);
         for (int i = 0; i < layerSources.Length; i++)
             layerSources[i].volume = Mathf.Clamp01(Mathf.InverseLerp(amountPerLayer * i, amountPerLayer * (i+1),fill));
     }

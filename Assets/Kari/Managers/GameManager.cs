@@ -79,7 +79,6 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
         float speed = Creature.focusCreature.GetComponent<FollowPath>().speed;
 
         MusicManager.layerFill = speed;
-        Debug.Log(speed);
 
         if (speed > investigationDistance)
             ChangeState(GameState.Chase);
