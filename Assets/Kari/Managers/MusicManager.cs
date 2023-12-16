@@ -34,6 +34,8 @@ public class MusicManager : Singleton<MusicManager>
         Instance.PlaySong();
     }
 
+    public static float layerFill;
+
     public static void SetTrack(int index)
     {
         Instance.onSong = index;
@@ -74,6 +76,8 @@ public class MusicManager : Singleton<MusicManager>
 
     private void Update()
     {
+        UpdateLayers(layerFill);
+
         if (time > length)
             return;
 
@@ -81,6 +85,7 @@ public class MusicManager : Singleton<MusicManager>
 
         if (oldSource == null)
             return;
+
 
         oldSource.volume = Mathf.Lerp(0,maxAudio, 1 - curve.Evaluate(time / length));
         newSource.volume = Mathf.Lerp(0, maxAudio, curve.Evaluate(time / length));
@@ -108,6 +113,7 @@ public class MusicManager : Singleton<MusicManager>
         float layers = SongList[onSong].layers.Length;
         float amountPerLayer = 1.0f / layers;
 
+        Debug.Log("APL : " + amountPerLayer);
         for (int i = 0; i < layerSources.Length; i++)
             layerSources[i].volume = Mathf.Clamp01(Mathf.InverseLerp(amountPerLayer * i, amountPerLayer * (i+1),fill));
     }

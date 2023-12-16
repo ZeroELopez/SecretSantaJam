@@ -34,7 +34,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
         SetInstance(this);
         DontDestroyOnLoad(this);
         ChangeState(GameState.Count);
-
+        MusicManager.SetTrack("Forest");
     }
 
     private void Start()=>        Subscribe();
@@ -78,6 +78,9 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
 
         float speed = Creature.focusCreature.GetComponent<FollowPath>().speed;
 
+        MusicManager.layerFill = speed;
+        Debug.Log(speed);
+
         if (speed > investigationDistance)
             ChangeState(GameState.Chase);
         else
@@ -115,20 +118,18 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
 
         Instance.state = newState;
 
+
         switch (Instance.state)
         {
             case GameState.Investigation:
                 Instance.textObj.text = "Investigation";
-                MusicManager.SetTrack("Investigation");
                 EventHub.Instance.PostEvent(new onInvestigationMode());
                 return;
             case GameState.Chase:
                 Instance.textObj.text = "Chase";
-                MusicManager.SetTrack("Chase");
                 EventHub.Instance.PostEvent(new onChaseMode());
                 return;
             case GameState.Escape:
-                MusicManager.SetTrack("Escape");
                 EventHub.Instance.PostEvent(new onEscapeMode());
                 return;
         }
