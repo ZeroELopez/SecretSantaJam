@@ -73,7 +73,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
         //Check State for Investation and Chase
         ///////////////////////////////////////////////////////////////////////////
 
-        if (Creature.focusCreature == null)
+        if (Creature.focusCreature == null || !Creature.focusCreature.GetComponent<FollowPath>())
             return;
 
         float speed = Creature.focusCreature.GetComponent<FollowPath>().speed;
