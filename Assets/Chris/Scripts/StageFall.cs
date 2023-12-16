@@ -19,7 +19,7 @@ public class StageFall : MonoBehaviour, ISubscribable<onEscapeMode>
 
     public void HandleEvent(onEscapeMode evt)
     {
-        Fall();
+        StartCoroutine(Fall());
     }
 
     public void Subscribe()
