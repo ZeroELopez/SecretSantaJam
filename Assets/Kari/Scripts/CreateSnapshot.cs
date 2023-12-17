@@ -38,6 +38,7 @@ public class CreateSnapshot : MonoBehaviour, ISubscribable<onCreatureCaptured>
         //Destroy(rt);
 
         evt.page.image = screenShot;
+        image.texture = screenShot;
 
         GameManager.newPages.Add(evt.page);
         //binder.Add(screenShot);
