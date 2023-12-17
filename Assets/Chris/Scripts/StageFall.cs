@@ -2,6 +2,7 @@ using Assets.Scripts.Base.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class StageFall : MonoBehaviour, ISubscribable<onEscapeMode>
 {
@@ -17,9 +18,11 @@ public class StageFall : MonoBehaviour, ISubscribable<onEscapeMode>
         Destroy(gameObject, destroyDelay);
     }
 
+    public UnityEvent onFall;
     public void HandleEvent(onEscapeMode evt)
     {
         StartCoroutine(Fall());
+        onFall?.Invoke();
     }
 
     public void Subscribe()
