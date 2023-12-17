@@ -84,11 +84,18 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     //Force other scripts can manipulate to move player;
     public Vector2 addForce;
 
-    
+    public bool IsStunned
+    {  
+        get;
+        private set; 
+    }
+    [SerializeField]
+    private float stunTimer;
 
     // Start is called before the first frame update
     void Start()
     {
+        EventHub.Instance.PostEvent(new onGameStart());
         //lastPos = transform.position;
 
         thisRigidbody = GetComponent<Rigidbody2D>();
@@ -122,7 +129,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     }
 
     private void OnMove(InputAction.CallbackContext context)
-    {
+    {        
         moveDirection = context.ReadValue<Vector2>().x;
         climbing = (context.started || context.performed) && context.ReadValue<Vector2>().y > 0;            
     }
@@ -149,6 +156,11 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     // Update is called once per frame
     void FixedUpdate()
     {        
+        if(IsStunned)
+        {
+            return;
+        }
+
         maxSpeedModifier = Mathf.MoveTowards(maxSpeedModifier, setMaxSpeedMod, .05f);
 
         //Fix the issue when in Camera mode, the player keeps moving
@@ -260,5 +272,24 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     {
         EventHub.Instance.PostEvent(new onCameraToggle() { On = false });
         cutscene = evt.On;
+    }
+
+    public bool StunPlayer()
+    {
+        //If we're not already stunned, kick off the coroutine
+        if(!IsStunned)
+        {
+            StartCoroutine(StunCoroutine());
+            return true;
+        }
+        return false;
+    }
+
+    private IEnumerator StunCoroutine()
+    {
+        IsStunned = true;
+        thisRigidbody.velocity = Vector2.zero;
+        yield return new WaitForSecondsRealtime(stunTimer);
+        IsStunned = false;
     }
 }

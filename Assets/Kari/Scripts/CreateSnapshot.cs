@@ -13,8 +13,6 @@ public class CreateSnapshot : MonoBehaviour, ISubscribable<onCreatureCaptured>
     [SerializeField] int resHeight;
 
 
-    List<Texture2D> binder = new List<Texture2D>();
-    int page = 0;
     //[SerializeField] Texture2D screenShot;
     public void HandleEvent(onCreatureCaptured evt)
     {
@@ -39,7 +37,11 @@ public class CreateSnapshot : MonoBehaviour, ISubscribable<onCreatureCaptured>
         RenderTexture.active = null; // JC: added to avoid errors 
         //Destroy(rt);
 
-        binder.Add(screenShot);
+        evt.page.image = screenShot;
+        image.texture = screenShot;
+
+        GameManager.newPages.Add(evt.page);
+        //binder.Add(screenShot);
 
         //byte[] bytes = screenShot.EncodeToPNG();
         //string filename = Application.dataPath + "/screenshots/screen"
@@ -69,20 +71,4 @@ public class CreateSnapshot : MonoBehaviour, ISubscribable<onCreatureCaptured>
     {
         Unsubscribe();
     }
-
-    private void Update()
-    {
-        if (binder.Count == 0)
-            return;
-
-        if (Input.GetKey(KeyCode.A))
-            page--;
-
-        if (Input.GetKey(KeyCode.D))
-            page++;
-
-        image.texture = binder[page = Mathf.Clamp(page, 0, binder.Count - 1)];
-
-    }
-
 }

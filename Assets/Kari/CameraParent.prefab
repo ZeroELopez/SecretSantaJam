@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   borderSize: {x: 10, y: 10}
-  panSpeed: 15
+  panSpeed: 30
   cameraReadyDistance: 0.5
   cameraCooldown: 2
   pos1: {fileID: 2534641464974177917}
@@ -781,6 +781,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf66c45539b048e46964741b51a04886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableBounds: 0
+  bounds: {x: 0, y: 0, z: 0, w: 0}
   followObj: {fileID: 0}
   speed: 20
   curve:

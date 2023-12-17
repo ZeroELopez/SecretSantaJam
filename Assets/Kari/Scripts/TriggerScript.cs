@@ -30,21 +30,23 @@ public class TriggerScript : MonoBehaviour
         //filter.useTriggers = false;
         thisCollider2D[0].OverlapCollider(filter, allCollisions);
 
-        foreach (BoxCollider2D c in allCollisions)
+        
+
+        foreach (Collider2D c in allCollisions)
         {
             if (c == null)
                 continue;
 
             if (!c.gameObject.TryGetComponent(typeof(PlayerMovement), out Component com))
                 continue;
-            Debug.Log("OnStill");
+            //Debug.Log("OnStill");
 
             onStill(com);
             onStillEvents?.Invoke();
             if (obj != null)
                 return;
 
-            Debug.Log("OnEnter");
+            //Debug.Log("OnEnter");
 
             obj = (PlayerMovement)com;
             onEnter(obj);
@@ -55,7 +57,7 @@ public class TriggerScript : MonoBehaviour
         if (obj == null)
             return;
 
-        Debug.Log("OnExit");
+        //Debug.Log("OnExit");
         onExit(obj);
         onExitEvents?.Invoke();
 

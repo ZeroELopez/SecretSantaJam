@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FallingPlatforms : MonoBehaviour
 {
-    public float fallDelay = 1f;
+    public float pfallDelay = 1f;
     //public float destroyDelay = 2f;
     public float resetDelay = 4f;
     private Vector2 initialPosition;
@@ -27,7 +27,7 @@ public class FallingPlatforms : MonoBehaviour
 
     private IEnumerator Fall()
     {
-        yield return new WaitForSeconds(fallDelay);
+        yield return new WaitForSeconds(pfallDelay);
         rb.bodyType = RigidbodyType2D.Dynamic;
         //Destroy(gameObject, destroyDelay);
         yield return new WaitForSeconds(resetDelay);
