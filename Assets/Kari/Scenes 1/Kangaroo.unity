@@ -102056,6 +102056,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2353481589451573986, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
+      propertyPath: bounds.w
+      value: 190
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353481589451573986, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
+      propertyPath: bounds.x
+      value: 8.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353481589451573986, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
+      propertyPath: bounds.y
+      value: 6.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353481589451573986, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
+      propertyPath: bounds.z
+      value: 405
+      objectReference: {fileID: 0}
     - target: {fileID: 2368103311571003946, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
       propertyPath: m_SortingOrder
       value: 100
@@ -102123,6 +102139,14 @@ PrefabInstance:
     - target: {fileID: 5073571316360205216, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
       propertyPath: onCameraOff.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8826531569717853076, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8826531569717853076, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8826531569717853076, guid: b6ecadf5e7c813f41a9ade6aed577d55, type: 3}
       propertyPath: m_LocalPosition.z

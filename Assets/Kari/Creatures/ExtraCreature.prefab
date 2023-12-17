@@ -120,6 +120,10 @@ PrefabInstance:
       propertyPath: FocusCreature
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4810691913985031609, guid: 93bd0cc30cb3b0843837ae91aeb5296e, type: 3}
+      propertyPath: FocusCreature
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5338241399578538869, guid: 93bd0cc30cb3b0843837ae91aeb5296e, type: 3}
       propertyPath: m_LocalScale.x
       value: 0
@@ -170,6 +174,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7331093712241071845, guid: 93bd0cc30cb3b0843837ae91aeb5296e, type: 3}
       propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7724054978480341495, guid: 93bd0cc30cb3b0843837ae91aeb5296e, type: 3}
+      propertyPath: FocusCreature
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8059955373757368550, guid: 93bd0cc30cb3b0843837ae91aeb5296e, type: 3}

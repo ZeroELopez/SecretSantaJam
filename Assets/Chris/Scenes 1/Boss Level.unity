@@ -1581,6 +1581,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 1.52
       objectReference: {fileID: 0}
+    - target: {fileID: 6586839050185953530, guid: 332ac60881a1fb84bb53a3298dc4ea51, type: 3}
+      propertyPath: enableBounds
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13517,6 +13521,11 @@ MonoBehaviour:
   poorScore: 1
   goodScore: 1
   greatScore: 1
+  page:
+    image: {fileID: 0}
+    points: 0
+    name: 
+    description: 
 --- !u!1 &1414354117
 GameObject:
   m_ObjectHideFlags: 0

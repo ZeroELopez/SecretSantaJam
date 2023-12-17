@@ -404,7 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166d1488da52d454b86ff3e6bbb1fa6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FocusCreature: 0
+  FocusCreature: 1
   creatureCaptured: 0
   poorScore: 12
   goodScore: 25
@@ -591,7 +591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166d1488da52d454b86ff3e6bbb1fa6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FocusCreature: 0
+  FocusCreature: 1
   creatureCaptured: 0
   poorScore: 12
   goodScore: 25
