@@ -31,10 +31,12 @@ namespace Kari.Animations
 
     public class StateAnimation : MonoBehaviour, ISubscribable<onCameraToggle>
     {
+        [SerializeField] PlayerMovement player;
+
         [SerializeField] States currentState = States.Standing;
         Animator thisAnimator;
 
-        Rigidbody2D thisRigidbody => GetComponentInParent<Rigidbody2D>();
+        Rigidbody2D thisRigidbody => player.GetComponent<Rigidbody2D>();
         Vector3 velocity => thisRigidbody.velocity;
 
         bool onGround => LowerbodyScript.state == PhysicsState.onGround;
@@ -58,10 +60,16 @@ namespace Kari.Animations
         {
             States newState = FindState();
 
-
-            currentState = FindState();
-
             //FOR TIME SENSITIVE ATTACKS!!!
+
+            if (currentState != States.WallCling || currentState != States.WallClimb)
+            {
+                if (player.moveDirection > 0)
+                    GetComponent<SpriteRenderer>().flipX = false;
+                else if (player.moveDirection < 0)
+                    GetComponent<SpriteRenderer>().flipX = true;
+            }
+
 
             //if (newState >= CharacterStates.AttackDown && newState <= CharacterStates.AttackUp3)
             //{
@@ -72,7 +80,7 @@ namespace Kari.Animations
             //}
             // if (thisAnimator.HasState(0, newState.ToString()))
 
-            //thisAnimator.Play((currentState = newState).ToString(), 0);
+            thisAnimator.Play((currentState = newState).ToString(), 0);
 
         }
 
@@ -125,6 +133,9 @@ namespace Kari.Animations
 
             state += Mathf.Abs(velocity.x) >= diagnolThreshold ? 3 : 0;
             state += Mathf.Abs(velocity.x) >= longJumpThreshold ? 3 : 0;
+
+            if (state == (int)States.LongJump_Neutral)
+                return States.LongJump_Rising;
 
             state += velocity.y >= risingThreshold ? 1 : 0;
             state += velocity.y <= fallingThreshold ? -1 : 0;
