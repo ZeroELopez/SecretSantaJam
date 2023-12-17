@@ -23,11 +23,7 @@ public class SendGradient : MonoBehaviour
 
         _material = Instantiate(material);
         GetComponent<SpriteRenderer>().material = _material;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
         if (texture == null)
             texture = new Texture2D(255, 1);
 
@@ -37,5 +33,11 @@ public class SendGradient : MonoBehaviour
         texture.Apply();
 
         GetComponent<SpriteRenderer>().material.SetTexture("_Palette", texture);
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
     }
 }

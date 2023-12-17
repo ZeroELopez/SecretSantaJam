@@ -12,7 +12,7 @@ public enum GameState
     Investigation, Chase, Escape, Count
 }
 
-public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISubscribable<onGameLost>, ISubscribable<onSpecialCreatureCaptured>
+public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,ISubscribable<onGameWon>, ISubscribable<onGameLost>, ISubscribable<onSpecialCreatureCaptured>
 {
     BoxCollider2D homeBase;
     public void SetHome(BoxCollider2D newHome) => homeBase = newHome;
@@ -25,7 +25,8 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
     public TextMeshProUGUI textObj;
     [SerializeField] float investigationDistance;
 
-
+    public Encyclopedia encyclopedia;
+    public static List<Page> newPages = new List<Page>();
     // Start is called before the first frame update
     void Awake()
     {
@@ -35,15 +36,35 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
         DontDestroyOnLoad(this);
         ChangeState(GameState.Count);
         MusicManager.SetTrack("Forest");
+
+    }
+
+    void ShowPages(RawImage[] images)
+    {
+        for(int i = 0; i < images.Length && i < newPages.Count; i++)
+        {
+            images[i].texture = newPages[i].image;
+            images[i].color= Color.white;
+        }
     }
 
     private void Start()=>        Subscribe();
 
     private void OnDestroy()=>        Unsubscribe();
     
+    public static void AddPagesToEncyclopedia()
+    {
+        foreach (Page p in newPages)
+            Instance.encyclopedia.pages.Add(p);
+
+        newPages.Clear();
+    }
 
     public void Subscribe()
     {
+        PictureImages.setPhotos += ShowPages;
+
+        EventHub.Instance.Subscribe<onGameStart>(this);
         EventHub.Instance.Subscribe<onGameLost>(this);
         EventHub.Instance.Subscribe<onGameWon>(this);
         EventHub.Instance.Subscribe<onSpecialCreatureCaptured>(this);
@@ -51,6 +72,9 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
 
     public void Unsubscribe()
     {
+        PictureImages.setPhotos -= ShowPages;
+
+        EventHub.Instance.Unsubscribe<onGameStart>(this);
         EventHub.Instance.Unsubscribe<onGameLost>(this);
         EventHub.Instance.Unsubscribe<onGameWon>(this);
         EventHub.Instance.Unsubscribe<onSpecialCreatureCaptured>(this);
@@ -138,6 +162,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
     public void HandleEvent(onGameWon evt)
     {
         state = GameState.Investigation;
+        TimerOn = false;
         onGameWon?.Invoke();
         t = timer;
     }
@@ -146,6 +171,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
     public void HandleEvent(onGameLost evt)
     {
         state = GameState.Investigation;
+        TimerOn = false;
         onGameLose?.Invoke();
         t = timer;
     }
@@ -154,4 +180,30 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameWon>, ISu
     {
         ChangeState(GameState.Escape);
     }
+
+    public UnityEvent onGameStart;
+    public void HandleEvent(onGameStart evt)
+    {
+        t = timer;
+        TimerOn = true;
+        onGameStart?.Invoke();
+    }
+}
+
+
+[System.Serializable]
+public class Encyclopedia
+{
+    public List<Page> pages = new List<Page>();
+}
+
+[System.Serializable]
+public class Page
+{
+    public Texture2D image;
+
+    public int points;
+
+    public string name;
+    public string description;
 }

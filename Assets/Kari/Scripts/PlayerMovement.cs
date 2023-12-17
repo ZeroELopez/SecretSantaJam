@@ -95,6 +95,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>
     // Start is called before the first frame update
     void Start()
     {
+        EventHub.Instance.PostEvent(new onGameStart());
         //lastPos = transform.position;
 
         thisRigidbody = GetComponent<Rigidbody2D>();
