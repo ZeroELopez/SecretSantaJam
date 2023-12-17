@@ -30,7 +30,9 @@ public class TriggerScript : MonoBehaviour
         //filter.useTriggers = false;
         thisCollider2D[0].OverlapCollider(filter, allCollisions);
 
-        foreach (BoxCollider2D c in allCollisions)
+        
+
+        foreach (Collider2D c in allCollisions)
         {
             if (c == null)
                 continue;

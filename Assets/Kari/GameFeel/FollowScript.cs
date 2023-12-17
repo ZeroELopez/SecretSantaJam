@@ -5,6 +5,8 @@ using UnityEngine.Animations;
 
 public class FollowScript : MonoBehaviour
 {
+    [SerializeField] bool enableBounds;
+    [SerializeField]Vector4 bounds;
     [SerializeField] Transform followObj;
 
     Transform followingObj;
@@ -53,6 +55,12 @@ public class FollowScript : MonoBehaviour
             transform.position,
             followingObj.position + offset,
             Time.deltaTime * speed * curve.Evaluate(Vector3.Distance(transform.position, followingObj.position + offset)));
+
+        if (enableBounds)
+        {
+            newPos.x = Mathf.Clamp(newPos.x, bounds.x, bounds.z);
+            newPos.y = Mathf.Clamp(newPos.y, bounds.y, bounds.w);
+        }
 
         transform.position = newPos;
     }

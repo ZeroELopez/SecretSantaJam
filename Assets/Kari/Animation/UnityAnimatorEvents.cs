@@ -40,4 +40,6 @@ public class UnityAnimatorEvents : MonoBehaviour
     public void NextChapterSet() => LoadSceneScript.index++;
 
     public void Footstep() => AudioManager.PlaySound("Runon" + LowerbodyScript.floorType, source, "RunonRock");
+
+    public void AddPagesToEncyclopedia() => GameManager.AddPagesToEncyclopedia();
 }

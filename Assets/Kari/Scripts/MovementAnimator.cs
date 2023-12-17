@@ -81,7 +81,7 @@ public class MovementAnimator : MonoBehaviour
             //Will ignore overlapping collider if it is the player
             bool ignore = true;
 
-            foreach (BoxCollider2D t in allCollisions)
+            foreach (Collider2D t in allCollisions)
                 if (t != null && !t.gameObject.GetComponent<PlayerMovement>())
                 {
                     ignore = false;

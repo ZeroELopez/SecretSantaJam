@@ -12,6 +12,8 @@ public class Creature : MonoBehaviour
     public int goodScore;
     public int greatScore;
 
+    public Page page;
+
     private void Start()
     {
         if (FocusCreature)
