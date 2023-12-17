@@ -11,11 +11,12 @@ public class CameraFocus : TriggerScript
     //}
     public override void onEnter(Component script)
     {
-        FollowScript.mainCamera.followObj = transform;
+        FollowScript.mainCamera.SetSecondary(transform);
     }
 
     public override void onExit(Component script)
     {
-        FollowScript.mainCamera.followObj = script.transform;
+        FollowScript.mainCamera.DeletePrevObj();
+        FollowScript.mainCamera.SetPrimary();
     }
 }

@@ -37,14 +37,14 @@ public class TriggerScript : MonoBehaviour
 
             if (!c.gameObject.TryGetComponent(typeof(PlayerMovement), out Component com))
                 continue;
-            Debug.Log("OnStill");
+            //Debug.Log("OnStill");
 
             onStill(com);
             onStillEvents?.Invoke();
             if (obj != null)
                 return;
 
-            Debug.Log("OnEnter");
+            //Debug.Log("OnEnter");
 
             obj = (PlayerMovement)com;
             onEnter(obj);
@@ -55,7 +55,7 @@ public class TriggerScript : MonoBehaviour
         if (obj == null)
             return;
 
-        Debug.Log("OnExit");
+        //Debug.Log("OnExit");
         onExit(obj);
         onExitEvents?.Invoke();
 

@@ -95,7 +95,6 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
 
         if (evt.On)
             onCameraOn?.Invoke();
-
         else
             onCameraOff?.Invoke();
     }
