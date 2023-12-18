@@ -35,6 +35,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
         SetInstance(this);
         DontDestroyOnLoad(this);
         ChangeState(GameState.Count);
+        StartCoroutine(ChaseTimer());
         MusicManager.SetTrack("Forest");
 
     }
@@ -136,6 +137,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
 
         switch (Instance.state)
         {
+
             case GameState.Investigation:
                 Instance.textObj.text = "Investigation";
                 EventHub.Instance.PostEvent(new onInvestigationMode());
