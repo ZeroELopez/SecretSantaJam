@@ -32,8 +32,8 @@ namespace Kari.SoundManagement
             {
                 if (sound.name == name)
                 {
-                    Debug.Log(source);
-                    Debug.Log(sound.clip);
+                    //Debug.Log(source);
+                    //Debug.Log(sound.clip);
                     source.clip = sound.clip;
 
                     if (sound.clipVariants.Length > 0)

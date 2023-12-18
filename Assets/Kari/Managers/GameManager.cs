@@ -27,6 +27,9 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
 
     public Encyclopedia encyclopedia;
     public static List<Page> newPages = new List<Page>();
+
+    public float musicMaxDistance = 100;
+    public float musicMinDistance = 5;
     // Start is called before the first frame update
     void Awake()
     {
@@ -79,7 +82,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
         EventHub.Instance.Unsubscribe<onGameWon>(this);
         EventHub.Instance.Unsubscribe<onSpecialCreatureCaptured>(this);
     }
-
+    int oldT = -1000;
     // Update is called once per frame
     void Update()
     {
@@ -88,7 +91,9 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
         ////////////////////////////////////////////////////////////////////////////
 
         t -= TimerOn? Time.deltaTime: 0;
-        textObj.text = state.ToString() + " : " + t.ToString();
+        int showT = Mathf.CeilToInt(t);
+        if (oldT != showT)
+            textObj.text = state.ToString() + " : " + (oldT = showT).ToString();
 
         if (t <= 0)
             EventHub.Instance.PostEvent(new onGameLost());
@@ -96,15 +101,17 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
         ////////////////////////////////////////////////////////////////////////////
         //Check State for Investation and Chase
         ///////////////////////////////////////////////////////////////////////////
-        
-        if (Creature.focusCreature == null || !Creature.focusCreature.path)
+
+
+        if (Creature.focusCreature == null)
             return;
 
-        float speed = Creature.focusCreature.path.speed;
+        float distance = Vector3.Distance(Creature.focusCreature.transform.position,PlayerMovement.position);
 
-        MusicManager.layerFill = speed;
 
-        if (speed > investigationDistance)
+        MusicManager.layerFill = Mathf.InverseLerp(musicMaxDistance,musicMinDistance, distance); ;
+
+        if (MusicManager.layerFill > investigationDistance)
             ChangeState(GameState.Chase);
         else
             ChangeState(GameState.Investigation);
