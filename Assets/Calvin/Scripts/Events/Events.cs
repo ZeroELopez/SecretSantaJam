@@ -31,7 +31,12 @@ namespace Assets.Scripts.Base.Events
 
     public class TogglePause : DispatchableEvent
     {
+        public static bool On = false;
 
+        public TogglePause()
+        {
+            On = !On;
+        }
     }
 }
 

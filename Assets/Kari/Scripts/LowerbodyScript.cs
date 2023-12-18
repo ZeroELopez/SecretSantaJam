@@ -34,10 +34,13 @@ public class LowerbodyScript : MonoBehaviour
         foreach(BoxCollider2D c in thisCollider2D)
         c.isTrigger = true;
     }
-
+    Vector3 prevPos;
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        if (transform.position == prevPos)
+            return;
+
         //Creates the collider array that will recieve all the overlaping colliders
         Collider2D[] allCollisions = new Collider2D[10];
         //Filter out triggers and only use solid colliders
@@ -84,10 +87,13 @@ public class LowerbodyScript : MonoBehaviour
             //Knew that the name was misleading. Adding onWall variable now
             state = wallDirection == 0? PhysicsState.onGround : PhysicsState.onWall;
 
+            prevPos = transform.position;
             return;
         }
 
         if (state == PhysicsState.isFalling)
             player.transform.parent = null;
+
+        prevPos = transform.position;
     }
 }

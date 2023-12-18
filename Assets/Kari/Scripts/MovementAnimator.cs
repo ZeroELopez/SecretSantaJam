@@ -20,13 +20,17 @@ public class MovementAnimator : MonoBehaviour
 
 
     Vector3 prevPos;
-    
+    PhysicsState state;
     // Update is called once per frame
     void Update()
     {
-        Vector3 dir = (transform.position - prevPos).normalized;
+        if (transform.position == prevPos)
+            return;
 
-        switch (GetState())
+        Vector3 dir = (transform.position - prevPos).normalized;
+        state = GetState();
+
+        switch (state)
         {
             case PhysicsState.isFalling:
                 AirState(dir);
