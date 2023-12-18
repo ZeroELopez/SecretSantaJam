@@ -183,6 +183,11 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
         StartCoroutine(ChaseTimer());
         onGameStart?.Invoke();
     }
+
+    public void SetTimer(float time)
+    {
+        t = time;
+    }
 }
 
 
