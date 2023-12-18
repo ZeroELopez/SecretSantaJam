@@ -1,3 +1,4 @@
+using Assets.Scripts.Base.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,4 +12,16 @@ public class Home : MonoBehaviour
         GameManager.Instance.SetHome(GetComponent<BoxCollider2D>());
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //Check if Player has entered the collider
+        PlayerMovement player = collision.GetComponent<PlayerMovement>();
+
+        //Check if player is Valid AND GameManager's State is escape.
+        if (player != null && GameManager.Instance.state == GameState.Escape)
+        {
+            Debug.Log("GameWon");
+            EventHub.Instance.PostEvent(new onGameWon());
+        }
+    }
 }

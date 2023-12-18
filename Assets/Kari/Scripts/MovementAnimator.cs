@@ -7,15 +7,28 @@ using System;
 public class MovementAnimator : MonoBehaviour
 {
     Animator thisAnimator;
-    BoxCollider2D[] thisCollider2D;
+    BoxCollider2D thisCollider2D;
     [SerializeField] int uppderBodyLayer = 0;
     [SerializeField] int lowerBodyLayer = 1;
+
+    /// <summary>
+    /// Current State determined by collisions.
+    /// </summary>
+    private PhysicsState currentState;
+
+    private Dictionary<int, Collision2D> collisionDictionary;
 
     // Start is called before the first frame update
     void Start()
     {
         thisAnimator = GetComponent<Animator>();
-        thisCollider2D = GetComponents<BoxCollider2D>();
+        thisCollider2D = GetComponent<BoxCollider2D>();
+
+        //presume that the movement animation is, by default, falling.
+        //TODO: do a raycast from the bottom to see if there's 
+        currentState = PhysicsState.isFalling;
+
+        collisionDictionary = new Dictionary<int, Collision2D>();
     }
 
 
@@ -26,7 +39,7 @@ public class MovementAnimator : MonoBehaviour
     {
         Vector3 dir = (transform.position - prevPos).normalized;
 
-        switch (GetState())
+        switch (currentState)
         {
             case PhysicsState.isFalling:
                 AirState(dir);
@@ -56,6 +69,48 @@ public class MovementAnimator : MonoBehaviour
             thisAnimator.Play("Standing", lowerBodyLayer);
     }
 
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Ignore collision with the player.
+        if(collision.gameObject.GetComponent<PlayerMovement>())
+        {
+            return;
+        }
+
+        //Add to the dictionary of collisions.
+        collisionDictionary.TryAdd(collision.GetHashCode(), collision);
+
+        //We are on the ground if we have something present in the collision dictionary.
+        if(collisionDictionary.Count > 0)
+        {
+            currentState = PhysicsState.onGround;
+            Debug.Log("On Ground");
+        }
+    }
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        // Ignore collision with the player.
+        if (collision.gameObject.GetComponent<PlayerMovement>())
+        {
+            return;
+        }
+
+        //Try to remove the collision from the dictionary if possible.
+        if (collisionDictionary.ContainsKey(collision.GetHashCode()))
+        {
+            collisionDictionary.Remove(collision.GetHashCode());
+        }
+
+        //We are falling if we are not colliding with anything.
+        if (collisionDictionary.Count == 0)
+        {
+            Debug.Log("Falling");
+            currentState = PhysicsState.isFalling;
+        }
+    }
+
+    /*
     PhysicsState GetState()
     {
         //Creates the collider array that will recieve all the overlaping colliders
@@ -96,5 +151,5 @@ public class MovementAnimator : MonoBehaviour
             state = PhysicsState.onGround;
         }
         return state;
-    }
+    }*/
 }

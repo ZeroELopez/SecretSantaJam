@@ -86,12 +86,13 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
         ////////////////////////////////////////////////////////////////////////////
         //End Game Timer
         ////////////////////////////////////////////////////////////////////////////
-
+        /*
         t -= TimerOn? Time.deltaTime: 0;
         textObj.text = state.ToString() + " : " + t.ToString();
 
         if (t <= 0)
             EventHub.Instance.PostEvent(new onGameLost());
+        */
 
         ////////////////////////////////////////////////////////////////////////////
         //Check State for Investation and Chase
@@ -108,30 +109,21 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
             ChangeState(GameState.Chase);
         else
             ChangeState(GameState.Investigation);
+    }
 
-        ////////////////////////////////////////////////////////////////////////////
-        //End Game Home Trigger
-        ///////////////////////////////////////////////////////////////////////////
+    public IEnumerator ChaseTimer()
+    {
+        t = timer;
+        while(t > 0)
+        {
+            t -= Time.deltaTime;
+            textObj.text = state.ToString() + " : " + t.ToString();
 
-        if (state != GameState.Escape)
-            return;
+            yield return new WaitForEndOfFrame();
+        }
 
-        Collider2D[] allCollisions = new Collider2D[10];
-
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.useTriggers = false;
-
-        if (homeBase.OverlapCollider(filter, allCollisions) == 0)
-            return;
-
-        foreach (BoxCollider2D t in allCollisions)
-            if (t != null && t.gameObject.GetComponent<PlayerMovement>())
-            {
-                Debug.Log("GameWon");
-                EventHub.Instance.PostEvent(new onGameWon());
-            }
-
-
+        //Presume t is 0 here.
+        EventHub.Instance.PostEvent(new onGameLost());
     }
 
     public static void ChangeState(GameState newState)
@@ -163,6 +155,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
     {
         state = GameState.Investigation;
         TimerOn = false;
+        StopCoroutine(ChaseTimer());
         onGameWon?.Invoke();
         t = timer;
     }
@@ -172,6 +165,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
     {
         state = GameState.Investigation;
         TimerOn = false;
+        StopCoroutine(ChaseTimer());
         onGameLose?.Invoke();
         t = timer;
     }
@@ -186,6 +180,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
     {
         t = timer;
         TimerOn = true;
+        StartCoroutine(ChaseTimer());
         onGameStart?.Invoke();
     }
 }
