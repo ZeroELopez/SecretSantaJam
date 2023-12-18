@@ -2,6 +2,7 @@ using Assets.Scripts.Base.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EmuContra : MonoBehaviour,
     ISubscribable<onGameWon>,
@@ -31,6 +32,9 @@ public class EmuContra : MonoBehaviour,
     [SerializeField]
     public GameObject StunBullet;
 
+    [SerializeField]
+    public Transform SpawnPoint;
+
     /// <summary>
     /// Initialize
     /// </summary>
@@ -44,6 +48,9 @@ public class EmuContra : MonoBehaviour,
     /// Coroutine to shoot at Player
     /// </summary>
     /// <returns></returns>
+    /// 
+    public UnityEvent<Vector2> onShooting;
+
     public IEnumerator ShootAtPlayer()
     {
         while (playerInRange)
@@ -55,6 +62,7 @@ public class EmuContra : MonoBehaviour,
             //Note: this will not adjust per shot. We take the position just once and then fire a salvo.
             //      Re-Aim once we prepare a new slavo of bullets.
             Vector2 dir = (playerReference.transform.position - transform.position).normalized;
+            onShooting?.Invoke(dir);
 
             //Spawn Bullets to travel towards player.
             for (int i = 0; i < bulletsPerSalvo; i++)
@@ -63,7 +71,7 @@ public class EmuContra : MonoBehaviour,
                 if (StunBullet != null)
                 {
                     GameObject bulletInstance = Instantiate(StunBullet);
-                    bulletInstance.transform.position = transform.position;
+                    bulletInstance.transform.position = SpawnPoint.position;
                     bulletInstance.GetComponent<StunBullet>().direction = dir;
                 }
 

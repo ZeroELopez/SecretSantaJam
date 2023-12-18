@@ -31,7 +31,7 @@ public class ScoreTracker : MonoBehaviour, ISubscribable<onCreatureCaptured>
     public void AddPoints(int points) 
     {
         score += points;
-        text.text = "Score: " + score.ToString();
+        text.text = score.ToString();
     }
 
     public void Subscribe()
@@ -46,6 +46,6 @@ public class ScoreTracker : MonoBehaviour, ISubscribable<onCreatureCaptured>
 
     public void HandleEvent(onCreatureCaptured evt)
     {
-        AddPoints(evt.points);
+        AddPoints(evt.page.points);
     }
 }

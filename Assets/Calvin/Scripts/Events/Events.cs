@@ -5,7 +5,7 @@ namespace Assets.Scripts.Base.Events
 
     public class onCreatureCaptured : DispatchableEvent
     {
-        public int points = 0;
+        public Page page;
     }
 
     public class onCameraToggle : DispatchableEvent
@@ -22,6 +22,7 @@ namespace Assets.Scripts.Base.Events
 
     public class onPlayerRespawn : DispatchableEvent { }
 
+    public class onGameStart : DispatchableEvent { }
     public class onGameWon : DispatchableEvent { }
     public class onGameLost : DispatchableEvent { }
 
@@ -30,7 +31,12 @@ namespace Assets.Scripts.Base.Events
 
     public class TogglePause : DispatchableEvent
     {
+        public static bool On = false;
 
+        public TogglePause()
+        {
+            On = !On;
+        }
     }
 }
 

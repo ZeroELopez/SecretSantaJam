@@ -95,7 +95,6 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
 
         if (evt.On)
             onCameraOn?.Invoke();
-
         else
             onCameraOff?.Invoke();
     }
@@ -179,7 +178,8 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
                 {
                     points += c.greatScore;
                 }
-                EventHub.Instance.PostEvent(new onCreatureCaptured() { points = points });
+                c.page.points = points;
+                EventHub.Instance.PostEvent(new onCreatureCaptured() { page = c.page });
 
                 if (c.FocusCreature)
                     EventHub.Instance.PostEvent(new onSpecialCreatureCaptured() {});
