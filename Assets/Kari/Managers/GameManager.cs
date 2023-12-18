@@ -97,11 +97,11 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
         ////////////////////////////////////////////////////////////////////////////
         //Check State for Investation and Chase
         ///////////////////////////////////////////////////////////////////////////
-
-        if (Creature.focusCreature == null || !Creature.focusCreature.GetComponent<FollowPath>())
+        
+        if (Creature.focusCreature == null || !Creature.focusCreature.path)
             return;
 
-        float speed = Creature.focusCreature.GetComponent<FollowPath>().speed;
+        float speed = Creature.focusCreature.path.speed;
 
         MusicManager.layerFill = speed;
 
