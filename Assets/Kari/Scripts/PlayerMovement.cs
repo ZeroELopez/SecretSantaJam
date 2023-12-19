@@ -313,6 +313,11 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>, IS
         IsStunned = false;
     }
 
+    public void PushPlayer(Vector2 direction)
+    {
+        thisRigidbody.AddForce(direction, ForceMode2D.Impulse);
+    }
+
     public void HandleEvent(TogglePause evt)
     {
         still = true;

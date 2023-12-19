@@ -1,4 +1,6 @@
 
+using System.Numerics;
+
 namespace Assets.Scripts.Base.Events
 {
     public class onTakePhoto : DispatchableEvent { }
@@ -28,6 +30,11 @@ namespace Assets.Scripts.Base.Events
 
     public class TryAgain : DispatchableEvent { }
     public class ExitToMainMenu : DispatchableEvent { }
+
+    public class TransportKangarooBoss : DispatchableEvent 
+    {
+        public UnityEngine.Vector3 newLocation;
+    }
 
     public class TogglePause : DispatchableEvent
     {
