@@ -71,6 +71,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""a75654bb-a85e-4946-8417-ee5d5e5a588a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -130,6 +139,61 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""141261d7-39a6-4934-9101-72bccb4ace83"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""e12f8e36-a891-436a-9fc8-7487194235d6"",
+                    ""path"": ""<Joystick>/stick/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""cb01bac8-709d-4e35-8f0f-e780f5b98d30"",
+                    ""path"": ""<Joystick>/stick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""7613c3a5-eec0-4112-9186-59ee9db5f0c7"",
+                    ""path"": ""<Joystick>/stick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""4c8ad7ef-bc1b-4be2-b289-9a949ca9a80f"",
+                    ""path"": ""<Joystick>/stick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""73f853ca-66d6-4660-bd5d-e7a599b4e3f3"",
                     ""path"": ""<Keyboard>/leftShift"",
@@ -172,6 +236,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""TakeSnapshot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fd0a0506-e298-44e6-a284-ad12b600a9c0"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +260,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Actions_Jump = m_Actions.FindAction("Jump", throwIfNotFound: true);
         m_Actions_CameraToggle = m_Actions.FindAction("CameraToggle", throwIfNotFound: true);
         m_Actions_TakeSnapshot = m_Actions.FindAction("TakeSnapshot", throwIfNotFound: true);
+        m_Actions_Pause = m_Actions.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,6 +327,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Actions_Jump;
     private readonly InputAction m_Actions_CameraToggle;
     private readonly InputAction m_Actions_TakeSnapshot;
+    private readonly InputAction m_Actions_Pause;
     public struct ActionsActions
     {
         private @Controls m_Wrapper;
@@ -260,6 +337,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Actions_Jump;
         public InputAction @CameraToggle => m_Wrapper.m_Actions_CameraToggle;
         public InputAction @TakeSnapshot => m_Wrapper.m_Actions_TakeSnapshot;
+        public InputAction @Pause => m_Wrapper.m_Actions_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -284,6 +362,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @TakeSnapshot.started += instance.OnTakeSnapshot;
             @TakeSnapshot.performed += instance.OnTakeSnapshot;
             @TakeSnapshot.canceled += instance.OnTakeSnapshot;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IActionsActions instance)
@@ -303,6 +384,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @TakeSnapshot.started -= instance.OnTakeSnapshot;
             @TakeSnapshot.performed -= instance.OnTakeSnapshot;
             @TakeSnapshot.canceled -= instance.OnTakeSnapshot;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IActionsActions instance)
@@ -327,5 +411,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnCameraToggle(InputAction.CallbackContext context);
         void OnTakeSnapshot(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
