@@ -1353,7 +1353,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 676, y: 3301}
-    spritePosition: {x: 80, y: 249}
+    spritePosition: {x: 80, y: 247}
   - name: Start Game
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -1437,7 +1437,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 676, y: 3245}
-    spritePosition: {x: 71, y: 245}
+    spritePosition: {x: 71, y: 243}
   - name: start game stroke
     originalName: 
     pivot: {x: 0.5, y: 0.5}
