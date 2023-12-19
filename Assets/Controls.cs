@@ -80,6 +80,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Mouse"",
+                    ""type"": ""Value"",
+                    ""id"": ""65f9e715-218c-49f9-a169-07c4a04f40cd"",
+                    ""expectedControlType"": ""Delta"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -194,6 +203,61 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""e864adec-fdc0-4328-90bc-597597eb1ae4"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""a6469b3d-47c5-4bf4-ae74-64c7c8a19c91"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""8105a100-fdd2-40c2-b8e0-dd33b0847aa3"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4a8f0387-7a66-4ae6-a84e-3421d394b394"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""3ac356cc-8f5a-469e-8a91-db80a0d4a160"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""73f853ca-66d6-4660-bd5d-e7a599b4e3f3"",
                     ""path"": ""<Keyboard>/leftShift"",
@@ -228,8 +292,30 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""acdaa68b-ec2f-4987-b3bc-3459a6cc5559"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""e7695484-2f05-41fa-ab8f-3d61af86a7c3"",
                     ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TakeSnapshot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b113a50-8a52-4745-ae5f-7ae69cf8b9bb"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -247,6 +333,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f187502-e405-4ed0-9011-0cdefcef45d5"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Mouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -261,6 +358,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Actions_CameraToggle = m_Actions.FindAction("CameraToggle", throwIfNotFound: true);
         m_Actions_TakeSnapshot = m_Actions.FindAction("TakeSnapshot", throwIfNotFound: true);
         m_Actions_Pause = m_Actions.FindAction("Pause", throwIfNotFound: true);
+        m_Actions_Mouse = m_Actions.FindAction("Mouse", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -328,6 +426,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Actions_CameraToggle;
     private readonly InputAction m_Actions_TakeSnapshot;
     private readonly InputAction m_Actions_Pause;
+    private readonly InputAction m_Actions_Mouse;
     public struct ActionsActions
     {
         private @Controls m_Wrapper;
@@ -338,6 +437,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @CameraToggle => m_Wrapper.m_Actions_CameraToggle;
         public InputAction @TakeSnapshot => m_Wrapper.m_Actions_TakeSnapshot;
         public InputAction @Pause => m_Wrapper.m_Actions_Pause;
+        public InputAction @Mouse => m_Wrapper.m_Actions_Mouse;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -365,6 +465,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Mouse.started += instance.OnMouse;
+            @Mouse.performed += instance.OnMouse;
+            @Mouse.canceled += instance.OnMouse;
         }
 
         private void UnregisterCallbacks(IActionsActions instance)
@@ -387,6 +490,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Mouse.started -= instance.OnMouse;
+            @Mouse.performed -= instance.OnMouse;
+            @Mouse.canceled -= instance.OnMouse;
         }
 
         public void RemoveCallbacks(IActionsActions instance)
@@ -412,5 +518,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnCameraToggle(InputAction.CallbackContext context);
         void OnTakeSnapshot(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnMouse(InputAction.CallbackContext context);
     }
 }
