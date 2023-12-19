@@ -32,7 +32,7 @@ ScriptedImporter:
     sRGBTexture: 1
     spriteMode: 2
     spriteExtrude: 1
-    spriteMeshType: 1
+    spriteMeshType: 0
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
     spritePixelsToUnits: 10
@@ -94,27 +94,6 @@ ScriptedImporter:
     spritePosition: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: Layer1
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 4
-      width: 8640
-      height: 4790
-    spriteID: d989cdc97baca7846af9f7be651a683a
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 4}
-    spritePosition: {x: 0, y: 0}
   - name: Folder11
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -203,7 +182,7 @@ ScriptedImporter:
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 36, y: 34, z: 41, w: 31}
     rect:
       serializedVersion: 2
       x: 9524
@@ -245,7 +224,7 @@ ScriptedImporter:
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 67, y: 27, z: 49, w: 40}
     rect:
       serializedVersion: 2
       x: 14838
@@ -266,12 +245,12 @@ ScriptedImporter:
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 35, y: 71, z: 0, w: 100}
     rect:
       serializedVersion: 2
       x: 15475
       y: 544
-      width: 689
+      width: 675
       height: 206
     spriteID: fdf9a3304a9b65d41b515f42705da68c
     spriteBone: []
@@ -287,7 +266,7 @@ ScriptedImporter:
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 56, y: 24, z: 34, w: 104}
     rect:
       serializedVersion: 2
       x: 8652
@@ -308,7 +287,7 @@ ScriptedImporter:
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 76, y: 46, z: 72, w: 109}
     rect:
       serializedVersion: 2
       x: 14532
@@ -329,13 +308,13 @@ ScriptedImporter:
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 65, y: 49, z: 84, w: 87}
     rect:
       serializedVersion: 2
       x: 9088
-      y: 4439
+      y: 4486
       width: 410
-      height: 252
+      height: 205
     spriteID: 6c585a7f00fc9f242a7a3c7f75830421
     spriteBone: []
     spriteOutline: []
@@ -371,7 +350,7 @@ ScriptedImporter:
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 21, y: 361, z: 24, w: 300}
     rect:
       serializedVersion: 2
       x: 8652
@@ -388,16 +367,16 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 8652, y: 3582}
     spritePosition: {x: 3330, y: 0}
-  - name: Folder2(4)
+  - name: copyPillar
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 24, y: 992, z: 46, w: 105}
     rect:
       serializedVersion: 2
       x: 8652
       y: 2013
-      width: 1260
+      width: 438
       height: 1561
     spriteID: 8de1a15b881e0284589ad3b129eba81d
     spriteBone: []
@@ -413,11 +392,11 @@ ScriptedImporter:
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 29, y: 894, z: 41, w: 124}
     rect:
       serializedVersion: 2
       x: 9088
-      y: 2013
+      y: 2011
       width: 428
       height: 1561
     spriteID: 168dc856e18f5d147a2cd2a597e508f1
@@ -434,7 +413,7 @@ ScriptedImporter:
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 23, y: 1512, z: 48, w: 63}
     rect:
       serializedVersion: 2
       x: 9524
@@ -455,7 +434,7 @@ ScriptedImporter:
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 21, y: 415, z: 10, w: 103}
     rect:
       serializedVersion: 2
       x: 9088
@@ -644,13 +623,13 @@ ScriptedImporter:
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 51, y: 108, z: 23, w: 163}
     rect:
       serializedVersion: 2
-      x: 9524
-      y: 3966
-      width: 164
-      height: 350
+      x: 9517
+      y: 3964
+      width: 174
+      height: 355
     spriteID: 844c2d07ae7d1654e87b32e6b9fc8d0e
     spriteBone: []
     spriteOutline: []
@@ -795,7 +774,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 4802
+      y: 4
       width: 8640
       height: 4790
     spriteID: da2a9807711f50f48a49d5b85b5843af
@@ -806,7 +785,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 4802}
+    uvTransform: {x: 4, y: 4}
     spritePosition: {x: 0, y: 0}
   characterData:
     bones: []
@@ -898,8 +877,8 @@ ScriptedImporter:
     layerID: 2
     mosaicPosition: {x: 4, y: 4}
     flatten: 0
-    isImported: 1
-    isVisible: 1
+    isImported: 0
+    isVisible: 0
   - name: Folder11
     spriteName: Folder11
     isGroup: 0
@@ -1030,8 +1009,8 @@ ScriptedImporter:
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: Folder2(4)
-    spriteName: Folder2(4)
+  - name: copyPillar
+    spriteName: copyPillar
     isGroup: 0
     parentIndex: -1
     spriteID: 8de1a15b881e0284589ad3b129eba81d
@@ -1226,7 +1205,7 @@ ScriptedImporter:
     parentIndex: -1
     spriteID: da2a9807711f50f48a49d5b85b5843af
     layerID: 6
-    mosaicPosition: {x: 4, y: 4802}
+    mosaicPosition: {x: 4, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1

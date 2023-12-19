@@ -75,8 +75,9 @@ public class LowerbodyScript : MonoBehaviour
                         floorType = t.tag;
                         if (player.transform.parent == null)
                             AudioManager.PlaySound("Landon" + floorType,GetComponent<AudioSource>(),"LandonRock");
-                        player.transform.parent = t.transform;
                     }
+                    player.transform.parent = t.transform;
+
                     ignore = false;
                 }
 

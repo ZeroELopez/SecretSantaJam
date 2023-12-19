@@ -33,6 +33,9 @@ namespace Assets.Scripts.Base.Events
 
     public class TransportKangarooBoss : DispatchableEvent 
     {
+        public string animation;
+        public UnityEngine.Vector2 pushback;
+
         public UnityEngine.Vector3 newLocation;
     }
 

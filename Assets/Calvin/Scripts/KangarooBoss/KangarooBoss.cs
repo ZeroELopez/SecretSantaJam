@@ -43,12 +43,15 @@ public class KangarooBoss : MonoBehaviour, ISubscribable<TransportKangarooBoss>
     private Vector2 AttackForce;
 
     private bool isAttacking;
+    string animationName;
 
     public void HandleEvent(TransportKangarooBoss evt)
     {
         //Ensure we are not in the middle of an existing attack.
         if(!isAttacking)
         {
+            animationName = evt.animation;
+            AttackHitboxObject.attackForce = evt.pushback;
             StartCoroutine(AttackRoutine(evt.newLocation));
         }
     }
@@ -90,18 +93,18 @@ public class KangarooBoss : MonoBehaviour, ISubscribable<TransportKangarooBoss>
         transform.position = newLocation;
 
         //TODO: Make visually appear.
-
+        GetComponentInChildren<Animator>().Play(animationName,0);
         //Wait to account for attack winding up
         yield return new WaitForSecondsRealtime(attackWindupTime);
 
         //Enable Attack Hitbox
-        AttackHitboxObject.gameObject.SetActive(true);
+        //AttackHitboxObject.gameObject.SetActive(true);
 
         //Wrap up Attack animation
         yield return new WaitForSecondsRealtime(attackDuration);
 
         //Disable Attack Hitbox
-        AttackHitboxObject.gameObject.SetActive(false);
+        //AttackHitboxObject.gameObject.SetActive(false);
 
         //Wait to account for teleporting away
         yield return new WaitForSecondsRealtime(teleportOutWindup);

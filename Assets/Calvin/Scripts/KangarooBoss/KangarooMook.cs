@@ -9,6 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class KangarooMook : MonoBehaviour
 {
+    [SerializeField] Vector2 attackKnockback;
     //Design: When the player enters the trigger, teleport boss to the mook's location, boss then attacks.
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,7 +19,11 @@ public class KangarooMook : MonoBehaviour
         {
             Debug.Log("Send Kangaroo");
             //Post Event
-            EventHub.Instance.PostEvent<TransportKangarooBoss>(new TransportKangarooBoss { newLocation = transform.position }) ;
+            EventHub.Instance.PostEvent<TransportKangarooBoss>(new TransportKangarooBoss {
+                newLocation = transform.position,
+                pushback = attackKnockback,
+                animation = gameObject.name
+            }) ;
         }
     }
 }

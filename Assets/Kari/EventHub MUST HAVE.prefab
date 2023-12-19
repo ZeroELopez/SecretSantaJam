@@ -1203,9 +1203,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimerOn: 0
-  timer: 120
+  LevelTimer: 120
   textObj: {fileID: 8611220843209317244}
   investigationDistance: 0.8
+  encyclopedia:
+    pages: []
+  musicMaxDistance: 100
+  musicMinDistance: 5
   onGameWon:
     m_PersistentCalls:
       m_Calls:
@@ -1304,6 +1308,9 @@ MonoBehaviour:
     layers: []
   - name: Escape
     clip: {fileID: 8300000, guid: 7f846ce48e9a58848ad0d709119fe9bd, type: 3}
+    layers: []
+  - name: Boss
+    clip: {fileID: 8300000, guid: 6b6dabeba1c0016498ffff051f466894, type: 3}
     layers: []
   audioSources:
   - {fileID: 432119887540047470}

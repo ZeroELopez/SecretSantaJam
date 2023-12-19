@@ -17,6 +17,9 @@ public class UnityAnimatorEvents : MonoBehaviour
 
     public void PlaySound(string soundName)=>        AudioManager.PlaySound(soundName, source);
 
+    public void PlayMusic(string track) => MusicManager.SetTrack(track);
+
+    public void CameraShake() => ObjectShake.Camera.Shake();
 
 
     public void Cutscene() => EventHub.Instance.PostEvent(new onCutsceneToggle() { On = true});

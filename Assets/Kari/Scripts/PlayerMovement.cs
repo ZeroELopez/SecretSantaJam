@@ -227,7 +227,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>, IS
                 if (LowerbodyScript.wallDirection != 0)
                 {
                     wJTime = 0;
-                    thisRigidbody.velocity = new Vector2(0, Mathf.Clamp(thisRigidbody.velocity.y, -wallMaxVelocity, 0));
+                    //thisRigidbody.velocity = new Vector2(0, Mathf.Clamp(thisRigidbody.velocity.y, -wallMaxVelocity, 0));
                 }
             }
 
@@ -251,8 +251,8 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>, IS
 
             //Calculate Horizontal force (used in velocity calculations)
             force.x *= movementSpeed;
-            force.x += jHTime < jumpKeepHorizontalMomentum ? jHFoce * Mathf.InverseLerp(0, jumpKeepHorizontalMomentum, jHTime) : 0;
-            force.x += wJTime < wallJumpMomentumTime ? wallJumpMomentum : 0;
+            //force.x += jHTime < jumpKeepHorizontalMomentum ? jHFoce *(1 - Mathf.InverseLerp(0, jumpKeepHorizontalMomentum, jHTime)) : 0;
+            force.x += wJTime < wallJumpMomentumTime ? wallJumpMomentum * (1 - Mathf.InverseLerp(0, wallJumpMomentumTime, wJTime)) : 0;
 
             //Adjust force based on hazards
             force = force * forceModifier;
