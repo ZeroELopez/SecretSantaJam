@@ -54,7 +54,35 @@ public class SendPlayerBackToSpawn : MonoBehaviour, ISubscribable<onEscapeMode>
 
     }
 
-    public void SetSpawn() => spawn = player.transform.position;
+    public void SetSpawn()
+    {
+        //This function is as best possible to be called whenever the player is on the ground.
+        //Presumably the player should be parented to a platform
+
+        Transform platform = player.transform.parent;
+        if(platform != null)
+        {
+            BoxCollider2D platformBox = platform.GetComponent<BoxCollider2D>();
+            if (platformBox != null)
+            {
+                spawn.x = platform.transform.position.x + platformBox.size.x + platformBox.offset.x;                
+                spawn.y = platform.transform.position.y + platformBox.size.y + platformBox.offset.y;                
+                
+                spawn.z = 0;
+            }
+            else
+            {
+                Debug.LogError("Box Collider not found on platform.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Player is not parented to a platform!");
+        }
+
+
+        //spawn = player.transform.position;
+    }
 
     public void Subscribe()
     {
