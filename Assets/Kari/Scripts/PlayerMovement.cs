@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Assets.Scripts.Base.Events;
+using System;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -124,7 +125,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>, IS
         setMaxSpeedMod = 1;
         wallMaxVelocity = 0;
 
-        StartCoroutine("PhysicsUpdate");
+        //StartCoroutine("PhysicsUpdate");
     }
 
     private void OnDestroy()
@@ -165,17 +166,34 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>, IS
 
     // Update is called once per frame
     //void FixedUpdate()
-    float fps = 0.01666f;
-    IEnumerator PhysicsUpdate()
+    public static Action onPhysics;
+
+    float fps => 0.01666f;
+    float interval = 0;
+    void Update()
     {
-        while (true)
+        interval += Time.deltaTime;
+        if (interval < fps)
+            return;
+
+        //If a large fps drop happens. Just skip the frame just to be safe.
+        if (interval > 1)
         {
+            interval = 0;
+            return;
+        }
+        while (interval >= fps)
+        {
+            onPhysics?.Invoke();
+            interval -= fps;
+
+            //For scripts that need Player position. Yes I know there are better ways but oh well.
             position = transform.position;
 
             if (IsStunned)
             {
-                yield return new WaitForSeconds(fps);
-                continue;
+                //yield return new WaitForSeconds(fps);
+                return;
             }
 
             maxSpeedModifier = Mathf.MoveTowards(maxSpeedModifier, setMaxSpeedMod, .05f);
@@ -189,8 +207,8 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>, IS
                     addForce = Vector2.zero;
                 }
 
-                yield return new WaitForSeconds(fps);
-                continue;// return;
+                //yield return new WaitForSeconds(fps);
+                return;// return;
             }
 
             //Reset the Force every frame.
@@ -273,9 +291,10 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>, IS
             else
                 thisRigidbody.gravityScale = downwardsGravity;
 
-            yield return new WaitForSeconds(fps);
-        }
+            //yield return new WaitForSeconds(fps);
 
+            Physics2D.Simulate(fps);
+        }
     }
 
     public void Subscribe()
@@ -322,4 +341,122 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>, IS
     {
         still = true;
     }
+
 }
+
+
+
+// Update is called once per frame
+//void FixedUpdate()
+//float fps = 0.01666f;
+//IEnumerator PhysicsUpdate()
+//{
+//    while (true)
+//    {
+//        position = transform.position;
+
+//        if (IsStunned)
+//        {
+//            yield return new WaitForSeconds(fps);
+//            continue;
+//        }
+
+//        maxSpeedModifier = Mathf.MoveTowards(maxSpeedModifier, setMaxSpeedMod, .05f);
+
+//        //Fix the issue when in Camera mode, the player keeps moving
+//        if (still || cutscene)
+//        {
+//            if (LowerbodyScript.state == PhysicsState.onGround)
+//            {
+//                thisRigidbody.velocity = new Vector2(Mathf.MoveTowards(thisRigidbody.velocity.x, 0, slowdown), thisRigidbody.velocity.y) + addForce;
+//                addForce = Vector2.zero;
+//            }
+
+//            yield return new WaitForSeconds(fps);
+//            continue;// return;
+//        }
+
+//        //Reset the Force every frame.
+//        force = Vector2.zero;
+
+//        //LowerbodyScript.width = lowerBodySize.x;LowerbodyScript.height = lowerBodySize.y;
+//        showDashTime = dTime;
+
+//        if (dTime < dashTiming && _dashing)
+//            dTime += fps;
+//        else if (!dashButtonDown && dTime > 0)
+//            dTime -= fps;
+
+//        jbhTime += jumpButtonDown ? fps : 0;
+//        jumpButtonDown = jbhTime < jumpButtonHoldDownTiming;
+
+//        //Wall Jump Time
+//        wJTime = wJTime < wallJumpMomentumTime ? wJTime + fps : wJTime;
+
+//        //Keep Horizontal Momentum for Jump
+//        jHTime = jHTime < jumpKeepHorizontalMomentum ? jHTime + fps : jHTime;
+
+//        //Set the Horizontal Force Vector to the direction vector set on move
+//        force.x = moveDirection;
+
+//        //Handle Jumping
+//        if (LowerbodyScript.state != PhysicsState.isFalling && jumpButtonDown)
+//        {
+//            jHTime = 0;
+//            jHFoce = thisRigidbody.velocity.x;
+//            wallJumpMomentum = -LowerbodyScript.wallDirection * wallJumpHorizontalForce;
+//            force.y += LowerbodyScript.wallDirection == 0 ? jumpStrength : wallJumpVerticalForce;
+
+//            if (LowerbodyScript.wallDirection != 0)
+//            {
+//                wJTime = 0;
+//                //thisRigidbody.velocity = new Vector2(0, Mathf.Clamp(thisRigidbody.velocity.y, -wallMaxVelocity, 0));
+//            }
+//        }
+
+//        //Climbing
+//        if (LowerbodyScript.state == PhysicsState.onWall && LowerbodyScript.wallDirection != 0)
+//        {
+//            if (wJTime >= wallJumpMomentumTime)
+//                force.x = 0;
+
+//            force.y += climbing ? wallClimbForce : 0;
+
+//            thisRigidbody.velocity = new Vector2(thisRigidbody.velocity.x, Mathf.Clamp(thisRigidbody.velocity.y, -wallMaxVelocity, 0));
+//        }
+
+//        //Dashing and walk Speed
+//        _dashing = dTime < dashTiming ? dashButtonDown : false;
+
+//        movementSpeed = _dashing ? dashSpeed : walkSpeed;
+
+//        maxSpeed = (_dashing || (maxSpeed >= maxDashSpeed && LowerbodyScript.state == PhysicsState.isFalling) ? maxDashSpeed : maxWalkSpeed) * maxSpeedModifier;
+
+//        //Calculate Horizontal force (used in velocity calculations)
+//        force.x *= movementSpeed;
+//        //force.x += jHTime < jumpKeepHorizontalMomentum ? jHFoce *(1 - Mathf.InverseLerp(0, jumpKeepHorizontalMomentum, jHTime)) : 0;
+//        force.x += wJTime < wallJumpMomentumTime ? wallJumpMomentum * (1 - Mathf.InverseLerp(0, wallJumpMomentumTime, wJTime)) : 0;
+
+//        //Adjust force based on hazards
+//        force = force * forceModifier;
+
+//        //Set the Velocity
+//        thisRigidbody.velocity += (force);
+
+//        if (force.x == 0)
+//            thisRigidbody.velocity = new Vector2(Mathf.MoveTowards(thisRigidbody.velocity.x, 0, LowerbodyScript.state == PhysicsState.onGround ? slowdown : midairSlowdown), thisRigidbody.velocity.y);
+
+//        thisRigidbody.velocity = new Vector2(Mathf.Clamp(thisRigidbody.velocity.x, -maxSpeed, maxSpeed), thisRigidbody.velocity.y);
+
+//        thisRigidbody.velocity += addForce;
+//        addForce = Vector2.zero;
+
+//        if (thisRigidbody.velocity.y > 0)
+//            thisRigidbody.gravityScale = upwardsGravity;
+//        else
+//            thisRigidbody.gravityScale = downwardsGravity;
+
+//        yield return new WaitForSeconds(fps);
+//    }
+
+//}

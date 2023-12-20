@@ -689,10 +689,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1280, y: 800}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1153,7 +1153,6 @@ GameObject:
   - component: {fileID: 6019090260128252332}
   - component: {fileID: 7018593046682456276}
   - component: {fileID: 4180373137689277358}
-  - component: {fileID: 5354905671311497124}
   m_Layer: 0
   m_Name: EventHub MUST HAVE
   m_TagString: Untagged
@@ -1202,7 +1201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb3a1e3f296c4f48a46178df8e66d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimerOn: 0
+  TimerOn: 1
   LevelTimer: 120
   textObj: {fileID: 8611220843209317244}
   investigationDistance: 0.8
@@ -1293,13 +1292,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SongList:
   - name: Forest
-    clip: {fileID: 8300000, guid: d2088c4ac787d4241a2dc565a48f2cf0, type: 3}
+    clip: {fileID: 8300000, guid: 179f2491db898294fad72afa00250bbb, type: 3}
     layers:
-    - {fileID: 8300000, guid: d8176307804ee884d984509f49d3ae8a, type: 3}
-    - {fileID: 8300000, guid: f6b57437703b2a346a3afb13ab161eaf, type: 3}
-    - {fileID: 8300000, guid: 825ea454ae4695a419e4b27169360a42, type: 3}
-    - {fileID: 8300000, guid: 07630b9fa87ac4a4fb1874f3f560e8a5, type: 3}
-    - {fileID: 8300000, guid: 4f5f3723bf348fb48b2f86ea7f63bded, type: 3}
+    - {fileID: 8300000, guid: 2b4eab9989e95ad40acc17943f3b8bf9, type: 3}
+    - {fileID: 8300000, guid: 51e2975095d9d3c44aa2be48e8c65060, type: 3}
   - name: Investigation
     clip: {fileID: 8300000, guid: 6591edd8b65cb284a93c9d740d090011, type: 3}
     layers: []
@@ -1311,6 +1307,22 @@ MonoBehaviour:
     layers: []
   - name: Boss
     clip: {fileID: 8300000, guid: 6b6dabeba1c0016498ffff051f466894, type: 3}
+    layers: []
+  - name: Mountain
+    clip: {fileID: 8300000, guid: b1528b9d1427f0447826cf413c31fd6a, type: 3}
+    layers:
+    - {fileID: 8300000, guid: 5d7200318c5a1c44f920324705a72ec1, type: 3}
+    - {fileID: 8300000, guid: eeccf7ebf389bcf4b9eb477d2962d5fd, type: 3}
+  - name: Desert
+    clip: {fileID: 8300000, guid: eead2f0a558b47d4eb9adbf9ab88bc9d, type: 3}
+    layers:
+    - {fileID: 8300000, guid: 13b31782e31c6e94fb0e2108934a9bfa, type: 3}
+    - {fileID: 8300000, guid: fa371545e14de744a84c6e5cb57a0b33, type: 3}
+  - name: Camp
+    clip: {fileID: 8300000, guid: 0762851f45acac24db08d20b47766deb, type: 3}
+    layers: []
+  - name: TitleScreen
+    clip: {fileID: 8300000, guid: e53e3a68a0e5fda4db7ed7c08cd0e748, type: 3}
     layers: []
   audioSources:
   - {fileID: 432119887540047470}
@@ -1578,7 +1590,7 @@ MonoBehaviour:
     pitchMax: 1
     startingPoints: 
   - name: CameraZoomIn
-    clip: {fileID: 8300000, guid: bc7a185ea3a89c94b9300d88e0447333, type: 3}
+    clip: {fileID: 8300000, guid: 1f02b06837253c746a4a63a02f51e3b3, type: 3}
     clipVariants: []
     volumeMin: 1
     volumeMax: 1
@@ -1739,20 +1751,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5354905671311497124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3546602195802393732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3f22b7e875c1f744b756059c60ff310, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeedModifier: 0
-  jumpModifier: 0
 --- !u!1 &4200157226361513148
 GameObject:
   m_ObjectHideFlags: 0
@@ -2184,7 +2182,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5280142575036830958, guid: 8f80599b7b95c12428e45444ede0e667, type: 3}
       propertyPath: m_fontSize
-      value: 70.55
+      value: 61.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5280142575036830958, guid: 8f80599b7b95c12428e45444ede0e667, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5280142575036830958, guid: 8f80599b7b95c12428e45444ede0e667, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.9602704
+      objectReference: {fileID: 0}
+    - target: {fileID: 5280142575036830958, guid: 8f80599b7b95c12428e45444ede0e667, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 61.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5280142575036830958, guid: 8f80599b7b95c12428e45444ede0e667, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5280142575036830958, guid: 8f80599b7b95c12428e45444ede0e667, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278255605
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
