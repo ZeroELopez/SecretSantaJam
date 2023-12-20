@@ -24,6 +24,8 @@ public class LowerbodyScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        PlayerMovement.onPhysics += PhysicsUpdate;
+
         //Get All Colliders the object has
         thisCollider2D = GetComponents<BoxCollider2D>();
         //Currently there are two colliders
@@ -36,7 +38,7 @@ public class LowerbodyScript : MonoBehaviour
     }
     Vector3 prevPos;
     // Update is called once per frame
-    void FixedUpdate()
+    void PhysicsUpdate()
     {
         if (transform.position == prevPos)
             return;
