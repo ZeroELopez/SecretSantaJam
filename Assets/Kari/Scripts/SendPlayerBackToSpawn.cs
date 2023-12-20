@@ -24,6 +24,7 @@ public class SendPlayerBackToSpawn : MonoBehaviour, ISubscribable<onEscapeMode>
             c.isTrigger = true;
 
         SetSpawn();
+
     }
 
     private void OnDestroy()
@@ -68,8 +69,13 @@ public class SendPlayerBackToSpawn : MonoBehaviour, ISubscribable<onEscapeMode>
                 spawn.x = platform.transform.position.x + platformBox.size.x + platformBox.offset.x;
                 spawn.y = platform.transform.position.y + ((platformBox.size.y * transform.lossyScale.y) / 2) + platformBox.offset.y;
 
-                RaycastHit2D ray = Physics2D.Raycast(spawn, Vector2.down);
+                RaycastHit2D[] results = new RaycastHit2D[5];
+                    
+                Physics2D.Raycast(spawn, Vector2.down, new ContactFilter2D(),results, platformBox.size.y * transform.lossyScale.y);
                 
+                foreach(RaycastHit2D hit in results)
+                    if (hit.collider == platformBox)
+                        spawn = hit.point;
 
 
 
@@ -98,11 +104,13 @@ public class SendPlayerBackToSpawn : MonoBehaviour, ISubscribable<onEscapeMode>
     public void Subscribe()
     {
         EventHub.Instance.Subscribe<onEscapeMode>(this);
+        LowerbodyScript.onLand += SetSpawn;
     }
 
     public void Unsubscribe()
     {
         EventHub.Instance.Unsubscribe<onEscapeMode>(this);
+        LowerbodyScript.onLand -= SetSpawn;
     }
 
     public void HandleEvent(onEscapeMode evt)

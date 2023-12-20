@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Kari.SoundManagement;
+using System;
 
 public enum PhysicsState
 {
@@ -19,6 +20,8 @@ public class LowerbodyScript : MonoBehaviour
 
     public static int wallDirection;
     public static string floorType;
+    public static Action onLand;
+
     //public static float width;
     //public static float height;
     // Start is called before the first frame update
@@ -82,7 +85,11 @@ public class LowerbodyScript : MonoBehaviour
                     {
                         floorType = t.tag;
                         if (player.transform.parent == null)
-                            AudioManager.PlaySound("Landon" + floorType,GetComponent<AudioSource>(),"LandonRock");
+                        {
+                            player.transform.parent = t.transform;
+                            onLand?.Invoke();
+                            AudioManager.PlaySound("Landon" + floorType, GetComponent<AudioSource>(), "LandonRock");
+                        }
                     }
                     player.transform.parent = t.transform;
 
