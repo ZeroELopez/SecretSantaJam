@@ -37,6 +37,12 @@ public class LowerbodyScript : MonoBehaviour
         c.isTrigger = true;
     }
     Vector3 prevPos;
+
+    private void OnDestroy()
+    {
+        PlayerMovement.onPhysics -= PhysicsUpdate;
+
+    }
     // Update is called once per frame
     void PhysicsUpdate()
     {

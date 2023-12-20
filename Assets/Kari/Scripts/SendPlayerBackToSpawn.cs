@@ -65,9 +65,14 @@ public class SendPlayerBackToSpawn : MonoBehaviour, ISubscribable<onEscapeMode>
             BoxCollider2D platformBox = platform.GetComponent<BoxCollider2D>();
             if (platformBox != null)
             {
-                spawn.x = platform.transform.position.x + platformBox.size.x + platformBox.offset.x;                
-                spawn.y = platform.transform.position.y + platformBox.size.y + platformBox.offset.y;                
+                spawn.x = platform.transform.position.x + platformBox.size.x + platformBox.offset.x;
+                spawn.y = platform.transform.position.y + ((platformBox.size.y * transform.lossyScale.y) / 2) + platformBox.offset.y;
+
+                RaycastHit2D ray = Physics2D.Raycast(spawn, Vector2.down);
                 
+
+
+
                 spawn.z = 0;
             }
             else
