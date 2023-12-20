@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using Assets.Scripts.Base.Events;
 
-public class ScoreTracker : MonoBehaviour, ISubscribable<onCreatureCaptured>
+public class ScoreTracker : MonoBehaviour, ISubscribable<onCreatureCaptured>, ISubscribable<RequestScore>
 {
     private int score;
     TextMeshProUGUI text;
@@ -22,11 +22,6 @@ public class ScoreTracker : MonoBehaviour, ISubscribable<onCreatureCaptured>
     {
         Unsubscribe();
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void AddPoints(int points) 
     {
@@ -36,16 +31,23 @@ public class ScoreTracker : MonoBehaviour, ISubscribable<onCreatureCaptured>
 
     public void Subscribe()
     {
-        EventHub.Instance.Subscribe(this);
-       }
+        EventHub.Instance.Subscribe<onCreatureCaptured>(this);
+        EventHub.Instance.Subscribe<RequestScore>(this);
+    }
 
     public void Unsubscribe()
     {
-        EventHub.Instance.Unsubscribe(this);
+        EventHub.Instance.Unsubscribe<onCreatureCaptured>(this);
+        EventHub.Instance.Unsubscribe<RequestScore>(this);
     }
 
     public void HandleEvent(onCreatureCaptured evt)
     {
         AddPoints(evt.page.points);
+    }
+
+    public void HandleEvent(RequestScore evt)
+    {
+        EventHub.Instance.PostEvent(new RequestScoreResponse { Score = score });
     }
 }

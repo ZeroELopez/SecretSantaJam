@@ -48,5 +48,12 @@ namespace Assets.Scripts.Base.Events
             On = !On;
         }
     }
+
+    public class RequestScore : DispatchableEvent {    }
+
+    public class RequestScoreResponse : DispatchableEvent
+    {
+        public int Score;        
+    }
 }
 
