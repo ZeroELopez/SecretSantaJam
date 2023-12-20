@@ -14,7 +14,7 @@ public enum GameState
 
 public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,ISubscribable<onGameWon>, ISubscribable<onGameLost>, ISubscribable<onSpecialCreatureCaptured>
 {
-    BoxCollider2D homeBase;
+    public BoxCollider2D homeBase;
     public void SetHome(BoxCollider2D newHome) => homeBase = newHome;
     [SerializeField] bool TimerOn = true;
     [SerializeField] float LevelTimer = 120;
