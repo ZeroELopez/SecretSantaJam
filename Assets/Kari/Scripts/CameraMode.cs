@@ -74,6 +74,9 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
         playerControls.Actions.Move.started += OnMove;
         playerControls.Actions.Move.performed += OnMove;
         playerControls.Actions.Move.canceled += OnMove;
+        playerControls.Actions.Mouse.started += OnMouseMove;
+        playerControls.Actions.Mouse.performed += OnMouseMove;
+        playerControls.Actions.Mouse.canceled += OnMouseMove;
 
         playerControls.Actions.TakeSnapshot.started += TakeSnapshot;
     }
@@ -84,6 +87,7 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
     }
 
     private void OnMove(InputAction.CallbackContext context) =>        movement = context.ReadValue<Vector2>();
+    private void OnMouseMove(InputAction.CallbackContext context) => movement = context.ReadValue<Vector2>() * .5f;
 
     public void HandleEvent(onCameraToggle evt)
     {

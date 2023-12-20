@@ -7,7 +7,7 @@ public class EscapeMode : MonoBehaviour, ISubscribable<onEscapeMode>
 {
     [SerializeField] GameObject bucket;
     [SerializeField] GameObject mainCreature;
-    [SerializeField] float timer;
+    [SerializeField] float timer = 30;
     public void HandleEvent(onEscapeMode evt)
     {
         bucket.SetActive(true);
@@ -19,7 +19,8 @@ public class EscapeMode : MonoBehaviour, ISubscribable<onEscapeMode>
         GameManager.Instance.SetTimer(timer);
 
         Vector2 pos = Creature.focusCreature.transform.position;
-        mainCreature.transform.position = pos;
+        if (mainCreature)
+            mainCreature.transform.position = pos;
     }
 
     public void Subscribe()

@@ -17,8 +17,8 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
     BoxCollider2D homeBase;
     public void SetHome(BoxCollider2D newHome) => homeBase = newHome;
     [SerializeField] bool TimerOn = true;
-    [SerializeField] float timer;
-    float t;
+    [SerializeField] float LevelTimer = 120;
+    float time;
 
     public GameState state { get; private set; }
 
@@ -33,7 +33,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
     // Start is called before the first frame update
     void Awake()
     {
-        t = timer;
+        time = LevelTimer;
 
         SetInstance(this);
         DontDestroyOnLoad(this);
@@ -90,12 +90,12 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
         //End Game Timer
         ////////////////////////////////////////////////////////////////////////////
 
-        t -= TimerOn? Time.deltaTime: 0;
-        int showT = Mathf.CeilToInt(t);
+        time -= TimerOn? Time.deltaTime: 0;
+        int showT = Mathf.CeilToInt(time);
         if (oldT != showT)
             textObj.text = state.ToString() + " : " + (oldT = showT).ToString();
 
-        if (t <= 0)
+        if (time <= 0)
             EventHub.Instance.PostEvent(new onGameLost());
 
         ////////////////////////////////////////////////////////////////////////////
@@ -128,7 +128,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
         ContactFilter2D filter = new ContactFilter2D();
         filter.useTriggers = false;
 
-        if (homeBase.OverlapCollider(filter, allCollisions) == 0)
+        if (!homeBase || homeBase.OverlapCollider(filter, allCollisions) == 0)
             return;
 
         foreach (BoxCollider2D t in allCollisions) 
@@ -142,7 +142,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
 
     public void SetTimer(float newValue) 
     {
-        t = newValue;
+        time = newValue;
     }
 
     public static void ChangeState(GameState newState)
@@ -175,7 +175,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
         state = GameState.Investigation;
         TimerOn = false;
         onGameWon?.Invoke();
-        t = timer;
+        time = LevelTimer;
     }
 
     public UnityEvent onGameLose;
@@ -184,7 +184,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
         state = GameState.Investigation;
         TimerOn = false;
         onGameLose?.Invoke();
-        t = timer;
+        time = LevelTimer;
     }
 
     public void HandleEvent(onSpecialCreatureCaptured evt)
@@ -195,7 +195,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
     public UnityEvent onGameStart;
     public void HandleEvent(onGameStart evt)
     {
-        t = timer;
+        time = LevelTimer;
         TimerOn = true;
         onGameStart?.Invoke();
     }

@@ -44,10 +44,11 @@ namespace Kari.Animations
         bool onWall => LowerbodyScript.state == PhysicsState.onWall;
 
         public bool onCamera;
-
+        Vector3 localScale;
         private void Start()
         {
             thisAnimator = GetComponent<Animator>();
+            localScale = transform.localScale;
             Subscribe();
         }
 
@@ -65,9 +66,9 @@ namespace Kari.Animations
             if (currentState != States.WallCling || currentState != States.WallClimb)
             {
                 if (player.moveDirection > 0)
-                    GetComponent<SpriteRenderer>().flipX = false;
+                    transform.localScale = new Vector3(localScale.x, localScale.y);
                 else if (player.moveDirection < 0)
-                    GetComponent<SpriteRenderer>().flipX = true;
+                    transform.localScale = new Vector3(-localScale.x, localScale.y);
             }
 
 

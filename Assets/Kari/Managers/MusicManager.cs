@@ -32,6 +32,7 @@ public class MusicManager : Singleton<MusicManager>
         Instance.onSong++;
 
         Instance.PlaySong();
+        Debug.Log("newSong");
     }
 
     public static float layerFill;
@@ -40,6 +41,8 @@ public class MusicManager : Singleton<MusicManager>
     {
         Instance.onSong = index;
         Instance.PlaySong();
+        Debug.Log("newSong");
+
     }
 
     public static void SetTrack(string trackName)
@@ -49,6 +52,7 @@ public class MusicManager : Singleton<MusicManager>
             {
                 Instance.onSong = i;
                 Instance.PlaySong();
+                Debug.Log("newSong");
             }
     }
 
