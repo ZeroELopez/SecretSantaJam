@@ -193,6 +193,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>, IS
             if (IsStunned)
             {
                 //yield return new WaitForSeconds(fps);
+                Physics2D.Simulate(fps);
                 return;
             }
 
@@ -208,6 +209,7 @@ public class PlayerMovement : MonoBehaviour, ISubscribable<onCutsceneToggle>, IS
                 }
 
                 //yield return new WaitForSeconds(fps);
+                Physics2D.Simulate(fps);
                 return;// return;
             }
 
