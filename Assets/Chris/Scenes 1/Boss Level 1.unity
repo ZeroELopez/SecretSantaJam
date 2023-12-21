@@ -21645,8 +21645,8 @@ Transform:
   m_GameObject: {fileID: 1408408162}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -26.3, y: -10.7, z: 0}
-  m_LocalScale: {x: 4.938146, y: 4.938146, z: 4.938146}
+  m_LocalPosition: {x: -31.9517, y: -14.9532, z: 0}
+  m_LocalScale: {x: 2.0545056, y: 2.0545056, z: 2.0545056}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 262667384}
@@ -21717,9 +21717,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FocusCreature: 1
   creatureCaptured: 0
-  poorScore: 1
-  goodScore: 1
-  greatScore: 1
+  poorScore: 100
+  goodScore: 250
+  greatScore: 500
   page:
     image: {fileID: 0}
     points: 0
@@ -25820,8 +25820,8 @@ Transform:
   m_GameObject: {fileID: 1703799270}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 394.9, y: -30, z: 0}
-  m_LocalScale: {x: 25.713768, y: 25.713768, z: 25.713768}
+  m_LocalPosition: {x: 380.8792, y: -48.7965, z: 0}
+  m_LocalScale: {x: 13.468872, y: 13.468872, z: 13.468872}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 262667384}
@@ -31203,8 +31203,8 @@ Transform:
   m_GameObject: {fileID: 2014213408}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1197.5872, y: -54.6, z: 0}
-  m_LocalScale: {x: 4.8581815, y: 4.8581815, z: 4.8581815}
+  m_LocalPosition: {x: 1163.4677, y: -63.1516, z: 0}
+  m_LocalScale: {x: 1.3821527, y: 1.3821527, z: 1.3821527}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 262667384}
@@ -31216,7 +31216,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014213408}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
