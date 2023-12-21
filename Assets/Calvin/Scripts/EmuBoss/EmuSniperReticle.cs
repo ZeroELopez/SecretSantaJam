@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class EmuSniperReticle : MonoBehaviour
 {
     [SerializeField]
     private EmuSniper sniperParent;
+
+    private SpriteRenderer spriteRenderer;
+
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     /// <summary>
     /// Handle when the Player enters the Circle Collider
@@ -27,5 +35,31 @@ public class EmuSniperReticle : MonoBehaviour
                 sniperParent.TakeAim();
             }
         }
+    }
+
+    public IEnumerator Blink(float seconds)
+    {
+        float t = seconds;
+        int reps = 0;
+        while(t > 0)
+        {
+            t-= Time.deltaTime;
+            reps++;
+
+            ///Alternate colors
+            if(reps%2 == 0)
+            {
+                spriteRenderer.color = Color.white;
+            }
+            else
+            {
+                spriteRenderer.color = Color.black;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        //Set it back to its original state at the end.
+        spriteRenderer.color = Color.white;
     }
 }

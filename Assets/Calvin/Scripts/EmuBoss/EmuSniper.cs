@@ -125,6 +125,7 @@ public class EmuSniper : MonoBehaviour
     /// </summary>
     private IEnumerator AimRoutine()
     {
+        reticle.StartCoroutine(reticle.Blink(aimTime));
         yield return new WaitForSecondsRealtime(aimTime);
 
         //kick off firing Routine
