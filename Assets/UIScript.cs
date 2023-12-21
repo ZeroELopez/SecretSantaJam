@@ -32,6 +32,13 @@ public class UIScript : MonoBehaviour
 
     }
 
+private void OnDestroy(){
+playerControls.Actions.Move.started -= OnMove;
+
+playerControls.Actions.Jump.started -= OnSelect;
+        playerControls.Actions.TakeSnapshot.started -= OnSelect;
+}
+
     private void OnMove(InputAction.CallbackContext context)
     {
         selected -= Mathf.CeilToInt(context.ReadValue<Vector2>().y);
