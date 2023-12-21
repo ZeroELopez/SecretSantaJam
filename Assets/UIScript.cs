@@ -28,7 +28,7 @@ public class UIScript : MonoBehaviour
         playerControls.Actions.Move.started += OnMove;
 
         playerControls.Actions.Jump.started += OnSelect;
-        playerControls.Actions.TakeSnapshot.started += OnSelect;
+       
 
     }
 
@@ -36,7 +36,7 @@ private void OnDestroy(){
 playerControls.Actions.Move.started -= OnMove;
 
 playerControls.Actions.Jump.started -= OnSelect;
-        playerControls.Actions.TakeSnapshot.started -= OnSelect;
+        
 }
 
     private void OnMove(InputAction.CallbackContext context)
