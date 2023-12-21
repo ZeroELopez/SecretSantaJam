@@ -5,7 +5,11 @@ using UnityEngine.Events;
 
 public class TriggerScript : MonoBehaviour
 {
-    BoxCollider2D[] thisCollider2D = new BoxCollider2D[0];
+    Transform target;
+    [SerializeField] float maxDistance = 5;
+    float largestSide;
+
+    [SerializeField] BoxCollider2D[] thisCollider2D = new BoxCollider2D[0];
     //[SerializeField] string obj;
 
     public UnityEvent onStillEvents;
@@ -16,14 +20,23 @@ public class TriggerScript : MonoBehaviour
     public PlayerMovement obj { get; private set; }
     void Awake()
     {
+        target = GameObject.FindObjectOfType<PlayerMovement>().transform;
         thisCollider2D = GetComponents<BoxCollider2D>();
+        largestSide =  transform.lossyScale.x * thisCollider2D[0].size.x >  transform.lossyScale.y * thisCollider2D[0].size.y ?
+             transform.lossyScale.x * thisCollider2D[0].size.x :
+             transform.lossyScale.y * thisCollider2D[0].size.y;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (thisCollider2D.Length == 0)
+        //if (thisCollider2D.Length == 0)
+        //    return;
+
+        Vector3 pos = transform.position + new Vector3(thisCollider2D[0].offset.x, thisCollider2D[0].offset.y);
+        if (Vector3.Distance(target.position, pos)  > maxDistance + (largestSide / 2) && !obj)
             return;
+
         Collider2D[] allCollisions = new Collider2D[10];
 
         ContactFilter2D filter = new ContactFilter2D();

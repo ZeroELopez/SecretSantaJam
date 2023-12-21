@@ -13,11 +13,11 @@ public class SpawnManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (LowerbodyScript.state == PhysicsState.onGround) 
-        {
-            deathBar.SetSpawn();
-        }
-    }
+    //void Update()
+    //{
+    //    if (LowerbodyScript.state == PhysicsState.onGround) 
+    //    {
+    //        deathBar.SetSpawn();
+    //    }
+    //}
 }

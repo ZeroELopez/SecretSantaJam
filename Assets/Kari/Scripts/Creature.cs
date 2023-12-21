@@ -13,7 +13,7 @@ public class Creature : MonoBehaviour
     public int greatScore;
 
     public Page page;
-    public FollowPath path = null;
+    //public FollowPath path = null;
 
     private void Start()
     {
@@ -21,11 +21,12 @@ public class Creature : MonoBehaviour
         {
             focusCreature = this;
             GameObject gameObject = this.gameObject;
-            while (path == null) 
-            {
-                path = gameObject.GetComponent<FollowPath>();
-                gameObject = gameObject.transform.parent.gameObject;
-            }
+
+            //while (path == null) 
+            //{
+            //    path = gameObject.GetComponent<FollowPath>();
+            //    gameObject = gameObject.transform.parent.gameObject;
+            //}
         }
     }
 

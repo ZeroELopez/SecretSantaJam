@@ -45,4 +45,10 @@ public class UnityAnimatorEvents : MonoBehaviour
     public void Footstep() => AudioManager.PlaySound("Runon" + LowerbodyScript.floorType, source, "RunonRock");
 
     public void AddPagesToEncyclopedia() => GameManager.AddPagesToEncyclopedia();
+
+    public void PlayEffects()
+    {
+        GetComponentInChildren<ParticleSystem>().Stop();
+        GetComponentInChildren<ParticleSystem>().Play();
+    }
 }

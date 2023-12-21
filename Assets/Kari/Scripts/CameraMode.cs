@@ -100,7 +100,10 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
         if (evt.On)
             onCameraOn?.Invoke();
         else
+        {
+            pos2.localPosition = new Vector3(0, 0, pos2.localPosition.z);
             onCameraOff?.Invoke();
+        }
     }
 
     public bool cameraOn = false;
