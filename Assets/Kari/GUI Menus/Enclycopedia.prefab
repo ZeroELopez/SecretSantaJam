@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: 307864945281397163}
   - component: {fileID: 4164366285100773159}
   - component: {fileID: 4064706912466682985}
+  - component: {fileID: -418865627602716703}
   m_Layer: 5
   m_Name: Enclycopedia
   m_TagString: Untagged
@@ -392,5 +393,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7711089b91ddd2f4fa10bcdbee4555cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onLoadComplete:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-418865627602716703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9112242128042763020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ecca3e2b38a78e48a6b938b2ec7c88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

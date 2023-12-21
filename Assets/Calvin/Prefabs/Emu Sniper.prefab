@@ -90,7 +90,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4667737657520345107}
   - component: {fileID: 3387473326036319021}
-  - component: {fileID: 6417835904400508500}
   - component: {fileID: 345468412417643021}
   - component: {fileID: 7483510868723753802}
   m_Layer: 0
@@ -128,41 +127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sniperParent: {fileID: 7634840330125614670}
---- !u!58 &6417835904400508500
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3685406287489607648}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!212 &345468412417643021
 SpriteRenderer:
   m_ObjectHideFlags: 0
