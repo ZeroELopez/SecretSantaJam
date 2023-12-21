@@ -35,7 +35,7 @@ public class UIScript : MonoBehaviour
     private void OnMove(InputAction.CallbackContext context)
     {
         selected -= Mathf.CeilToInt(context.ReadValue<Vector2>().y);
-        Mathf.Clamp(selected, 0, list.Length - 1);
+        selected = Mathf.Clamp(selected, 0, list.Length - 1);
 
         UpdateVisuals();
     }
