@@ -40,7 +40,13 @@ public class UnityAnimatorEvents : MonoBehaviour
 
     void loadCompleted(AsyncOperation job) => onLoadComplete?.Invoke();
 
-    public void NextChapterSet() => LoadSceneScript.index++;
+    public void NextChapterSet()
+    {
+        LoadSceneScript.index++;
+
+
+        LoadScene("Camp " + LoadSceneScript.index);
+    }
 
     public void Footstep() => AudioManager.PlaySound("Runon" + LowerbodyScript.floorType, source, "RunonRock");
 

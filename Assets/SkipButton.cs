@@ -10,7 +10,7 @@ public class SkipButton : MonoBehaviour
 
     [SerializeField]
     private UnityAnimatorEvents events;
-
+    public string scene = "LoadingScrene";
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +19,7 @@ public class SkipButton : MonoBehaviour
 
     public void ClickFunction()
     {
-        events.LoadSceneAsync("LoadingScreen");
+        events.LoadSceneAsync(scene);
 
         button.enabled = false;
     }
