@@ -75,7 +75,7 @@ public class LowerbodyScript : MonoBehaviour
             //Will ignore overlapping collider if it is the player
             bool ignore = true;
 
-            foreach (BoxCollider2D t in allCollisions)
+            foreach (Collider2D t in allCollisions)
                 if (t != null && !t.gameObject.GetComponent<PlayerMovement>())
                 {
                     //If the box collider's width is large then it's an upper body and needs to find what direction is the wall.
