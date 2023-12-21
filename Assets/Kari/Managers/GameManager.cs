@@ -109,7 +109,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
         float distance = Vector3.Distance(Creature.focusCreature.transform.position,PlayerMovement.position);
 
 
-        MusicManager.layerFill = Mathf.InverseLerp(musicMaxDistance,musicMinDistance, distance); ;
+        MusicManager.layerFill = state == GameState.Escape? 1 : Mathf.InverseLerp(musicMaxDistance,musicMinDistance, distance); ;
 
         if (MusicManager.layerFill > investigationDistance)
             ChangeState(GameState.Chase);
