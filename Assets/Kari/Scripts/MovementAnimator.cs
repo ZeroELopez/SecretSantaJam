@@ -24,7 +24,7 @@ public class MovementAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position == prevPos)
+        if (Vector2.Distance(transform.position, prevPos) < 1)
             return;
 
         Vector3 dir = (transform.position - prevPos).normalized;
