@@ -26,12 +26,21 @@ public class StunBullet : MonoBehaviour
     /// </summary>
     Rigidbody2D rigidbody;
 
+    public AudioClip[] gunshotSounds;
+    private AudioSource audioSource;
+
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
 
         //Update position
         rigidbody.velocity = direction * speed;
+
+        //Play sound effect
+        int randomIndex = Random.Range(0, gunshotSounds.Length);
+        audioSource.clip = gunshotSounds[randomIndex];
+        audioSource.Play();
     }
 
     private void Update()

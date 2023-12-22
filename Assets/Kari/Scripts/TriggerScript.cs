@@ -34,7 +34,7 @@ public class TriggerScript : MonoBehaviour
         //    return;
 
         Vector3 pos = transform.position + new Vector3(thisCollider2D[0].offset.x, thisCollider2D[0].offset.y);
-        if (Vector3.Distance(target.position, pos)  > maxDistance + (largestSide / 2) && !obj)
+        if (Vector2.Distance(target.position, pos)  > maxDistance + (largestSide / 2) && !obj)
             return;
 
         Collider2D[] allCollisions = new Collider2D[10];

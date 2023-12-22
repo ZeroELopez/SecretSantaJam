@@ -65,9 +65,13 @@ public class EmuSniper : MonoBehaviour
     /// </summary>
     private float angle;
 
+    public AudioClip[] gunshotSounds;
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         currentState = SniperState.SniperPatrol;
     }
 
@@ -139,6 +143,11 @@ public class EmuSniper : MonoBehaviour
     private IEnumerator FireShot()
     {
         Debug.Log("firing");
+
+        //Play sound effect
+        int randomIndex = Random.Range(0, gunshotSounds.Length);
+        audioSource.clip = gunshotSounds[randomIndex];
+        audioSource.Play();
 
         // Set State
         currentState = SniperState.SniperShooting;

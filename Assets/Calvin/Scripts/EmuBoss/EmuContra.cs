@@ -114,8 +114,8 @@ public class EmuContra : MonoBehaviour,
     /// </summary>
     public void Subscribe()
     {
-        EventHub.Instance.Unsubscribe<onGameWon>(this);
-        EventHub.Instance.Unsubscribe<onGameLost>(this);
+        EventHub.Instance.Subscribe<onGameWon>(this);
+        EventHub.Instance.Subscribe<onGameLost>(this);
     }
 
     /// <summary>
@@ -123,8 +123,8 @@ public class EmuContra : MonoBehaviour,
     /// </summary>
     public void Unsubscribe()
     {
-        EventHub.Instance.Subscribe<onGameWon>(this);
-        EventHub.Instance.Subscribe<onGameLost>(this);
+        EventHub.Instance.Unsubscribe<onGameWon>(this);
+        EventHub.Instance.Unsubscribe<onGameLost>(this);
     }
 
     /// <summary>
@@ -134,6 +134,7 @@ public class EmuContra : MonoBehaviour,
     public void HandleEvent(onGameLost evt)
     {
         StopCoroutine(ShootAtPlayer());
+        Unsubscribe();
     }
 
     /// <summary>
@@ -143,6 +144,7 @@ public class EmuContra : MonoBehaviour,
     public void HandleEvent(onGameWon evt)
     {
         StopCoroutine(ShootAtPlayer());
+        Unsubscribe();
     }
 
     void OnDestroy()

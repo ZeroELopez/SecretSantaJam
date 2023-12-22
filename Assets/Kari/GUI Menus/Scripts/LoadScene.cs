@@ -25,6 +25,10 @@ public class LoadSceneScript : MonoBehaviour
         yield return new WaitForSeconds(delayStart);
 
         showIndex = index;
+
+if (index >= scenes.Length)
+index = 0;
+
         var job = SceneManager.LoadSceneAsync(scenes[index], LoadSceneMode.Additive);
 
         job.completed += Completed;

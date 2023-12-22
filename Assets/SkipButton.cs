@@ -19,8 +19,8 @@ public class SkipButton : MonoBehaviour
 
     public void ClickFunction()
     {
+        button.onClick = null;
+        button.interactable = false;
         events.LoadSceneAsync(scene);
-
-        button.enabled = false;
     }
 }
