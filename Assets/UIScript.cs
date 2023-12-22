@@ -32,12 +32,13 @@ public class UIScript : MonoBehaviour
 
     }
 
-private void OnDestroy(){
-playerControls.Actions.Move.started -= OnMove;
+    private void OnDestroy()
+    {
+        playerControls.Actions.Move.started -= OnMove;
 
-playerControls.Actions.Jump.started -= OnSelect;
+        playerControls.Actions.Jump.started -= OnSelect;
         
-}
+    }
 
     private void OnMove(InputAction.CallbackContext context)
     {
@@ -49,12 +50,16 @@ playerControls.Actions.Jump.started -= OnSelect;
 
     void GrabDefaultValues()
     {
-
     }
 
     void UpdateVisuals()
     {
-
+        //turn off all Sprite renderers except for the selected Index
+        for (int i = 0; i < list.Length; i++)
+        {
+            //visualImages[i].enabled = i == selected; //Just in case
+            visualSprites[i].enabled = i == selected;
+        }
     }
 
     private void OnSelect(InputAction.CallbackContext context)=>        list[selected].onClick?.Invoke();
