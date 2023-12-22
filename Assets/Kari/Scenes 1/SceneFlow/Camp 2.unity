@@ -527,12 +527,15 @@ PrefabInstance:
       addedObject: {fileID: 1270038852}
     - targetCorrespondingSourceObject: {fileID: -7552582706839291426, guid: 13eb64ee281fce9419025b83baea246d, type: 3}
       insertIndex: 2
+      addedObject: {fileID: 1917858973}
+    - targetCorrespondingSourceObject: {fileID: -7552582706839291426, guid: 13eb64ee281fce9419025b83baea246d, type: 3}
+      insertIndex: 3
       addedObject: {fileID: 1606848664}
     - targetCorrespondingSourceObject: {fileID: -7552582706839291426, guid: 13eb64ee281fce9419025b83baea246d, type: 3}
-      insertIndex: 5
+      insertIndex: 6
       addedObject: {fileID: 323261397}
     - targetCorrespondingSourceObject: {fileID: -7552582706839291426, guid: 13eb64ee281fce9419025b83baea246d, type: 3}
-      insertIndex: 20
+      insertIndex: 21
       addedObject: {fileID: 1582101844}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 4843985084834002234, guid: 13eb64ee281fce9419025b83baea246d, type: 3}
@@ -1222,7 +1225,7 @@ Transform:
   m_GameObject: {fileID: 1270038851}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.61, y: 3.6600006, z: 7}
+  m_LocalPosition: {x: 0.66, y: 3.51, z: 7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1268,8 +1271,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 15
-  m_Sprite: {fileID: 21300000, guid: 43d9705c8d7458a49a50cbbad080f7e9, type: 3}
+  m_SortingOrder: 30
+  m_Sprite: {fileID: 21300000, guid: c98fd6b1c6db8574c8a5ebb850b7b5ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1515,6 +1518,7 @@ MonoBehaviour:
           m_StringArgument: CampTransition
           m_BoolArgument: 0
         m_CallState: 2
+  nextSceneName: 
 --- !u!4 &1353053151
 Transform:
   m_ObjectHideFlags: 0
@@ -1552,14 +1556,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayStart: 3
   dialogue:
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
+  - Hey mom,
+  - ...
+  - Yeah, I just ate. About to get ready for bed
+  - ...
+  - Hey, I got a picture of another one today
+  - 'It was so fast! But I was able to catch up. '
+  - It had these boxing gloves and started to-
+  - ....
+  - ....
+  - I don't think I'll have time to take photos for her wedding
+  - ...
+  - I'm still trying to find th-
+  - ...
+  - ...
+  - I'll see what I can do
+  - ...
+  - Yeah, love you too, bye
+  - ...
   pauseBetween: 3
   dialogueBox: {fileID: 803894428}
   dialogueParent: {fileID: 1582101844}
@@ -1725,6 +1739,90 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!1 &1917858972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1917858973}
+  - component: {fileID: 1917858974}
+  m_Layer: 0
+  m_Name: Nina (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1917858973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917858972}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.66, y: 3.51, z: 7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 211339607}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1917858974
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917858972}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 30
+  m_Sprite: {fileID: 21300000, guid: c98fd6b1c6db8574c8a5ebb850b7b5ee, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 10.2, y: 6.57}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!1 &2022193583
 GameObject:

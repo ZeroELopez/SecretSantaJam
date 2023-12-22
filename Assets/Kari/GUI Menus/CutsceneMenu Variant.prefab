@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 58375432221536526, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
+      propertyPath: m_Name
+      value: Skip
+      objectReference: {fileID: 0}
     - target: {fileID: 1459198511295764934, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.95
@@ -15,6 +19,22 @@ PrefabInstance:
     - target: {fileID: 1459198511295764934, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479540348054024128, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4567180630288318828}
+    - target: {fileID: 1479540348054024128, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClickFunction
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479540348054024128, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SkipButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479540348054024128, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: LoadingScreen
       objectReference: {fileID: 0}
     - target: {fileID: 2642992424968801376, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
       propertyPath: m_Name
@@ -104,6 +124,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7549989059272027862, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939122094781140217, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
+      propertyPath: m_FirstSelected
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 3385134522859016907, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
@@ -111,6 +139,29 @@ PrefabInstance:
     - {fileID: 1207525787349348745, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
     - {fileID: 3262955125144308965, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
     - {fileID: 5091443041804057804, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
+    - {fileID: 1792226731915132806, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 58375432221536526, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4567180630288318828}
   m_SourcePrefab: {fileID: 100100000, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
+--- !u!1 &8768964017809056317 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 58375432221536526, guid: 86004c24c8eab76428ad3a70a23d6ac6, type: 3}
+  m_PrefabInstance: {fileID: 8754710106150294323}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4567180630288318828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8768964017809056317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9712e4eeb3d5b6c4298fd84610a054dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events: {fileID: 0}
+  scene: LoadingScreen

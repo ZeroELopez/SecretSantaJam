@@ -51,6 +51,9 @@ public class FollowScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!followingObj)
+            return;
+
         Vector3 newPos = Vector3.MoveTowards(
             transform.position,
             followingObj.position + offset,

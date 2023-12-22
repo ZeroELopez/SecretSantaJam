@@ -185,7 +185,7 @@ public class CameraMode : MonoBehaviour, ISubscribable<onCameraToggle>
                 {
                     points += c.greatScore;
                 }
-                c.page.points = points;
+                c.page.points = points + Mathf.CeilToInt(GameManager.getTime);
                 EventHub.Instance.PostEvent(new onCreatureCaptured() { page = c.page });
 
                 if (c.FocusCreature)

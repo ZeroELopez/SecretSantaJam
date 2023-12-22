@@ -15,7 +15,7 @@ public class MakeRoomScript : MonoBehaviour
     // Update is called once per frame
     IEnumerator MoveTowards()
     {
-        Debug.Log("Started MoveTowards");
+        //Debug.Log("Started MoveTowards");
         Vector3 target = transform.position + adjust;
         Vector3 origin = transform.position;
 

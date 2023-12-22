@@ -1519,6 +1519,7 @@ MonoBehaviour:
           m_StringArgument: CampTransition
           m_BoolArgument: 0
         m_CallState: 2
+  nextSceneName: 
 --- !u!4 &1353053151
 Transform:
   m_ObjectHideFlags: 0
@@ -1556,14 +1557,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayStart: 3
   dialogue:
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
+  - God I'm so tired, why do I keep doing this
+  - It's so much hard work and for what?
+  - A couple of people seeing my photos
+  - A "hey that's pretty cool" there
+  - A "you're so talented" here, but...
+  - I'm never satisfied.
+  - ...
+  - I wonder what my friends are doing right now
   pauseBetween: 3
   dialogueBox: {fileID: 803894428}
   dialogueParent: {fileID: 1582101844}
@@ -1898,25 +1899,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
---- !u!1 &2139786066 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8768964017809056317, guid: a3ca453e0ce84304194b5e1d053d4ce1, type: 3}
-  m_PrefabInstance: {fileID: 2341490147964964380}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2139786068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2139786066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9712e4eeb3d5b6c4298fd84610a054dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  events: {fileID: 1353053150}
-  scene: LoadingScreen
 --- !u!1001 &2341490147964964380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1925,10 +1907,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1276780910651571685, guid: a3ca453e0ce84304194b5e1d053d4ce1, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2069932701425903764, guid: a3ca453e0ce84304194b5e1d053d4ce1, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2009,45 +1987,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4567180630288318828, guid: a3ca453e0ce84304194b5e1d053d4ce1, type: 3}
+      propertyPath: events
+      value: 
+      objectReference: {fileID: 1353053150}
     - target: {fileID: 6760802366012530515, guid: a3ca453e0ce84304194b5e1d053d4ce1, type: 3}
       propertyPath: m_Name
       value: CutsceneMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 6760802366012530515, guid: a3ca453e0ce84304194b5e1d053d4ce1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923688194900655347, guid: a3ca453e0ce84304194b5e1d053d4ce1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923688194900655347, guid: a3ca453e0ce84304194b5e1d053d4ce1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2139786068}
-    - target: {fileID: 7923688194900655347, guid: a3ca453e0ce84304194b5e1d053d4ce1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ClickFunction
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923688194900655347, guid: a3ca453e0ce84304194b5e1d053d4ce1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SkipButton, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923688194900655347, guid: a3ca453e0ce84304194b5e1d053d4ce1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: LoadingScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 8768964017809056317, guid: a3ca453e0ce84304194b5e1d053d4ce1, type: 3}
-      propertyPath: m_Name
-      value: Skip
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8768964017809056317, guid: a3ca453e0ce84304194b5e1d053d4ce1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2139786068}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3ca453e0ce84304194b5e1d053d4ce1, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

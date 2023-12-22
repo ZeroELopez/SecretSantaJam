@@ -1515,6 +1515,7 @@ MonoBehaviour:
           m_StringArgument: CampTransition
           m_BoolArgument: 0
         m_CallState: 2
+  nextSceneName: 
 --- !u!4 &1353053151
 Transform:
   m_ObjectHideFlags: 0
@@ -1552,14 +1553,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayStart: 3
   dialogue:
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
-  - Dialogue Here
+  - Hey Dad, guess what
+  - ...
+  - I found it!
+  - ...
+  - 'Yeah I know right! '
+  - ...
+  - Of course I got some pictures
+  - ...
+  - Alright I'll head home. I can't wait to show you.
   pauseBetween: 3
   dialogueBox: {fileID: 803894428}
   dialogueParent: {fileID: 1582101844}
@@ -1709,7 +1711,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!4 &1652526830
 Transform:

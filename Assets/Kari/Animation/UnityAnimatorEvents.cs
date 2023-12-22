@@ -12,6 +12,7 @@ public class UnityAnimatorEvents : MonoBehaviour
 {
     AudioSource source;
     public UnityEvent onLoadComplete;
+    public string nextSceneName;
 
     private void Start()=>        source = GetComponent<AudioSource>();
 
@@ -30,6 +31,8 @@ public class UnityAnimatorEvents : MonoBehaviour
     public void Quit()=>        Application.Quit();
     public void LoadScene(string sceneName)=>        SceneManager.LoadScene(sceneName);
 
+    public void NextScene() => SceneManager.LoadScene(nextSceneName);
+
     public void UnloadLevel() => SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
 
     public void LoadSceneAsync(string sceneName)
@@ -40,10 +43,14 @@ public class UnityAnimatorEvents : MonoBehaviour
 
     void loadCompleted(AsyncOperation job) => onLoadComplete?.Invoke();
 
+    bool added = false;
     public void NextChapterSet()
     {
-        LoadSceneScript.index++;
+        if (added)
+            return;
 
+        LoadSceneScript.index++;
+        added = true;
 
         LoadScene("Camp " + LoadSceneScript.index);
     }
