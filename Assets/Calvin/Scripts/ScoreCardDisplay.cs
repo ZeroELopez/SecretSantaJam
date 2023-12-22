@@ -10,6 +10,7 @@ public class ScoreCardDisplay : MonoBehaviour, ISubscribable<RequestScoreRespons
     public void HandleEvent(RequestScoreResponse evt)
     {
         scoreDisplay.text = evt.Score.ToString();
+        Debug.Log("Position: " + scoreDisplay.rectTransform.position);
     }
 
     public void Subscribe()
