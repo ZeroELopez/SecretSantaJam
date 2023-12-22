@@ -26,8 +26,8 @@ public class LoadSceneScript : MonoBehaviour
 
         showIndex = index;
 
-if (index >= scenes.Length)
-index = 0;
+        if (index >= scenes.Length)
+            index = 0;
 
         var job = SceneManager.LoadSceneAsync(scenes[index], LoadSceneMode.Additive);
 

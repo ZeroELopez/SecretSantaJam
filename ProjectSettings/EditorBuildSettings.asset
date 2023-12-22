@@ -41,5 +41,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Kari/Scenes 1/SceneFlow/Camp 3.unity
     guid: 44a424590dccc9440bc3fba5658195e0
+  - enabled: 1
+    path: Assets/Kari/Scenes 1/SceneFlow/LoseScreen.unity
+    guid: a4cbf5093bfd0b746be257f09d606071
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 561bdbb09a8e148439e102c3288a03ab, type: 2}

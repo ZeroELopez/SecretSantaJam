@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
     [SerializeField] bool TimerOn = true;
     [SerializeField] float LevelTimer = 120;
     float time;
+    public static float getTime => Instance.time;
 
     public GameState state { get; private set; }
 
@@ -71,6 +72,8 @@ public class GameManager : Singleton<GameManager>, ISubscribable<onGameStart>,IS
         EventHub.Instance.Subscribe<onGameLost>(this);
         EventHub.Instance.Subscribe<onGameWon>(this);
         EventHub.Instance.Subscribe<onSpecialCreatureCaptured>(this);
+
+       
     }
 
     public void Unsubscribe()

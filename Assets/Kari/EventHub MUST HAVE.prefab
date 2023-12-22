@@ -1137,6 +1137,7 @@ MonoBehaviour:
   onLoadComplete:
     m_PersistentCalls:
       m_Calls: []
+  nextSceneName: ScoreCard
 --- !u!1 &3546602195802393732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,6 +1202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb3a1e3f296c4f48a46178df8e66d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  homeBase: {fileID: 0}
   TimerOn: 1
   LevelTimer: 120
   textObj: {fileID: 8611220843209317244}
@@ -1654,6 +1656,58 @@ MonoBehaviour:
     pitchMin: 0.85
     pitchMax: 0.85
     startingPoints: 
+  - name: Earthquake
+    clip: {fileID: 8300000, guid: 9f807f5579d8a7d4daf58f52155c4f48, type: 3}
+    clipVariants: []
+    volumeMin: 1
+    volumeMax: 1
+    pitchMin: 1
+    pitchMax: 1
+    startingPoints: 
+  - name: Footstep
+    clip: {fileID: 8300000, guid: 621d2869fd73cfb4aa8626132e0e52fd, type: 3}
+    clipVariants:
+    - {fileID: 8300000, guid: 161e65050f0c0ef42916984f3804a3d0, type: 3}
+    - {fileID: 8300000, guid: d0b429fed4dbe51409a14f2f6c2714db, type: 3}
+    - {fileID: 8300000, guid: a24239059c5003d42b524fe1dccedf6e, type: 3}
+    volumeMin: 1
+    volumeMax: 1
+    pitchMin: 1
+    pitchMax: 1
+    startingPoints: 
+  - name: Kangaroo
+    clip: {fileID: 8300000, guid: c8e994e2602967e499dc315adfc3c3ff, type: 3}
+    clipVariants:
+    - {fileID: 8300000, guid: 161e65050f0c0ef42916984f3804a3d0, type: 3}
+    - {fileID: 8300000, guid: d0b429fed4dbe51409a14f2f6c2714db, type: 3}
+    - {fileID: 8300000, guid: a24239059c5003d42b524fe1dccedf6e, type: 3}
+    volumeMin: 1
+    volumeMax: 1
+    pitchMin: 1
+    pitchMax: 1
+    startingPoints: 
+  - name: Emu
+    clip: {fileID: 8300000, guid: 39da9c16837288a49bed387e4ff8065a, type: 3}
+    clipVariants:
+    - {fileID: 8300000, guid: 161e65050f0c0ef42916984f3804a3d0, type: 3}
+    - {fileID: 8300000, guid: d0b429fed4dbe51409a14f2f6c2714db, type: 3}
+    - {fileID: 8300000, guid: a24239059c5003d42b524fe1dccedf6e, type: 3}
+    volumeMin: 1
+    volumeMax: 1
+    pitchMin: 1
+    pitchMax: 1
+    startingPoints: 
+  - name: Dash
+    clip: {fileID: 8300000, guid: bffd98514d48be74bac52c50a605bbc3, type: 3}
+    clipVariants:
+    - {fileID: 8300000, guid: 161e65050f0c0ef42916984f3804a3d0, type: 3}
+    - {fileID: 8300000, guid: d0b429fed4dbe51409a14f2f6c2714db, type: 3}
+    - {fileID: 8300000, guid: a24239059c5003d42b524fe1dccedf6e, type: 3}
+    volumeMin: 1
+    volumeMax: 1
+    pitchMin: 1
+    pitchMax: 1
+    startingPoints: 
   originalSource: {fileID: 4180373137689277358}
 --- !u!82 &4180373137689277358
 AudioSource:
@@ -1954,6 +2008,7 @@ MonoBehaviour:
   onLoadComplete:
     m_PersistentCalls:
       m_Calls: []
+  nextSceneName: LoseScreen
 --- !u!1 &7861178896842563360
 GameObject:
   m_ObjectHideFlags: 0

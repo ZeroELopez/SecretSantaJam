@@ -17,7 +17,7 @@ public class KangarooMook : MonoBehaviour
         //If so, Send an event.
         if (collision.GetComponent<PlayerMovement>())
         {
-            Debug.Log("Send Kangaroo");
+            //Debug.Log("Send Kangaroo");
             //Post Event
             EventHub.Instance.PostEvent<TransportKangarooBoss>(new TransportKangarooBoss {
                 newLocation = transform.position,
