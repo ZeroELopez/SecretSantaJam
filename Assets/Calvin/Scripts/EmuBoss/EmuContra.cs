@@ -134,6 +134,7 @@ public class EmuContra : MonoBehaviour,
     public void HandleEvent(onGameLost evt)
     {
         StopCoroutine(ShootAtPlayer());
+        Unsubscribe();
     }
 
     /// <summary>
@@ -143,6 +144,7 @@ public class EmuContra : MonoBehaviour,
     public void HandleEvent(onGameWon evt)
     {
         StopCoroutine(ShootAtPlayer());
+        Unsubscribe();
     }
 
     void OnDestroy()
