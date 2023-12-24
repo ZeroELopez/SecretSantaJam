@@ -1154,6 +1154,7 @@ GameObject:
   - component: {fileID: 6019090260128252332}
   - component: {fileID: 7018593046682456276}
   - component: {fileID: 4180373137689277358}
+  - component: {fileID: 2829668098318461419}
   m_Layer: 0
   m_Name: EventHub MUST HAVE
   m_TagString: Untagged
@@ -1665,11 +1666,8 @@ MonoBehaviour:
     pitchMax: 1
     startingPoints: 
   - name: Footstep
-    clip: {fileID: 8300000, guid: 621d2869fd73cfb4aa8626132e0e52fd, type: 3}
-    clipVariants:
-    - {fileID: 8300000, guid: 161e65050f0c0ef42916984f3804a3d0, type: 3}
-    - {fileID: 8300000, guid: d0b429fed4dbe51409a14f2f6c2714db, type: 3}
-    - {fileID: 8300000, guid: a24239059c5003d42b524fe1dccedf6e, type: 3}
+    clip: {fileID: 8300000, guid: c60c1449afaf91b498a7942db9ff739f, type: 3}
+    clipVariants: []
     volumeMin: 1
     volumeMax: 1
     pitchMin: 1
@@ -1677,10 +1675,7 @@ MonoBehaviour:
     startingPoints: 
   - name: Kangaroo
     clip: {fileID: 8300000, guid: c8e994e2602967e499dc315adfc3c3ff, type: 3}
-    clipVariants:
-    - {fileID: 8300000, guid: 161e65050f0c0ef42916984f3804a3d0, type: 3}
-    - {fileID: 8300000, guid: d0b429fed4dbe51409a14f2f6c2714db, type: 3}
-    - {fileID: 8300000, guid: a24239059c5003d42b524fe1dccedf6e, type: 3}
+    clipVariants: []
     volumeMin: 1
     volumeMax: 1
     pitchMin: 1
@@ -1688,10 +1683,7 @@ MonoBehaviour:
     startingPoints: 
   - name: Emu
     clip: {fileID: 8300000, guid: 39da9c16837288a49bed387e4ff8065a, type: 3}
-    clipVariants:
-    - {fileID: 8300000, guid: 161e65050f0c0ef42916984f3804a3d0, type: 3}
-    - {fileID: 8300000, guid: d0b429fed4dbe51409a14f2f6c2714db, type: 3}
-    - {fileID: 8300000, guid: a24239059c5003d42b524fe1dccedf6e, type: 3}
+    clipVariants: []
     volumeMin: 1
     volumeMax: 1
     pitchMin: 1
@@ -1699,16 +1691,38 @@ MonoBehaviour:
     startingPoints: 
   - name: Dash
     clip: {fileID: 8300000, guid: bffd98514d48be74bac52c50a605bbc3, type: 3}
-    clipVariants:
-    - {fileID: 8300000, guid: 161e65050f0c0ef42916984f3804a3d0, type: 3}
-    - {fileID: 8300000, guid: d0b429fed4dbe51409a14f2f6c2714db, type: 3}
-    - {fileID: 8300000, guid: a24239059c5003d42b524fe1dccedf6e, type: 3}
+    clipVariants: []
     volumeMin: 1
     volumeMax: 1
     pitchMin: 1
     pitchMax: 1
     startingPoints: 
+  - name: RockSmash
+    clip: {fileID: 8300000, guid: f0d6b611c8cd4044e861c3f0549fc8c1, type: 3}
+    clipVariants: []
+    volumeMin: 1
+    volumeMax: 1
+    pitchMin: 1
+    pitchMax: 1
+    startingPoints: 
+  - name: Teleport
+    clip: {fileID: 8300000, guid: 6fbe05b81520cc2418b47c65c3c85bc7, type: 3}
+    clipVariants: []
+    volumeMin: 1
+    volumeMax: 1
+    pitchMin: 0.93
+    pitchMax: 1.08
+    startingPoints: 
+  - name: Kangaroo
+    clip: {fileID: 8300000, guid: c8e994e2602967e499dc315adfc3c3ff, type: 3}
+    clipVariants: []
+    volumeMin: 1
+    volumeMax: 1
+    pitchMin: 0.86
+    pitchMax: 1.08
+    startingPoints: 
   originalSource: {fileID: 4180373137689277358}
+  backupSource: {fileID: 2829668098318461419}
 --- !u!82 &4180373137689277358
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1718,7 +1732,103 @@ AudioSource:
   m_GameObject: {fileID: 3546602195802393732}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 750645c95af8b7c4e81191fde3bdaa08, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &2829668098318461419
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3546602195802393732}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 750645c95af8b7c4e81191fde3bdaa08, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

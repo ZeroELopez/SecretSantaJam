@@ -48,10 +48,11 @@ public class KangarooBoss : MonoBehaviour, ISubscribable<TransportKangarooBoss>
     public void HandleEvent(TransportKangarooBoss evt)
     {
         //Ensure we are not in the middle of an existing attack.
-        if(!isAttacking)
+        //if(!isAttacking)
         {
             animationName = evt.animation;
             AttackHitboxObject.attackForce = evt.pushback;
+            StopCoroutine(AttackRoutine(evt.newLocation));
             StartCoroutine(AttackRoutine(evt.newLocation));
         }
     }
@@ -93,7 +94,7 @@ public class KangarooBoss : MonoBehaviour, ISubscribable<TransportKangarooBoss>
         transform.position = newLocation;
 
         //TODO: Make visually appear.
-        GetComponentInChildren<Animator>().Play(animationName,0);
+        GetComponentInChildren<Animator>().Play(animationName,0,0);
         //Wait to account for attack winding up
         yield return new WaitForSecondsRealtime(attackWindupTime);
 

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3223094257752805082}
+  - component: {fileID: 2025968684803308785}
   m_Layer: 0
   m_Name: Kangaroo
   m_TagString: Untagged
@@ -32,6 +33,18 @@ Transform:
   - {fileID: 6760286878538456468}
   m_Father: {fileID: 9131088774845124396}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2025968684803308785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224430329157342167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c7c8123dc5fe443a1156461cdde579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2662199400663316813
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,13 +754,33 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 262519047213319714, guid: c9372fac76f49124f9d3baa11bc1e468, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7305897440240659491}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2196876699665074789, guid: c9372fac76f49124f9d3baa11bc1e468, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3939906824623588472}
   m_SourcePrefab: {fileID: 100100000, guid: c9372fac76f49124f9d3baa11bc1e468, type: 3}
 --- !u!4 &6555150289581871883 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3338792651616946455, guid: c9372fac76f49124f9d3baa11bc1e468, type: 3}
   m_PrefabInstance: {fileID: 8407468778480441884}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7697087131987808377 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2196876699665074789, guid: c9372fac76f49124f9d3baa11bc1e468, type: 3}
+  m_PrefabInstance: {fileID: 8407468778480441884}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3939906824623588472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7697087131987808377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c7c8123dc5fe443a1156461cdde579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8577655115319548990 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 262519047213319714, guid: c9372fac76f49124f9d3baa11bc1e468, type: 3}

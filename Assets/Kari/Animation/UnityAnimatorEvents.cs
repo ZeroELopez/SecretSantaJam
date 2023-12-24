@@ -45,7 +45,7 @@ public class UnityAnimatorEvents : MonoBehaviour
 
     bool added = false;
     public void NextChapterSet()
-    {
+    { 
         if (added)
             return;
 

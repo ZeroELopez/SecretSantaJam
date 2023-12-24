@@ -9,6 +9,8 @@ namespace Kari.SoundManagement
     {
         [SerializeField] Sound[] sounds;
         [SerializeField] AudioSource originalSource;
+        [SerializeField] AudioSource backupSource;
+
         public static AudioManager instance;
 
         private void Awake()
@@ -27,6 +29,9 @@ namespace Kari.SoundManagement
         {
             if (source == null)
                 source = instance.originalSource;
+
+            if (source.isPlaying)
+                source = instance.backupSource;
 
             foreach (Sound sound in instance.sounds)
             {
@@ -47,6 +52,7 @@ namespace Kari.SoundManagement
                     if (sound.startingPoints.Length >0)
                         source.timeSamples = sound.startingPoints[Random.Range(0, sound.startingPoints.Length - 1)];
 
+                    Debug.Log("Playing " + sound.name);
                     source.Play();
                     return;
                 }

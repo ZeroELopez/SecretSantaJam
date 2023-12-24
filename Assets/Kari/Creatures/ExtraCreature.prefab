@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2025968684803308785, guid: 93bd0cc30cb3b0843837ae91aeb5296e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2332827935046816731, guid: 93bd0cc30cb3b0843837ae91aeb5296e, type: 3}
       propertyPath: m_LocalScale.x
       value: 0
@@ -103,6 +107,10 @@ PrefabInstance:
     - target: {fileID: 2662199400663316813, guid: 93bd0cc30cb3b0843837ae91aeb5296e, type: 3}
       propertyPath: m_Name
       value: ExtraCreature
+      objectReference: {fileID: 0}
+    - target: {fileID: 3939906824623588472, guid: 93bd0cc30cb3b0843837ae91aeb5296e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4051911080917039423, guid: 93bd0cc30cb3b0843837ae91aeb5296e, type: 3}
       propertyPath: goodScore

@@ -26,7 +26,10 @@ namespace Kari.Animations
         onCamera_Standing,
         onCamera_Moving,
         onCamera_InAir,
-        onCamera_onWall
+        onCamera_onWall,
+
+        STATE,
+        Hitstun
     }
 
     public class StateAnimation : MonoBehaviour, ISubscribable<onCameraToggle>
@@ -63,7 +66,7 @@ namespace Kari.Animations
 
             //FOR TIME SENSITIVE ATTACKS!!!
 
-            if (currentState != States.WallCling || currentState != States.WallClimb)
+            if (newState != States.WallCling && newState != States.WallClimb)
             {
                 if (player.moveDirection > 0)
                     transform.localScale = new Vector3(localScale.x, localScale.y);
@@ -72,6 +75,7 @@ namespace Kari.Animations
             }
 
 
+            
             //if (newState >= CharacterStates.AttackDown && newState <= CharacterStates.AttackUp3)
             //{
             //    float finalTime = (Time.time - AttackstartTime) / attackFrames/*player.attackFrames*/;
@@ -81,7 +85,10 @@ namespace Kari.Animations
             //}
             // if (thisAnimator.HasState(0, newState.ToString()))
 
-            thisAnimator.Play((currentState = newState).ToString(), 0);
+            if (currentState != newState)
+            {
+                thisAnimator.Play((currentState = newState).ToString(), 0,0);
+            }
 
         }
 
@@ -90,6 +97,9 @@ namespace Kari.Animations
 
         States FindState()
         {
+            if (player.IsStunned)
+                return States.Hitstun;
+
             if (onCamera)
                 return CameraState();
 

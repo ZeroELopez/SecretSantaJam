@@ -83,7 +83,7 @@ public class SendPlayerBackToSpawn : MonoBehaviour, ISubscribable<onEscapeMode>
             }
             else
             {
-                Debug.LogError("Box Collider not found on platform."); 
+                //Debug.LogError("Box Collider not found on platform."); 
 
                 //Fall back solution
                 spawn = player.transform.position;
@@ -91,7 +91,7 @@ public class SendPlayerBackToSpawn : MonoBehaviour, ISubscribable<onEscapeMode>
         }
         else
         {
-            Debug.LogError("Player is not parented to a platform!"); 
+            //Debug.LogError("Player is not parented to a platform!"); 
             
             //Fall back
             spawn = player.transform.position;

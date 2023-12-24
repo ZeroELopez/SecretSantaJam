@@ -38,6 +38,8 @@ public class StunBullet : MonoBehaviour
         rigidbody.velocity = direction * speed;
 
         //Play sound effect
+        if (gunshotSounds.Length == 0)
+            return;
         int randomIndex = Random.Range(0, gunshotSounds.Length);
         audioSource.clip = gunshotSounds[randomIndex];
         audioSource.Play();
